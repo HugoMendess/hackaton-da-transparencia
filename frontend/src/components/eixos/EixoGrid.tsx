@@ -1,5 +1,6 @@
 import { EIXOS } from "@/data/eixos"
 import { cn } from "@/lib/utils"
+import { Link } from "react-router-dom"
 import {
   Users,
   Heart,
@@ -32,9 +33,9 @@ export function EixoGrid() {
         {EIXOS.map((eixo) => {
           const Icon = ICONS[eixo.icone] ?? Users
           return (
-            <a
+            <Link
               key={eixo.slug}
-              href={`/eixo/${eixo.slug}`}
+              to={`/eixo/${eixo.slug}`}
               className={cn(
                 "group flex flex-col gap-2 rounded-lg border border-border p-4 transition-colors",
                 "hover:bg-accent hover:border-accent-foreground/20",
@@ -61,7 +62,7 @@ export function EixoGrid() {
               <p className="text-sm text-muted-foreground">
                 {eixo.descricaoCidada}
               </p>
-            </a>
+            </Link>
           )
         })}
       </div>
