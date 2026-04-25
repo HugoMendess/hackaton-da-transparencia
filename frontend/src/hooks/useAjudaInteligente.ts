@@ -22,6 +22,25 @@ export type ContextoAjuda = {
   pagina?: string
 }
 
+const MAX_MENSAGENS = 50
+
+function sanitizarFontes(fontes: Fonte[]): Fonte[] {
+  return fontes.filter((f) => {
+    if (!f.url || typeof f.url !== "string") return false
+    // Aceita apenas https, http (gov.br pode estar sem TLS) e paths internos
+    return (
+      f.url.startsWith("https://") ||
+      f.url.startsWith("http://") ||
+      f.url.startsWith("/")
+    )
+  })
+}
+
+/** Mantém o histórico limitado a MAX_MENSAGENS, descartando o início */
+function capMensagens(arr: MensagemConversa[]): MensagemConversa[] {
+  return arr.length > MAX_MENSAGENS ? arr.slice(-MAX_MENSAGENS) : arr
+}
+
 /**
  * Hook da AjudaInteligente.
  *
@@ -57,10 +76,12 @@ export function useAjudaInteligente() {
 
       const ctxFinal = { ...contexto, ...(ctx ?? {}) }
 
-      setMensagens((m) => [
-        ...m,
-        { tipo: "pergunta", texto: limpo, quando: new Date() },
-      ])
+      setMensagens((m) =>
+        capMensagens([
+          ...m,
+          { tipo: "pergunta", texto: limpo, quando: new Date() },
+        ])
+      )
       setPerguntando(true)
 
       try {
@@ -78,22 +99,32 @@ export function useAjudaInteligente() {
           throw new Error("Resposta vazia")
         }
 
-        setMensagens((m) => [
-          ...m,
-          { tipo: "resposta", data, quando: new Date() },
-        ])
+        // Sanitiza fontes (defesa em profundidade contra URLs inválidas)
+        const dataSegura: RespostaIA = {
+          ...data,
+          fontes: sanitizarFontes(data.fontes ?? []),
+        }
+
+        setMensagens((m) =>
+          capMensagens([
+            ...m,
+            { tipo: "resposta", data: dataSegura, quando: new Date() },
+          ])
+        )
       } catch (e) {
-        setMensagens((m) => [
-          ...m,
-          {
-            tipo: "erro",
-            texto:
-              e instanceof Error
-                ? e.message
-                : "Não foi possível obter resposta agora.",
-            quando: new Date(),
-          },
-        ])
+        setMensagens((m) =>
+          capMensagens([
+            ...m,
+            {
+              tipo: "erro",
+              texto:
+                e instanceof Error
+                  ? e.message
+                  : "Não foi possível obter resposta agora.",
+              quando: new Date(),
+            },
+          ])
+        )
       } finally {
         setPerguntando(false)
       }
