@@ -1,6 +1,7 @@
 import { Search, Accessibility, Map as MapIcon } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "@/components/layout/Logo"
+import { BackButton } from "@/components/layout/BackButton"
 import { cn } from "@/lib/utils"
 
 export function Header() {
@@ -13,7 +14,9 @@ export function Header() {
       className="sticky top-0 z-30 w-full border-b border-border bg-background/85 backdrop-blur safe-top"
       role="banner"
     >
-      <div className="container-page flex items-center gap-3 px-4 py-3">
+      <div className="container-page flex items-center gap-2 px-4 py-3">
+        <BackButton />
+
         <Link
           to="/"
           className="flex items-center gap-2 rounded-md px-1 py-1 text-foreground transition-colors hover:text-primary focus-visible:text-primary"

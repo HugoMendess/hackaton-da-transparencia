@@ -68,11 +68,15 @@ type ResultadoMock = {
   href: string
 }
 
+const PAGINA_INICIAL = 8
+const PAGINA_INCREMENTO = 8
+
 export function Busca() {
   const [query, setQuery] = useState("")
   const [submitted, setSubmitted] = useState("")
   const [searching, setSearching] = useState(false)
-  const [resultados, setResultados] = useState<ResultadoMock[] | null>(null)
+  const [resultadosTotais, setResultadosTotais] = useState<ResultadoMock[] | null>(null)
+  const [exibindo, setExibindo] = useState(PAGINA_INICIAL)
   const [showSugestoes, setShowSugestoes] = useState(false)
 
   const inputRef = useRef<HTMLInputElement>(null)
@@ -95,12 +99,13 @@ export function Busca() {
     setSubmitted(limpo)
     setSearching(true)
     setShowSugestoes(false)
-    setResultados(null)
+    setResultadosTotais(null)
+    setExibindo(PAGINA_INICIAL)
     adicionar(limpo)
 
     // Stub: gera resultados mockados realistas
     setTimeout(() => {
-      setResultados(gerarResultados(limpo))
+      setResultadosTotais(gerarResultados(limpo))
       setSearching(false)
     }, 700)
   }
@@ -192,7 +197,8 @@ export function Busca() {
                       onClick={() => {
                         setQuery("")
                         setSubmitted("")
-                        setResultados(null)
+                        setResultadosTotais(null)
+                        setExibindo(PAGINA_INICIAL)
                         inputRef.current?.focus()
                       }}
                       className="absolute right-3 top-1/2 inline-flex size-7 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -346,26 +352,56 @@ export function Busca() {
                 <h2 id="resultados-titulo" className="text-lg font-semibold tracking-tight">
                   {searching
                     ? "Procurando..."
-                    : `${resultados?.length ?? 0} resultados`}
+                    : resultadosTotais
+                    ? `${formatNumber(resultadosTotais.length)} resultados`
+                    : "Sem resultados"}
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   Para: <span className="font-medium text-foreground">{submitted}</span>
                 </p>
               </div>
               {!searching && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setQuery("")
-                    setSubmitted("")
-                    setResultados(null)
-                  }}
-                  className="text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
-                >
-                  Nova busca
-                </button>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      inputRef.current?.focus()
+                      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    Refinar busca
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setQuery("")
+                      setSubmitted("")
+                      setResultadosTotais(null)
+                      setExibindo(PAGINA_INICIAL)
+                      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+                    }}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-medium text-foreground transition-colors hover:bg-muted"
+                  >
+                    Nova busca
+                  </button>
+                </div>
               )}
             </header>
+
+            {/* Anúncio para leitores de tela quando os resultados mudam */}
+            <div
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              className="sr-only"
+            >
+              {searching
+                ? `Buscando por ${submitted}`
+                : resultadosTotais
+                ? `${resultadosTotais.length} resultados encontrados para ${submitted}, mostrando ${Math.min(exibindo, resultadosTotais.length)}`
+                : ""}
+            </div>
 
             {searching ? (
               <ul className="space-y-2">
@@ -377,10 +413,10 @@ export function Busca() {
                   />
                 ))}
               </ul>
-            ) : resultados && resultados.length > 0 ? (
+            ) : resultadosTotais && resultadosTotais.length > 0 ? (
               <>
                 <ul className="space-y-2">
-                  {resultados.map((r, i) => (
+                  {resultadosTotais.slice(0, exibindo).map((r, i) => (
                     <li key={i}>
                       <a
                         href={r.href}
@@ -410,6 +446,31 @@ export function Busca() {
                     </li>
                   ))}
                 </ul>
+
+                {/* Paginação / Carregar mais */}
+                {exibindo < resultadosTotais.length ? (
+                  <div className="mt-4 flex flex-col items-center gap-2">
+                    <p className="text-xs text-muted-foreground">
+                      Mostrando {exibindo} de{" "}
+                      <span className="font-semibold text-foreground tabular">
+                        {formatNumber(resultadosTotais.length)}
+                      </span>{" "}
+                      resultados
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setExibindo((n) => n + PAGINA_INCREMENTO)}
+                      className="inline-flex items-center gap-2 rounded-md border border-primary/30 bg-primary/5 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/10 hover:border-primary/50"
+                    >
+                      Carregar mais {Math.min(PAGINA_INCREMENTO, resultadosTotais.length - exibindo)} resultados
+                    </button>
+                  </div>
+                ) : (
+                  <p className="mt-4 text-center text-xs text-muted-foreground">
+                    Você viu todos os {formatNumber(resultadosTotais.length)} resultados.
+                  </p>
+                )}
+
                 <p className="mt-4 rounded-md border border-secondary/30 bg-secondary/10 p-2 text-xs text-foreground">
                   Resultados gerados a partir de modelo de consolidação. Em
                   produção virão do SIAFEM via Edge Function com a AjudaInteligente.
@@ -452,23 +513,44 @@ function gerarResultados(termo: string): ResultadoMock[] {
     { slug: "gestao-publica", nome: "Gestão Pública" },
     { slug: "saude", nome: "Saúde e Bem-Estar" },
     { slug: "educacao", nome: "Educação e Futuro" },
+    { slug: "obras", nome: "Obras e Infraestrutura" },
+    { slug: "programas-sociais", nome: "Programas Sociais" },
+    { slug: "seguranca", nome: "Segurança Pública" },
   ]
-  const total = (seed % 4) + 3
+  const tipos = [
+    { lbl: "Despesa consolidada 2026", det: "Acumulado no ano" },
+    { lbl: "Contratos vigentes", det: "contratos em execução" },
+    { lbl: "Folha de pagamento", det: "Última atualização: hoje" },
+    { lbl: "Empenhos do mês", det: "empenhos no mês" },
+    { lbl: "Liquidações pendentes", det: "aguardando liquidação" },
+    { lbl: "Pagamentos do trimestre", det: "Acumulado 90 dias" },
+    { lbl: "Notas fiscais 2025", det: "notas registradas" },
+    { lbl: "Licitações abertas", det: "processos em curso" },
+    { lbl: "Diárias pagas", det: "Acumulado 12 meses" },
+    { lbl: "Convênios ativos", det: "convênios firmados" },
+    { lbl: "Transferências federais", det: "Recebidas em 2026" },
+    { lbl: "Arrecadação ICMS", det: "Mensal consolidada" },
+  ]
+  // Total de 12 a 31 resultados, determinístico por termo
+  const total = (seed % 20) + 12
   return Array.from({ length: total }, (_, i) => {
     const eixo = eixosAplicaveis[i % eixosAplicaveis.length]
-    const valor = ((seed + i * 137) % 280 + 12) * 1_000_000
-    const tipos = [
-      { lbl: "Despesa consolidada", det: "Acumulado em 2026" },
-      { lbl: "Contratos vigentes", det: `${(seed + i * 19) % 24 + 3} contratos` },
-      { lbl: "Folha mensal", det: "Última atualização: hoje" },
-      { lbl: "Empenhos do mês", det: `${(seed + i * 41) % 58 + 8} empenhos` },
-    ]
     const t = tipos[i % tipos.length]
+    const valor = ((seed + i * 137) % 280 + 12) * 1_000_000
+    const numero = (seed + i * 19) % 58 + 4
+    const detalhe = t.det.includes("contratos") ||
+                    t.det.includes("empenhos") ||
+                    t.det.includes("aguardando") ||
+                    t.det.includes("notas") ||
+                    t.det.includes("processos") ||
+                    t.det.includes("convênios")
+      ? `${formatNumber(numero)} ${t.det}`
+      : t.det
     return {
       titulo: `${capitalize(termo)} - ${t.lbl}`,
       subtitulo: `${eixo.nome} - clique para detalhar`,
       valor: formatBRL(valor),
-      detalhe: t.det,
+      detalhe,
       href: `/eixo/${eixo.slug}`,
     }
   })
