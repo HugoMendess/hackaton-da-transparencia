@@ -1,28 +1,23 @@
 import { useEffect, useMemo, useState } from "react"
-import { geoMercator, geoPath } from "d3-geo"
-import { Loader2, MapPin, X, ZoomIn, ZoomOut, RotateCcw } from "lucide-react"
+import { MapContainer, TileLayer, GeoJSON } from "react-leaflet"
+import type { Layer, PathOptions, LeafletMouseEvent } from "leaflet"
+import type { Feature, FeatureCollection, Geometry } from "geojson"
+import { Loader2, MapPin, X } from "lucide-react"
+import "leaflet/dist/leaflet.css"
 import { useMunicipios } from "@/hooks/useMunicipios"
 import { formatBRL } from "@/lib/utils"
 
 /**
- * Mapa interativo do Maranhão (217 municípios) com SVG puro + d3-geo.
+ * Mapa interativo do Maranhão (217 municípios) com Leaflet.
  *
- * Projeção: Mercator centrada em (-45.28, -5.66) com scale 5400.
- * Valores calculados manualmente a partir do bounding box do GeoJSON
- * (lon -48.76 a -41.80, lat -10.26 a -1.05). Não usa fitSize do d3-geo
- * porque ele estava falhando silenciosamente em alguns ambientes.
+ * Tile de fundo: Carto Positron (mapa claro, institucional, sem
+ * propaganda visual). Overlay GeoJSON do IBGE pinta cada município
+ * com cor proporcional ao gasto público estimado.
  */
 
-type FeatureRaw = {
-  type: "Feature"
-  properties: { codarea: string | number }
-  geometry: unknown
-}
-
-type GeoCollection = {
-  type: "FeatureCollection"
-  features: FeatureRaw[]
-}
+type MunicipioProps = { codarea: string | number }
+type MunicipioFeature = Feature<Geometry, MunicipioProps>
+type MunicipioFC = FeatureCollection<Geometry, MunicipioProps>
 
 type DadoMunicipio = {
   gastoTotal: number
@@ -37,10 +32,14 @@ type Selecionado = {
   dado: DadoMunicipio
 }
 
-const VIEWBOX_W = 800
-const VIEWBOX_H = 900
+// Centro aproximado do Maranhão
+const MA_CENTER: [number, number] = [-5.66, -45.28]
+const MA_ZOOM_INICIAL = 6
+const MA_BOUNDS: [[number, number], [number, number]] = [
+  [-10.5, -49.0], // SW
+  [-1.0, -41.5],  // NE
+]
 
-// Cores hex puras (CSS vars não funcionam confiavelmente em fill SVG)
 const CLASSE_FILL: Record<DadoMunicipio["classe"], string> = {
   baixo: "#DCFCE7",
   medio: "#86EFAC",
@@ -66,19 +65,17 @@ function gerarDadoMock(codarea: number): DadoMunicipio {
 
 export function MapaMA() {
   const { mapa: nomes, loading: loadingNomes } = useMunicipios()
-  const [geo, setGeo] = useState<GeoCollection | null>(null)
+  const [geo, setGeo] = useState<MunicipioFC | null>(null)
   const [loadingGeo, setLoadingGeo] = useState(true)
   const [erroGeo, setErroGeo] = useState<string | null>(null)
   const [selecionado, setSelecionado] = useState<Selecionado | null>(null)
-  const [hover, setHover] = useState<string | null>(null)
-  const [zoom, setZoom] = useState(1)
 
   useEffect(() => {
     let cancelled = false
     fetch("/geojson/maranhao-municipios.json")
       .then((res) => {
         if (!res.ok) throw new Error("Falha ao carregar mapa")
-        return res.json() as Promise<GeoCollection>
+        return res.json() as Promise<MunicipioFC>
       })
       .then((data) => {
         if (cancelled) return
@@ -95,16 +92,6 @@ export function MapaMA() {
     }
   }, [])
 
-  // Path generator com projeção manual (Mercator centrada no MA).
-  // Sem fitSize porque ele falhava silenciosamente.
-  const pathOf = useMemo(() => {
-    const projection = geoMercator()
-      .center([-45.28, -5.66])
-      .scale(5400)
-      .translate([VIEWBOX_W / 2, VIEWBOX_H / 2])
-    return geoPath(projection)
-  }, [])
-
   const totalEstadual = useMemo(() => {
     if (!geo) return 0
     let total = 0
@@ -114,108 +101,95 @@ export function MapaMA() {
     return total
   }, [geo])
 
-  const loading = loadingGeo || loadingNomes
-
-  function reset() {
-    setZoom(1)
-    setSelecionado(null)
+  const styleFeature = (feature?: MunicipioFeature): PathOptions => {
+    const codarea = Number(feature?.properties?.codarea)
+    const dado = gerarDadoMock(codarea)
+    const isSelected = selecionado?.codarea === codarea
+    return {
+      fillColor: isSelected ? "#0F7B40" : CLASSE_FILL[dado.classe],
+      fillOpacity: isSelected ? 0.95 : 0.78,
+      color: isSelected ? "#064E3B" : "#FFFFFF",
+      weight: isSelected ? 2 : 0.7,
+      opacity: 1,
+    }
   }
+
+  const onEachFeature = (feature: MunicipioFeature, layer: Layer) => {
+    const codarea = Number(feature.properties.codarea)
+    const nome = nomes.get(codarea) ?? "Município"
+    const dado = gerarDadoMock(codarea)
+
+    layer.bindTooltip(nome, {
+      sticky: true,
+      direction: "top",
+      offset: [0, -8],
+      className: "mapa-tooltip",
+    })
+
+    layer.on({
+      click: () => setSelecionado({ codarea, nome, dado }),
+      mouseover: (e: LeafletMouseEvent) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const target = e.target as any
+        target.setStyle({ weight: 1.5, color: "#0F7B40" })
+        target.bringToFront()
+      },
+      mouseout: (e: LeafletMouseEvent) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const target = e.target as any
+        const isStillSelected =
+          selecionado?.codarea === Number(feature.properties.codarea)
+        target.setStyle(styleFeature(feature))
+        if (isStillSelected) target.setStyle(styleFeature(feature))
+      },
+    })
+  }
+
+  const loading = loadingGeo || loadingNomes
 
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
       <div className="relative overflow-hidden rounded-lg border border-border bg-card">
         {loading && (
-          <div className="absolute inset-0 z-20 flex items-center justify-center bg-card/80">
+          <div className="absolute inset-0 z-[1000] flex items-center justify-center bg-card/80">
             <Loader2 className="size-6 animate-spin text-primary" aria-hidden="true" />
             <span className="sr-only">Carregando mapa do Maranhão</span>
           </div>
         )}
 
         {erroGeo && (
-          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-card text-sm text-muted-foreground">
+          <div className="absolute inset-0 z-[1000] flex flex-col items-center justify-center gap-2 bg-card text-sm text-muted-foreground">
             <MapPin className="size-6 text-destructive" aria-hidden="true" />
             <span>Não foi possível carregar o mapa.</span>
             <span className="text-xs">{erroGeo}</span>
           </div>
         )}
 
-        {hover && (
-          <div className="pointer-events-none absolute left-3 top-3 z-10 rounded-md bg-foreground/95 px-2.5 py-1 text-xs font-medium text-background shadow-md">
-            {hover}
-          </div>
-        )}
-
-        {/* Controles de zoom */}
-        <div className="absolute right-3 top-3 z-10 flex flex-col gap-1 rounded-md border border-border bg-card/95 p-1 shadow-sm">
-          <button
-            type="button"
-            onClick={() => setZoom((z) => Math.min(z * 1.4, 4))}
-            className="flex size-7 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            aria-label="Aumentar zoom"
+        <div className="h-[520px] w-full" role="application" aria-label="Mapa interativo dos 217 municípios do Maranhão">
+          <MapContainer
+            center={MA_CENTER}
+            zoom={MA_ZOOM_INICIAL}
+            minZoom={5}
+            maxZoom={11}
+            maxBounds={MA_BOUNDS}
+            scrollWheelZoom={false}
+            style={{ height: "100%", width: "100%", background: "#F0FDF4" }}
+            className="z-0"
           >
-            <ZoomIn className="size-4" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            onClick={() => setZoom((z) => Math.max(z / 1.4, 1))}
-            className="flex size-7 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            aria-label="Reduzir zoom"
-          >
-            <ZoomOut className="size-4" aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            onClick={reset}
-            className="flex size-7 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-            aria-label="Resetar zoom e seleção"
-          >
-            <RotateCcw className="size-4" aria-hidden="true" />
-          </button>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">Carto</a>'
+              url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+            />
+            {geo && (
+              <GeoJSON
+                key={selecionado?.codarea ?? "none"}
+                data={geo}
+                style={styleFeature as never}
+                onEachFeature={onEachFeature as never}
+              />
+            )}
+          </MapContainer>
         </div>
-
-        <svg
-          viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-          width="100%"
-          height="auto"
-          style={{
-            background: "#F0FDF4",
-            display: "block",
-          }}
-          role="img"
-          aria-label="Mapa interativo dos 217 municípios do Maranhão"
-        >
-          <g
-            transform={`translate(${VIEWBOX_W / 2} ${VIEWBOX_H / 2}) scale(${zoom}) translate(${-VIEWBOX_W / 2} ${-VIEWBOX_H / 2})`}
-          >
-            {geo &&
-              geo.features.map((f) => {
-                const codarea = Number(f.properties.codarea)
-                const d = pathOf(f as Parameters<typeof pathOf>[0])
-                if (!d) return null
-
-                const nome = nomes.get(codarea) ?? "Município"
-                const dado = gerarDadoMock(codarea)
-                const isSelected = selecionado?.codarea === codarea
-
-                return (
-                  <path
-                    key={codarea}
-                    d={d}
-                    fill={isSelected ? "#0F7B40" : CLASSE_FILL[dado.classe]}
-                    stroke={isSelected ? "#064E3B" : "#FFFFFF"}
-                    strokeWidth={isSelected ? 2 : 0.6}
-                    vectorEffect="non-scaling-stroke"
-                    style={{ cursor: "pointer" }}
-                    onMouseEnter={() => setHover(nome)}
-                    onMouseLeave={() => setHover(null)}
-                    onClick={() => setSelecionado({ codarea, nome, dado })}
-                    role="button"
-                    aria-label={`${nome}, ${formatBRL(dado.gastoTotal)} em gasto público estimado`}
-                  />
-                )
-              })}
-          </g>
-        </svg>
 
         {/* Legenda */}
         <div className="flex flex-wrap items-center gap-3 border-t border-border px-4 py-3 text-xs">
@@ -224,6 +198,9 @@ export function MapaMA() {
           <LegendaItem cor={CLASSE_FILL.medio} label="R$ 25 a 70 mi" />
           <LegendaItem cor={CLASSE_FILL.alto} label="R$ 70 a 130 mi" />
           <LegendaItem cor={CLASSE_FILL.altissimo} label="> R$ 130 mi" />
+          <span className="ml-auto text-muted-foreground">
+            Use o scroll com Ctrl ou os botões + e - do mapa para zoom
+          </span>
         </div>
       </div>
 

@@ -180,6 +180,34 @@
   }
 }
 
+/* Tooltip do Leaflet (mapa) com identidade visual do TransparaMA */
+.mapa-tooltip {
+  background: hsl(var(--foreground)) !important;
+  color: hsl(var(--background)) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+}
+.mapa-tooltip::before {
+  border-top-color: hsl(var(--foreground)) !important;
+}
+
+/* Garante que o mapa Leaflet ocupe o container e os controles */
+.leaflet-container {
+  font-family: theme(fontFamily.sans);
+  background: #F0FDF4;
+}
+.leaflet-container a {
+  color: hsl(var(--primary));
+}
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
 @layer utilities {
   /* Safe area insets para iOS notch */
   .safe-top {
