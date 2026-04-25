@@ -66,6 +66,8 @@ type ResultadoMock = {
   valor: string
   detalhe: string
   href: string
+  tipo: "fornecedor" | "municipio" | "orgao" | "cargo" | "termo"
+  eixoNome: string
 }
 
 const PAGINA_INICIAL = 8
@@ -93,7 +95,7 @@ export function Busca() {
       .slice(0, 6)
   }, [query, termosTop])
 
-  function executarBusca(termo: string) {
+  function executarBusca(termo: string, tipoForcado?: ResultadoMock["tipo"]) {
     const limpo = termo.trim()
     if (!limpo) return
     setSubmitted(limpo)
@@ -105,17 +107,17 @@ export function Busca() {
 
     // Stub: gera resultados mockados realistas
     setTimeout(() => {
-      setResultadosTotais(gerarResultados(limpo))
+      setResultadosTotais(gerarResultados(limpo, tipoForcado))
       setSearching(false)
     }, 700)
   }
 
-  function aplicarTermo(termo: string) {
+  function aplicarTermo(termo: string, tipoForcado?: ResultadoMock["tipo"]) {
     setQuery(termo)
     // Foca o input e rola pra ele para feedback visual imediato
     inputRef.current?.focus()
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-    executarBusca(termo)
+    executarBusca(termo, tipoForcado)
   }
 
   function onSubmit(e: React.FormEvent) {
@@ -317,7 +319,7 @@ export function Busca() {
                 <li key={a.tipo}>
                   <button
                     type="button"
-                    onClick={() => aplicarTermo(a.exemplos[0])}
+                    onClick={() => aplicarTermo(a.exemplos[0], a.tipo)}
                     className="group flex h-full w-full flex-col items-start gap-2 rounded-lg border border-border bg-card p-4 text-left transition-all duration-200 hover:border-primary/40 hover:shadow-md focus-visible:border-primary"
                   >
                     <span
@@ -507,8 +509,23 @@ export function Busca() {
 // --------------------------------------------------------------------
 // Geração de resultados mockados (determinístico por termo)
 // --------------------------------------------------------------------
-function gerarResultados(termo: string): ResultadoMock[] {
+function inferirTipo(termo: string): ResultadoMock["tipo"] {
+  const t = termo.toLowerCase().trim()
+  // Lista breve de heurísticas; em produção será classificada pela IA
+  const municipios = ["são luís", "imperatriz", "caxias", "timon", "codó", "bacabal"]
+  const orgaos = ["seduc", "ses", "seap", "sefaz", "sinfra", "polícia", "policia", "iema", "uema"]
+  const cargos = ["professor", "médico", "medico", "soldado", "delegado", "auditor", "perito", "investigador"]
+  if (municipios.some((m) => t.includes(m))) return "municipio"
+  if (orgaos.some((o) => t.includes(o))) return "orgao"
+  if (cargos.some((c) => t.includes(c))) return "cargo"
+  // Default: se tem 2+ palavras com inicial maiúscula é provável fornecedor
+  if (/\b[A-Z][a-z]+\s+[A-Z]/.test(termo)) return "fornecedor"
+  return "termo"
+}
+
+function gerarResultados(termo: string, tipoForcado?: ResultadoMock["tipo"]): ResultadoMock[] {
   const seed = hashString(termo)
+  const tipo = tipoForcado ?? inferirTipo(termo)
   const eixosAplicaveis = [
     { slug: "gestao-publica", nome: "Gestão Pública" },
     { slug: "saude", nome: "Saúde e Bem-Estar" },
@@ -546,12 +563,15 @@ function gerarResultados(termo: string): ResultadoMock[] {
                     t.det.includes("convênios")
       ? `${formatNumber(numero)} ${t.det}`
       : t.det
+    const href = `/detalhe?q=${encodeURIComponent(termo)}&tipo=${tipo}&eixo=${eixo.slug}&recorte=${encodeURIComponent(t.lbl)}`
     return {
       titulo: `${capitalize(termo)} - ${t.lbl}`,
       subtitulo: `${eixo.nome} - clique para detalhar`,
       valor: formatBRL(valor),
       detalhe,
-      href: `/eixo/${eixo.slug}`,
+      href,
+      tipo,
+      eixoNome: eixo.nome,
     }
   })
 }

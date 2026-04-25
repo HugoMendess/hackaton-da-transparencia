@@ -6,6 +6,7 @@ import App from "./App.tsx"
 import { Busca } from "@/pages/Busca"
 import { Eixo } from "@/pages/Eixo"
 import { Mapa } from "@/pages/Mapa"
+import { Detalhe } from "@/pages/Detalhe"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 
 createRoot(document.getElementById("root")!).render(
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/busca" element={<Busca />} />
         <Route path="/eixo/:slug" element={<Eixo />} />
         <Route path="/mapa" element={<Mapa />} />
+        <Route path="/detalhe" element={<Detalhe />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
