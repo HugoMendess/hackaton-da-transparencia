@@ -5,8 +5,12 @@ import { useMunicipios } from "@/hooks/useMunicipios"
 import { formatBRL } from "@/lib/utils"
 
 /**
- * Mapa interativo do Maranhão (217 municípios) implementado com SVG
- * puro + d3-geo. Sem dependência de bibliotecas com require() CJS.
+ * Mapa interativo do Maranhão (217 municípios) com SVG puro + d3-geo.
+ *
+ * Projeção: Mercator centrada em (-45.28, -5.66) com scale 5400.
+ * Valores calculados manualmente a partir do bounding box do GeoJSON
+ * (lon -48.76 a -41.80, lat -10.26 a -1.05). Não usa fitSize do d3-geo
+ * porque ele estava falhando silenciosamente em alguns ambientes.
  */
 
 type FeatureRaw = {
@@ -33,11 +37,10 @@ type Selecionado = {
   dado: DadoMunicipio
 }
 
-// Maranhão é mais alto que largo (latitude varia de -1 a -10).
-// ViewBox 800x900 acomoda bem com Mercator.
 const VIEWBOX_W = 800
 const VIEWBOX_H = 900
 
+// Cores hex puras (CSS vars não funcionam confiavelmente em fill SVG)
 const CLASSE_FILL: Record<DadoMunicipio["classe"], string> = {
   baixo: "#DCFCE7",
   medio: "#86EFAC",
@@ -92,26 +95,15 @@ export function MapaMA() {
     }
   }, [])
 
-  // Gera os paths SVG uma única vez quando o GeoJSON carrega
-  const paths = useMemo(() => {
-    if (!geo || geo.features.length === 0) return []
-
-    // d3-geo aceita FeatureCollection diretamente. Cast genérico para
-    // evitar conflitos de tipo entre @types/geojson e @types/d3-geo.
-    const projection = geoMercator().fitSize(
-      [VIEWBOX_W, VIEWBOX_H],
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      geo as any
-    )
-    const generator = geoPath(projection)
-
-    return geo.features.map((f) => {
-      const codarea = Number(f.properties.codarea)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const d = generator(f as any) ?? ""
-      return { codarea, d }
-    })
-  }, [geo])
+  // Path generator com projeção manual (Mercator centrada no MA).
+  // Sem fitSize porque ele falhava silenciosamente.
+  const pathOf = useMemo(() => {
+    const projection = geoMercator()
+      .center([-45.28, -5.66])
+      .scale(5400)
+      .translate([VIEWBOX_W / 2, VIEWBOX_H / 2])
+    return geoPath(projection)
+  }, [])
 
   const totalEstadual = useMemo(() => {
     if (!geo) return 0
@@ -133,14 +125,14 @@ export function MapaMA() {
     <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
       <div className="relative overflow-hidden rounded-lg border border-border bg-card">
         {loading && (
-          <div className="absolute inset-0 z-10 flex items-center justify-center bg-card/80">
+          <div className="absolute inset-0 z-20 flex items-center justify-center bg-card/80">
             <Loader2 className="size-6 animate-spin text-primary" aria-hidden="true" />
             <span className="sr-only">Carregando mapa do Maranhão</span>
           </div>
         )}
 
         {erroGeo && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-card text-sm text-muted-foreground">
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-2 bg-card text-sm text-muted-foreground">
             <MapPin className="size-6 text-destructive" aria-hidden="true" />
             <span>Não foi possível carregar o mapa.</span>
             <span className="text-xs">{erroGeo}</span>
@@ -183,37 +175,45 @@ export function MapaMA() {
 
         <svg
           viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-          className="block w-full"
-          style={{ background: "#F0FDF4" }}
+          width="100%"
+          height="auto"
+          style={{
+            background: "#F0FDF4",
+            display: "block",
+          }}
           role="img"
           aria-label="Mapa interativo dos 217 municípios do Maranhão"
         >
           <g
-            transform={`translate(${VIEWBOX_W / 2}, ${VIEWBOX_H / 2}) scale(${zoom}) translate(${-VIEWBOX_W / 2}, ${-VIEWBOX_H / 2})`}
+            transform={`translate(${VIEWBOX_W / 2} ${VIEWBOX_H / 2}) scale(${zoom}) translate(${-VIEWBOX_W / 2} ${-VIEWBOX_H / 2})`}
           >
-            {paths.map(({ codarea, d }) => {
-              if (!d) return null
-              const nome = nomes.get(codarea) ?? "Município"
-              const dado = gerarDadoMock(codarea)
-              const isSelected = selecionado?.codarea === codarea
+            {geo &&
+              geo.features.map((f) => {
+                const codarea = Number(f.properties.codarea)
+                const d = pathOf(f as Parameters<typeof pathOf>[0])
+                if (!d) return null
 
-              return (
-                <path
-                  key={codarea}
-                  d={d}
-                  fill={isSelected ? "#0F7B40" : CLASSE_FILL[dado.classe]}
-                  stroke={isSelected ? "#0F7B40" : "#FFFFFF"}
-                  strokeWidth={isSelected ? 2 : 0.8}
-                  vectorEffect="non-scaling-stroke"
-                  style={{ cursor: "pointer", transition: "fill 0.12s" }}
-                  onMouseEnter={() => setHover(nome)}
-                  onMouseLeave={() => setHover(null)}
-                  onClick={() => setSelecionado({ codarea, nome, dado })}
-                  role="button"
-                  aria-label={`${nome}, ${formatBRL(dado.gastoTotal)} em gasto público estimado`}
-                />
-              )
-            })}
+                const nome = nomes.get(codarea) ?? "Município"
+                const dado = gerarDadoMock(codarea)
+                const isSelected = selecionado?.codarea === codarea
+
+                return (
+                  <path
+                    key={codarea}
+                    d={d}
+                    fill={isSelected ? "#0F7B40" : CLASSE_FILL[dado.classe]}
+                    stroke={isSelected ? "#064E3B" : "#FFFFFF"}
+                    strokeWidth={isSelected ? 2 : 0.6}
+                    vectorEffect="non-scaling-stroke"
+                    style={{ cursor: "pointer" }}
+                    onMouseEnter={() => setHover(nome)}
+                    onMouseLeave={() => setHover(null)}
+                    onClick={() => setSelecionado({ codarea, nome, dado })}
+                    role="button"
+                    aria-label={`${nome}, ${formatBRL(dado.gastoTotal)} em gasto público estimado`}
+                  />
+                )
+              })}
           </g>
         </svg>
 

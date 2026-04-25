@@ -10,6 +10,7 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { BottomNav } from "@/components/layout/BottomNav"
 import { CardResumo } from "@/components/dashboard/CardResumo"
+import { ConsultaEspecifica } from "@/components/dashboard/ConsultaEspecifica"
 import { GraficoBarra } from "@/components/dashboard/GraficoBarra"
 import { SerieHistorica } from "@/components/dashboard/SerieHistorica"
 import { TextoComGlossario } from "@/components/glossario/TermoTooltip"
@@ -157,7 +158,7 @@ export function Eixo() {
         </section>
 
         {/* Destaques (lista) */}
-        <section className="container-page px-4 pb-10">
+        <section className="container-page px-4 pb-8">
           <SectionHeader numero="03" titulo="Destaques" descricao="Iniciativas e órgãos com maior peso neste eixo" />
           <ul className="grid gap-3 sm:grid-cols-3">
             {dados.destaques.map((d) => (
@@ -174,6 +175,16 @@ export function Eixo() {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* Consulta específica */}
+        <section className="container-page px-4 pb-10">
+          <SectionHeader
+            numero="04"
+            titulo="Consulta específica"
+            descricao="Filtre por município, órgão, fornecedor ou cargo"
+          />
+          <ConsultaEspecifica eixoSlug={slug} />
         </section>
       </main>
 
