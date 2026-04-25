@@ -10,9 +10,9 @@
 
 | Pessoa | Perfil | Foco principal |
 |---|---|---|
-| **André Lopes** | Dev Fullstack & Tech Lead | Frontend, integração, coordenação geral |
-| **Alexandre** | IA + Cibersegurança + Análise de Dados | AjudaInteligente, RAG, salvaguardas LGPD, telemetria |
-| **Alexsander** | Backend + Data Science | Supabase, ingestão de dados, schemas, pgvector |
+| **André Lopes** | Desenvolvedor Fullstack, Analista de Sistemas e Data Science | Frontend, integração, coordenação geral |
+| **Alexandre Oliveira** | Dev Backend, Especialista em IA e Análise de Dados | AjudaInteligente, RAG, salvaguardas LGPD, telemetria |
+| **Alexsander Oliveira** | Dev Backend e Analista de Sistemas | Supabase, ingestão de dados, schemas, pgvector |
 
 ---
 

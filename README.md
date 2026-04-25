@@ -81,16 +81,6 @@ O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica
 
 ---
 
-## Time
-
-| Nome | Perfil |
-|------|--------|
-| **André Lopes** | Dev Fullstack & Tech Lead |
-| **Alexandre** | Especialista em IA, Cibersegurança e Análise de Dados |
-| **Alexsander** | Dev Backend e Data Science |
-
----
-
 ## Stack Tecnológica
 
 | Camada | Produto Final | MVP do Hackathon |
@@ -140,6 +130,16 @@ TransparaMA/
 ## Premiação (via FAPEMA)
 
 🥇 1º lugar R$ 6.000 | 🥈 2º lugar R$ 3.000 | 🥉 3º lugar R$ 1.800
+
+---
+
+## Equipe
+
+Projeto desenvolvido em equipe:
+
+- **André Lopes** - Desenvolvedor Fullstack, Analista de Sistemas e Data Science
+- **Alexandre Oliveira** - Dev Backend, Especialista em IA e Análise de Dados
+- **Alexsander Oliveira** - Dev Backend e Analista de Sistemas
 
 ---
 Criado por André Lopes

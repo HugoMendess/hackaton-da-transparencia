@@ -1,7 +1,7 @@
 # 📄 MEMORIAL DESCRITIVO - TransparaMA
 
 **Hackathon da Transparência Maranhense 2026**
-Equipe: André Lopes, Alexandre, Alexsander
+Equipe: André Lopes, Alexandre Oliveira, Alexsander Oliveira
 Data: 26 de abril de 2026
 Repositório: https://github.com/agenciadigitalslz/TransparaMA
 
@@ -258,9 +258,9 @@ KPIs de sucesso:
 
 | Nome | Perfil |
 |---|---|
-| **André Lopes** | Dev Fullstack & Tech Lead |
-| **Alexandre** | Especialista em IA, Cibersegurança e Análise de Dados |
-| **Alexsander** | Dev Backend e Data Science |
+| **André Lopes** | Desenvolvedor Fullstack, Analista de Sistemas e Data Science |
+| **Alexandre Oliveira** | Dev Backend, Especialista em IA e Análise de Dados |
+| **Alexsander Oliveira** | Dev Backend e Analista de Sistemas |
 
 ---
 
