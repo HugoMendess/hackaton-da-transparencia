@@ -57,6 +57,7 @@ export function Hero() {
           com fade de cima (opaco) para baixo (transparente) */}
       <div
         className="pointer-events-none absolute inset-0 z-0"
+        data-decorative-bg="true"
         style={{
           backgroundImage: "url('/images/fundo-identidade.png')",
           backgroundSize: "cover",

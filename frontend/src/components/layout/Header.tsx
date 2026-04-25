@@ -1,14 +1,16 @@
-import { Search, Map as MapIcon } from "lucide-react"
+import { Search, Map as MapIcon, Sparkles } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "@/components/layout/Logo"
 import { BackButton } from "@/components/layout/BackButton"
 import { PainelAcessibilidade } from "@/components/acessibilidade/PainelAcessibilidade"
+import { useAjudaInteligenteContext } from "@/contexts/AjudaInteligenteContext"
 import { cn } from "@/lib/utils"
 
 export function Header() {
   const location = useLocation()
   const isBuscaActive = location.pathname.startsWith("/busca")
   const isMapaActive = location.pathname.startsWith("/mapa")
+  const { abrir: abrirAjuda } = useAjudaInteligenteContext()
 
   return (
     <header
@@ -54,6 +56,19 @@ export function Header() {
             <MapIcon className="size-4" aria-hidden="true" />
             <span>Mapa</span>
           </Link>
+
+          <button
+            type="button"
+            onClick={() =>
+              abrirAjuda({ pagina: location.pathname })
+            }
+            className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 text-sm font-semibold transition-colors bg-secondary text-secondary-foreground hover:bg-secondary/90"
+            aria-label="Abrir AjudaInteligente, perguntar em linguagem natural"
+            title="AjudaInteligente"
+          >
+            <Sparkles className="size-4" aria-hidden="true" />
+            <span className="hidden sm:inline">Pergunte</span>
+          </button>
 
           <PainelAcessibilidade variante="header" />
         </nav>

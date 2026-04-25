@@ -57,23 +57,50 @@ function salvar(config: ConfigA11y) {
  * Hook que mantém preferências de acessibilidade do cidadão.
  * Aplica classes no <html> e persiste em localStorage.
  *
- * Usar uma única vez na raiz da app para sincronização entre páginas.
+ * Lê do localStorage no first render (lazy initial state) para evitar
+ * flash sem estilo. O script inline em index.html aplica as classes
+ * ANTES do React montar, garantindo persistência entre navegações.
+ *
+ * Quando uma instância muda config, dispara CustomEvent para outras
+ * instâncias do hook reagirem (ex: Header e BottomNav exibirem o
+ * mesmo estado em sincronia).
  */
+const EVENTO_MUDANCA = "transparama:a11y:changed"
+
 export function useAcessibilidade() {
-  const [config, setConfig] = useState<ConfigA11y>(PADRAO)
+  // Lazy initial state: lê localStorage no primeiro render, sem flash
+  const [config, setConfig] = useState<ConfigA11y>(() => carregar())
 
-  // Carrega config ao montar e aplica
-  useEffect(() => {
-    const inicial = carregar()
-    setConfig(inicial)
-    aplicar(inicial)
-  }, [])
-
-  // Aplica e salva sempre que mudar
+  // Aplica e salva sempre que mudar (não roda com PADRAO antes de carregar)
   useEffect(() => {
     aplicar(config)
     salvar(config)
+    // Notifica outras instâncias do hook que houve mudança
+    window.dispatchEvent(
+      new CustomEvent<ConfigA11y>(EVENTO_MUDANCA, { detail: config })
+    )
   }, [config])
+
+  // Sincroniza com mudanças de outras instâncias (multi-componente)
+  useEffect(() => {
+    function onMudanca(e: Event) {
+      const detail = (e as CustomEvent<ConfigA11y>).detail
+      if (!detail) return
+      setConfig((atual) => {
+        // Evita re-render se for o mesmo objeto
+        if (
+          atual.altoContraste === detail.altoContraste &&
+          atual.fonte === detail.fonte &&
+          atual.reduzirMovimento === detail.reduzirMovimento
+        ) {
+          return atual
+        }
+        return detail
+      })
+    }
+    window.addEventListener(EVENTO_MUDANCA, onMudanca)
+    return () => window.removeEventListener(EVENTO_MUDANCA, onMudanca)
+  }, [])
 
   const toggleAltoContraste = useCallback(() => {
     setConfig((c) => ({ ...c, altoContraste: !c.altoContraste }))

@@ -78,28 +78,78 @@
     --ring: 152 60% 50%;
   }
 
-  /* Modo alto contraste (toggle do TransparaMA, WCAG 7:1) */
+  /* Modo alto contraste (toggle do TransparaMA, WCAG AAA 7:1+).
+     Inversão total: fundo preto + texto branco, dark mode agressivo. */
   .high-contrast {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 45 100% 35%;
+    --background: 0 0% 0%;        /* preto puro */
+    --foreground: 0 0% 100%;      /* branco puro */
+    --card: 0 0% 0%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 0%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;         /* primário invertido para branco */
+    --primary-foreground: 0 0% 0%;
+    --secondary: 50 100% 55%;     /* amarelo brilhante (alta visibilidade no preto) */
     --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 95%;
-    --muted-foreground: 0 0% 0%;
-    --accent: 0 0% 90%;
-    --accent-foreground: 0 0% 0%;
-    --border: 0 0% 0%;
-    --input: 0 0% 0%;
-    --ring: 0 0% 0%;
-    --destructive: 0 100% 35%;
-    --success: 152 100% 25%;
-    --info: 210 100% 30%;
+    --muted: 0 0% 12%;            /* cinza muito escuro para áreas sutis */
+    --muted-foreground: 0 0% 100%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 100%;          /* bordas brancas */
+    --input: 0 0% 100%;
+    --ring: 0 0% 100%;
+    --destructive: 0 100% 65%;    /* vermelho claro */
+    --destructive-foreground: 0 0% 0%;
+    --success: 152 70% 65%;       /* verde claro */
+    --success-foreground: 0 0% 0%;
+    --info: 210 100% 75%;         /* azul claro */
+    --info-foreground: 0 0% 0%;
+  }
+
+  /* Em alto contraste, imagens decorativas somem completamente para
+     não competir com o texto branco sobre fundo preto. Os containers
+     mantêm o bg-muted (cinza muito escuro) preservando a estrutura */
+  .high-contrast img[aria-hidden="true"],
+  .high-contrast img[alt=""] {
+    display: none !important;
+  }
+
+  /* Pinceladas decorativas do hero (background-image em div) ficam invisíveis */
+  .high-contrast [data-decorative-bg="true"] {
+    display: none !important;
+  }
+
+  /* Containers de imagem que ficam vazios em alto contraste recebem
+     gradient sutil para preservar a hierarquia visual do card */
+  .high-contrast [data-image-container="true"] {
+    background: linear-gradient(135deg, hsl(0 0% 12%), hsl(0 0% 18%));
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  /* Fallback de título dos cards de eixo: aparece quando a imagem
+     decorativa some (alto contraste) preservando a identificação visual */
+  .high-contrast .eixo-fallback-titulo {
+    display: flex !important;
+  }
+
+  /* Mapa Leaflet em alto contraste: tile vira escuro */
+  .high-contrast .leaflet-container {
+    background: #000 !important;
+  }
+  .high-contrast .leaflet-tile {
+    filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(1.1);
+  }
+  .high-contrast .leaflet-control-attribution {
+    background: rgba(0, 0, 0, 0.85) !important;
+    color: #fff !important;
+  }
+  .high-contrast .leaflet-control-attribution a {
+    color: #fff !important;
+  }
+  .high-contrast .leaflet-control-zoom a {
+    background: #000 !important;
+    color: #fff !important;
+    border-color: #fff !important;
   }
 
   /* Fonte aumentada (toggle do TransparaMA) */

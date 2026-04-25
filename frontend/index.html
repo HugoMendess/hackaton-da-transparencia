@@ -16,6 +16,22 @@
       rel="stylesheet"
     />
     <title>TransparaMA, o futuro Portal da Transparência do Maranhão</title>
+    <script>
+      // Aplica preferências de acessibilidade ANTES do React montar.
+      // Evita flash sem estilo e garante persistência entre navegações.
+      (function () {
+        try {
+          var raw = localStorage.getItem('transparama:a11y');
+          if (!raw) return;
+          var c = JSON.parse(raw);
+          var html = document.documentElement;
+          if (c.altoContraste) html.classList.add('high-contrast');
+          if (c.fonte === 1) html.classList.add('font-size-larger');
+          if (c.fonte === 2) html.classList.add('font-size-larger-2');
+          if (c.reduzirMovimento) html.classList.add('reduce-motion');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -73,7 +73,19 @@ export function EixoGrid() {
                 aria-label={`Acessar eixo ${eixo.nome}`}
               >
                 {/* Imagem decorativa (16:9) */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
+                <div
+                  className="relative aspect-[16/9] w-full overflow-hidden bg-muted"
+                  data-image-container="true"
+                >
+                  {/* Fallback de texto que aparece quando a imagem some
+                      (modo alto contraste, ou se a imagem falhar) */}
+                  <span
+                    className="eixo-fallback-titulo absolute inset-0 hidden items-center justify-center px-4 text-center font-display text-2xl font-bold text-foreground/40 md:text-3xl"
+                    aria-hidden="true"
+                  >
+                    {eixo.nome}
+                  </span>
+
                   <img
                     src={`/images/eixos/${eixo.slug}.svg`}
                     alt=""
