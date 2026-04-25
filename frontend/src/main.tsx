@@ -5,14 +5,18 @@ import "./index.css"
 import App from "./App.tsx"
 import { Busca } from "@/pages/Busca"
 import { Eixo } from "@/pages/Eixo"
+import { Mapa } from "@/pages/Mapa"
+import { ScrollToTop } from "@/components/layout/ScrollToTop"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/busca" element={<Busca />} />
         <Route path="/eixo/:slug" element={<Eixo />} />
+        <Route path="/mapa" element={<Mapa />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

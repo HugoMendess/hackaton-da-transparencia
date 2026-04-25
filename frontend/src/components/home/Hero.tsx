@@ -4,21 +4,28 @@ import { Link } from "react-router-dom"
 /**
  * Hero da home com identidade institucional do MA.
  *
- * Quando a equipe gerar a imagem hero (ver IMAGENS_NECESSARIAS.md),
- * substituir o background gradient por url("/hero-ma.webp") via CSS
- * vars. Por enquanto, padrão geométrico SVG inline mantém a estética
- * mesmo sem assets externos.
+ * Background: /images/hero-ma.svg (placeholder atual)
+ *
+ * Quando a equipe entregar a imagem fotográfica (ver IMAGENS_NECESSARIAS.md):
+ *   1. Salvar como /images/hero-ma.webp
+ *   2. Trocar a extensão na linha do <img> de .svg para .webp
+ *   3. (opcional) Adicionar /images/hero-ma-mobile.webp via media-query
  */
 export function Hero() {
   return (
     <section
-      className="relative overflow-hidden border-b border-border bg-primary text-primary-foreground"
+      className="relative isolate overflow-hidden border-b border-border bg-primary text-primary-foreground"
       aria-labelledby="hero-titulo"
     >
-      {/* Padrão geométrico decorativo (substituível por imagem futura) */}
-      <DecoracaoHero />
+      {/* Imagem de fundo (placeholder SVG, substituível por foto real) */}
+      <img
+        src="/images/hero-ma.svg"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 size-full object-cover"
+      />
 
-      <div className="container-page relative z-10 px-4 py-12 md:py-20">
+      <div className="container-page relative px-4 py-12 md:py-20">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/40 bg-secondary/15 px-3 py-1 text-xs font-medium text-secondary">
           <Sparkles className="size-3.5" aria-hidden="true" />
           Hackathon Transparência Maranhense 2026
@@ -61,47 +68,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
-}
-
-/**
- * Decoração geométrica do hero. Linhas finas inspiradas em padrão
- * institucional. Sem dependência de assets externos.
- */
-function DecoracaoHero() {
-  return (
-    <>
-      <svg
-        className="pointer-events-none absolute inset-0 z-0 h-full w-full text-primary-foreground/[0.06]"
-        aria-hidden="true"
-      >
-        <defs>
-          <pattern
-            id="padrao-hero"
-            x="0"
-            y="0"
-            width="48"
-            height="48"
-            patternUnits="userSpaceOnUse"
-          >
-            <path
-              d="M 48 0 L 0 0 0 48"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#padrao-hero)" />
-      </svg>
-      <div
-        className="pointer-events-none absolute -right-32 -top-32 size-96 rounded-full bg-secondary/10 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute -left-32 bottom-0 size-72 rounded-full bg-primary-foreground/5 blur-3xl"
-        aria-hidden="true"
-      />
-    </>
   )
 }

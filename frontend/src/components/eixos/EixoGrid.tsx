@@ -23,15 +23,24 @@ const ICONS: Record<string, LucideIcon> = {
   Hammer,
 }
 
+/**
+ * Grid de eixos temáticos.
+ *
+ * Cada card carrega uma imagem decorativa de:
+ *   /images/eixos/{slug}.svg (placeholder atual)
+ *
+ * Quando a equipe entregar a imagem real (.webp), substituir o caminho
+ * para /images/eixos/{slug}.webp em uma única linha (ver IMAGENS_NECESSARIAS.md).
+ */
 export function EixoGrid() {
   return (
     <section
       aria-labelledby="eixos-titulo"
-      className="container-page px-4 py-6"
+      className="container-page px-4 py-8"
     >
-      <div className="mb-4 flex items-baseline justify-between gap-4">
+      <div className="mb-5 flex items-baseline justify-between gap-4">
         <div>
-          <h2 id="eixos-titulo" className="text-xl font-semibold tracking-tight">
+          <h2 id="eixos-titulo" className="text-xl font-semibold tracking-tight md:text-2xl">
             Por onde começar
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -48,15 +57,32 @@ export function EixoGrid() {
               <Link
                 to={`/eixo/${eixo.slug}`}
                 className={cn(
-                  "group flex h-full flex-col gap-3 rounded-lg border border-border bg-card p-4",
-                  "transition-colors duration-200",
-                  "hover:border-primary/40 hover:bg-accent/50",
-                  "focus-visible:border-primary focus-visible:bg-accent/50",
-                  eixo.destaque && "border-primary/40 bg-accent/30 sm:col-span-2 lg:col-span-3"
+                  "group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card",
+                  "transition-all duration-200",
+                  "hover:border-primary/40 hover:shadow-md",
+                  "focus-visible:border-primary focus-visible:shadow-md",
+                  eixo.destaque && "border-primary/40 sm:col-span-2 lg:col-span-3"
                 )}
                 aria-label={`Acessar eixo ${eixo.nome}`}
               >
-                <div className="flex items-start gap-3">
+                {/* Imagem decorativa do eixo */}
+                <div
+                  className={cn(
+                    "relative w-full overflow-hidden bg-muted",
+                    eixo.destaque ? "aspect-[16/5] sm:aspect-[16/4]" : "aspect-[16/9]"
+                  )}
+                >
+                  <img
+                    src={`/images/eixos/${eixo.slug}.svg`}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                </div>
+
+                {/* Conteúdo */}
+                <div className="flex flex-1 items-start gap-3 p-4">
                   <span
                     className={cn(
                       "flex size-10 shrink-0 items-center justify-center rounded-md",
@@ -69,7 +95,7 @@ export function EixoGrid() {
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-semibold text-foreground">
                         {eixo.nome}
                       </h3>

@@ -1,0 +1,18 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="gobras" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312E81" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+    <pattern id="pobras" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#gobras)"/>
+  <rect width="800" height="450" fill="url(#pobras)"/>
+  <circle cx="680" cy="80" r="140" fill="#ffffff" fill-opacity="0.05"/>
+  <circle cx="100" cy="380" r="100" fill="#ffffff" fill-opacity="0.04"/>
+  <text x="60" y="260" font-family="Playfair Display, Georgia, serif" font-size="56" font-weight="700" fill="#ffffff">Obras e Infraestrutura</text>
+  <text x="60" y="300" font-family="Inter, sans-serif" font-size="22" font-weight="500" fill="#ffffff" fill-opacity="0.85">Mapa de obras, status, fotos</text>
+  <text x="60" y="410" font-family="Inter, sans-serif" font-size="12" font-weight="500" fill="#ffffff" fill-opacity="0.6" letter-spacing="2">PLACEHOLDER, IMAGEM EM PRODUÇÃO</text>
+</svg>

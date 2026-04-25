@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 const ITEMS = [
   { to: "/", label: "Início", icon: Home, match: (p: string) => p === "/" },
   { to: "/busca", label: "Buscar", icon: Search, match: (p: string) => p.startsWith("/busca") },
-  { to: "/eixo/gestao-publica", label: "Áreas", icon: Map, match: (p: string) => p.startsWith("/eixo") },
+  { to: "/mapa", label: "Mapa", icon: Map, match: (p: string) => p.startsWith("/mapa") },
 ] as const
 
 export function BottomNav() {

@@ -1,0 +1,25 @@
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="hero" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F7B40" />
+      <stop offset="50%" stop-color="#0A5C30" />
+      <stop offset="100%" stop-color="#08431F" />
+    </linearGradient>
+    <pattern id="pHero" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1" />
+    </pattern>
+    <radialGradient id="rGold" cx="85%" cy="15%" r="40%">
+      <stop offset="0%" stop-color="#D4A017" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#D4A017" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="rWhite" cx="15%" cy="85%" r="35%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#hero)" />
+  <rect width="1920" height="1080" fill="url(#pHero)" />
+  <rect width="1920" height="1080" fill="url(#rGold)" />
+  <rect width="1920" height="1080" fill="url(#rWhite)" />
+  <text x="960" y="1050" font-family="Inter, sans-serif" font-size="14" font-weight="500" fill="#ffffff" fill-opacity="0.4" text-anchor="middle" letter-spacing="3">PLACEHOLDER, SUBSTITUIR POR HERO-MA.WEBP</text>
+</svg>
