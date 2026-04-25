@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Tema institucional MA: verde primário + dourado de destaque */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 12%;
+
+    --primary: 152 70% 28%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 80% 52%;
+    --secondary-foreground: 215 25% 12%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 152 50% 94%;
+    --accent-foreground: 152 70% 22%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 20% 90%;
+    --input: 215 20% 90%;
+    --ring: 152 70% 28%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    --background: 215 30% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 215 30% 10%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 215 30% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 152 60% 50%;
+    --primary-foreground: 215 30% 8%;
+
+    --secondary: 45 80% 60%;
+    --secondary-foreground: 215 30% 8%;
+
+    --muted: 215 25% 15%;
+    --muted-foreground: 215 15% 65%;
+
+    --accent: 152 30% 20%;
+    --accent-foreground: 152 60% 80%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 215 25% 18%;
+    --input: 215 25% 18%;
+    --ring: 152 60% 50%;
+  }
+
+  /* Modo alto contraste (toggle do TransparaMA) */
+  .high-contrast {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: theme(fontFamily.sans);
+    margin: 0;
+  }
+
+  /* Inputs com mínimo 16px para evitar zoom no iOS */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Touch targets mínimos */
+  button,
+  a {
+    @apply min-h-touch;
+  }
+
+  /* Focus visível para acessibilidade */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Scrollbar discreta */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer utilities {
+  /* Safe area insets para iOS notch */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .safe-x {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
