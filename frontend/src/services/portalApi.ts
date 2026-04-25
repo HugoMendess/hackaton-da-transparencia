@@ -37,6 +37,46 @@ export type DespesaItem = {
   [k: string]: unknown
 }
 
+/**
+ * Coerção defensiva de campos numéricos vindos da API. A API do Portal
+ * pode retornar valores como string em alguns campos. Esta função
+ * garante que campos esperados como número não viajam como string para
+ * cálculos no frontend.
+ */
+function coerceNumber(value: unknown): number | undefined {
+  if (typeof value === "number" && !Number.isNaN(value)) return value
+  if (typeof value === "string") {
+    const cleaned = value.replace(/\./g, "").replace(",", ".")
+    const num = Number(cleaned)
+    return Number.isNaN(num) ? undefined : num
+  }
+  return undefined
+}
+
+/**
+ * Type guard runtime: garante que um item da resposta tem o shape mínimo
+ * de DespesaItem com campos numéricos coercidos. Use antes de cálculos.
+ */
+export function parseDespesaItem(raw: unknown): DespesaItem | null {
+  if (!raw || typeof raw !== "object") return null
+  const obj = raw as Record<string, unknown>
+  if (typeof obj.codigo_ug !== "string") return null
+
+  const ano = coerceNumber(obj.ano)
+  const mes = coerceNumber(obj.mes)
+  if (ano === undefined || mes === undefined) return null
+
+  return {
+    ...obj,
+    codigo_ug: obj.codigo_ug,
+    ano,
+    mes,
+    empenhado: coerceNumber(obj.empenhado),
+    liquidado: coerceNumber(obj.liquidado),
+    pago: coerceNumber(obj.pago),
+  }
+}
+
 export class PortalApiError extends Error {
   status: number | null
   constructor(message: string, status: number | null = null) {

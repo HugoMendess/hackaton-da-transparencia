@@ -12,6 +12,7 @@
 
 # Versões antigas dos próprios docs
 .old/
+.ref/
 
 # Dependências (futuro - frontend)
 node_modules/

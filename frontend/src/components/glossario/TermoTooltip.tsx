@@ -39,13 +39,20 @@ export function TextoComGlossario({
             type="button"
             onClick={() => setAberto(parte.termo)}
             className={cn(
-              "inline-flex items-baseline gap-0.5 border-b border-dashed border-primary/60 text-primary transition-colors duration-200 hover:border-primary hover:bg-accent focus-visible:bg-accent",
+              "relative inline-flex items-baseline gap-0.5 border-b border-dashed border-primary/60 text-primary transition-colors duration-200",
+              "hover:border-primary hover:bg-accent focus-visible:bg-accent",
+              // Área clicável invisível de 44px para mobile (WCAG 2.1 touch target)
+              // sem afetar a altura visual inline do termo
+              "before:absolute before:inset-x-[-4px] before:inset-y-[-12px] before:content-['']",
               "min-h-0"
             )}
             aria-label={`Explicação cidadã: ${parte.termo.termo}`}
           >
-            <span>{parte.match}</span>
-            <BookOpen className="size-3 shrink-0 opacity-70" aria-hidden="true" />
+            <span className="relative">{parte.match}</span>
+            <BookOpen
+              className="relative size-3 shrink-0 opacity-70"
+              aria-hidden="true"
+            />
           </button>
         )
       )}

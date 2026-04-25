@@ -108,6 +108,29 @@ export function SerieHistorica({
           </AreaChart>
         </ResponsiveContainer>
       </div>
+
+      {/* Tabela alternativa para leitores de tela (WCAG 2.1) */}
+      <table className="sr-only">
+        <caption>{titulo}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Ano</th>
+            <th scope="col">Empenhado</th>
+            <th scope="col">Liquidado</th>
+            <th scope="col">Pago</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dados.map((d) => (
+            <tr key={d.ano}>
+              <th scope="row">{d.ano}</th>
+              <td>{formatBRL(d.empenhado * 1_000_000)}</td>
+              <td>{formatBRL(d.liquidado * 1_000_000)}</td>
+              <td>{formatBRL(d.pago * 1_000_000)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </article>
   )
 }
