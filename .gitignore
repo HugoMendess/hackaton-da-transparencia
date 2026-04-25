@@ -1,0 +1,90 @@
+# ============================================
+# TransparaMA - .gitignore
+# ============================================
+
+# Secrets e variáveis de ambiente (CRÍTICO)
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+
+# Versões antigas dos próprios docs
+.old/
+
+# Dependências (futuro - frontend)
+node_modules/
+.pnpm-store/
+.yarn/
+jspm_packages/
+
+# Build outputs (futuro)
+dist/
+build/
+.next/
+out/
+.vercel/
+.netlify/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Cache e temporários
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+*.tsbuildinfo
+
+# Coverage e testes
+coverage/
+*.lcov
+.nyc_output/
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+
+# Python (usado para scripts de extração de dados)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.backup
+~$*
+
+# Supabase local (futuro)
+supabase/.branches/
+supabase/.temp/
