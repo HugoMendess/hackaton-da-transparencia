@@ -78,14 +78,46 @@
     --ring: 152 60% 50%;
   }
 
-  /* Modo alto contraste (toggle do TransparaMA) */
+  /* Modo alto contraste (toggle do TransparaMA, WCAG 7:1) */
   .high-contrast {
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
     --primary: 0 0% 0%;
     --primary-foreground: 0 0% 100%;
-    --border: 0 0% 0%;
+    --secondary: 45 100% 35%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 95%;
     --muted-foreground: 0 0% 0%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 0%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
+    --destructive: 0 100% 35%;
+    --success: 152 100% 25%;
+    --info: 210 100% 30%;
+  }
+
+  /* Fonte aumentada (toggle do TransparaMA) */
+  .font-size-larger {
+    font-size: 112.5%;
+  }
+  .font-size-larger-2 {
+    font-size: 125%;
+  }
+
+  /* Reduzir movimento forçado (toggle do TransparaMA, além do prefers) */
+  .reduce-motion *,
+  .reduce-motion *::before,
+  .reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

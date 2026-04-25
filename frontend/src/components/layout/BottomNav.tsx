@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom"
-import { Home, Search, Map, Accessibility } from "lucide-react"
+import { Home, Search, Map } from "lucide-react"
+import { PainelAcessibilidade } from "@/components/acessibilidade/PainelAcessibilidade"
 import { cn } from "@/lib/utils"
 
 const ITEMS = [
@@ -45,14 +46,7 @@ export function BottomNav() {
           )
         })}
         <li className="flex-1">
-          <button
-            type="button"
-            aria-label="Opções de acessibilidade (em breve)"
-            className="flex w-full flex-col items-center justify-center gap-0.5 py-2 text-[11px] font-medium text-muted-foreground hover:text-foreground"
-          >
-            <Accessibility className="size-5" aria-hidden="true" />
-            A11y
-          </button>
+          <PainelAcessibilidade variante="bottom-nav" />
         </li>
       </ul>
     </nav>

@@ -22,56 +22,63 @@ export function Hero() {
       className="relative isolate overflow-hidden border-b border-border bg-primary text-primary-foreground"
       aria-labelledby="hero-titulo"
     >
-      {/* Camada -30: foto do palácio */}
+      {/* Camada -30: foto do palácio quase natural (mantém a beleza institucional) */}
       <img
         src="/images/palacio.png"
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-30 size-full object-cover object-center"
         style={{
-          filter: "saturate(0.6) brightness(0.7) contrast(1.05)",
+          filter: "saturate(0.95) brightness(0.92) contrast(1.05)",
         }}
       />
 
-      {/* Camada -20: overlay verde primário (mix-blend-multiply unifica com a foto) */}
+      {/* Camada -20: overlay preto suave (escurece sem tingir, preserva cores da foto) */}
       <div
-        className="pointer-events-none absolute inset-0 -z-20 bg-primary"
-        style={{ mixBlendMode: "multiply", opacity: 0.85 }}
+        className="pointer-events-none absolute inset-0 -z-20"
+        style={{
+          background: "rgba(0, 0, 0, 0.32)",
+        }}
         aria-hidden="true"
       />
 
-      {/* Camada -10: gradiente vertical para legibilidade do texto */}
+      {/* Camada -10: gradiente preto suave apenas no rodapé (legibilidade dos CTAs
+          sem cobrir o tom natural da foto) */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "linear-gradient(180deg, hsl(var(--primary) / 0.55) 0%, hsl(var(--primary) / 0.4) 50%, hsl(var(--primary) / 0.85) 100%)",
+            "linear-gradient(180deg, transparent 0%, transparent 50%, rgba(0,0,0,0.25) 85%, rgba(0,0,0,0.45) 100%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Camada 0: pinceladas como acento decorativo (canto direito) */}
-      <img
-        src="/images/fundo-identidade.png"
-        alt=""
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-10 -top-6 z-0 h-48 w-auto opacity-25 sm:-right-4 sm:h-64 md:h-80"
+      {/* Camada 0: pinceladas como faixa superior largura total
+          com fade de cima (opaco) para baixo (transparente) */}
+      <div
+        className="pointer-events-none absolute inset-0 z-0"
         style={{
+          backgroundImage: "url('/images/fundo-identidade.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.55,
           mixBlendMode: "screen",
           maskImage:
-            "radial-gradient(ellipse at top right, black 30%, transparent 75%)",
+            "linear-gradient(to bottom, black 0%, black 25%, transparent 75%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse at top right, black 30%, transparent 75%)",
+            "linear-gradient(to bottom, black 0%, black 25%, transparent 75%)",
         }}
+        aria-hidden="true"
       />
 
       {/* Camada 1: padrão geométrico SVG (sutil) */}
       <DecoracaoHero />
 
       {/* Camada 10: conteúdo */}
-      <div className="container-page relative z-10 px-4 py-12 md:py-20">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/40 bg-secondary/15 px-3 py-1 text-xs font-medium text-secondary backdrop-blur-sm">
-          <Sparkles className="size-3.5" aria-hidden="true" />
+      <div className="container-page relative z-10 px-4 py-20 md:py-28">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/60 bg-primary/90 px-3 py-1 text-xs font-semibold text-primary-foreground shadow-md backdrop-blur-sm">
+          <Sparkles className="size-3.5 text-secondary" aria-hidden="true" />
           Hackathon Transparência Maranhense 2026
         </span>
 

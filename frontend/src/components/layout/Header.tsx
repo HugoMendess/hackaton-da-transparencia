@@ -1,7 +1,8 @@
-import { Search, Accessibility, Map as MapIcon } from "lucide-react"
+import { Search, Map as MapIcon } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "@/components/layout/Logo"
 import { BackButton } from "@/components/layout/BackButton"
+import { PainelAcessibilidade } from "@/components/acessibilidade/PainelAcessibilidade"
 import { cn } from "@/lib/utils"
 
 export function Header() {
@@ -54,14 +55,7 @@ export function Header() {
             <span>Mapa</span>
           </Link>
 
-          <button
-            type="button"
-            className="inline-flex items-center justify-center rounded-md min-h-touch min-w-touch text-foreground transition-colors hover:bg-muted"
-            aria-label="Opções de acessibilidade"
-            title="Opções de acessibilidade (em breve)"
-          >
-            <Accessibility className="size-5" aria-hidden="true" />
-          </button>
+          <PainelAcessibilidade variante="header" />
         </nav>
       </div>
     </header>
