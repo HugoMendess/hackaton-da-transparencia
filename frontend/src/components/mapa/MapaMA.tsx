@@ -6,6 +6,7 @@ import { Loader2, MapPin, X } from "lucide-react"
 import "leaflet/dist/leaflet.css"
 import { useMunicipios } from "@/hooks/useMunicipios"
 import { formatBRL } from "@/lib/utils"
+import { CategoriasMunicipio } from "@/components/mapa/CategoriasMunicipio"
 
 /**
  * Mapa interativo do Maranhão (217 municípios) com Leaflet.
@@ -219,11 +220,17 @@ export function MapaMA() {
         </article>
 
         {selecionado ? (
-          <PainelMunicipio
-            sel={selecionado}
-            totalEstadual={totalEstadual}
-            onClose={() => setSelecionado(null)}
-          />
+          <>
+            <PainelMunicipio
+              sel={selecionado}
+              totalEstadual={totalEstadual}
+              onClose={() => setSelecionado(null)}
+            />
+            <CategoriasMunicipio
+              codarea={selecionado.codarea}
+              nome={selecionado.nome}
+            />
+          </>
         ) : (
           <article className="rounded-lg border border-dashed border-border bg-muted/20 p-4 text-sm text-muted-foreground">
             <MapPin className="mb-2 size-5 text-muted-foreground/60" aria-hidden="true" />
