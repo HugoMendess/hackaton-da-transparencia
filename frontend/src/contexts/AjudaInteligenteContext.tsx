@@ -10,7 +10,7 @@ type AjudaCtx = {
   contexto: ContextoAjuda
   mensagens: MensagemConversa[]
   perguntando: boolean
-  abrir: (ctx?: ContextoAjuda) => void
+  abrir: (ctx?: ContextoAjuda, perguntaInicial?: string) => void
   fechar: () => void
   limpar: () => void
   perguntar: (pergunta: string, ctx?: ContextoAjuda) => Promise<void>

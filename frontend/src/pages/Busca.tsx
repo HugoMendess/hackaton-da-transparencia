@@ -17,6 +17,7 @@ import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { BottomNav } from "@/components/layout/BottomNav"
 import { DashboardInicial } from "@/components/busca/DashboardInicial"
+import { ToastAjuda } from "@/components/ia/ToastAjuda"
 import { useTermosBuscados } from "@/hooks/useTermosBuscados"
 import { useBuscaHistorico } from "@/hooks/useBuscaHistorico"
 import { cn, formatBRL, formatNumber } from "@/lib/utils"
@@ -73,6 +74,12 @@ type ResultadoMock = {
 const PAGINA_INICIAL = 8
 const PAGINA_INCREMENTO = 8
 
+type ToastTrigger = {
+  visivel: boolean
+  pergunta: string
+  motivo: "zero-results" | "inatividade" | "query-complexa" | "ajuda-contextual"
+}
+
 export function Busca() {
   const [query, setQuery] = useState("")
   const [submitted, setSubmitted] = useState("")
@@ -80,6 +87,12 @@ export function Busca() {
   const [resultadosTotais, setResultadosTotais] = useState<ResultadoMock[] | null>(null)
   const [exibindo, setExibindo] = useState(PAGINA_INICIAL)
   const [showSugestoes, setShowSugestoes] = useState(false)
+  const [toast, setToast] = useState<ToastTrigger>({
+    visivel: false,
+    pergunta: "",
+    motivo: "zero-results",
+  })
+  const [toastJaMostrou, setToastJaMostrou] = useState<Set<string>>(new Set())
 
   const inputRef = useRef<HTMLInputElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -135,6 +148,63 @@ export function Busca() {
     document.addEventListener("mousedown", onDocClick)
     return () => document.removeEventListener("mousedown", onDocClick)
   }, [])
+
+  // Trigger 1: zero results após buscar (oferece reformular via IA)
+  useEffect(() => {
+    if (
+      submitted &&
+      !searching &&
+      resultadosTotais !== null &&
+      resultadosTotais.length === 0 &&
+      !toastJaMostrou.has(submitted)
+    ) {
+      setToast({
+        visivel: true,
+        pergunta: submitted,
+        motivo: "zero-results",
+      })
+      setToastJaMostrou((prev) => new Set(prev).add(submitted))
+    }
+  }, [submitted, searching, resultadosTotais, toastJaMostrou])
+
+  // Trigger 2: query complexa (4+ palavras) - oferece IA imediatamente
+  useEffect(() => {
+    if (
+      submitted &&
+      !searching &&
+      resultadosTotais !== null &&
+      resultadosTotais.length > 0 &&
+      submitted.split(/\s+/).length >= 4 &&
+      !toastJaMostrou.has(submitted)
+    ) {
+      const t = setTimeout(() => {
+        setToast({
+          visivel: true,
+          pergunta: submitted,
+          motivo: "query-complexa",
+        })
+        setToastJaMostrou((prev) => new Set(prev).add(submitted))
+      }, 2500) // espera o usuário ver os resultados primeiro
+      return () => clearTimeout(t)
+    }
+  }, [submitted, searching, resultadosTotais, toastJaMostrou])
+
+  // Trigger 3: inatividade com query digitada mas não submetida (10s)
+  useEffect(() => {
+    if (!query.trim() || submitted || query.length < 4) return
+    const chave = "rascunho:" + query.trim()
+    if (toastJaMostrou.has(chave)) return
+
+    const t = setTimeout(() => {
+      setToast({
+        visivel: true,
+        pergunta: query.trim(),
+        motivo: "inatividade",
+      })
+      setToastJaMostrou((prev) => new Set(prev).add(chave))
+    }, 10000)
+    return () => clearTimeout(t)
+  }, [query, submitted, toastJaMostrou])
 
   return (
     <div className="min-h-svh bg-background text-foreground pb-16 md:pb-0">
@@ -502,6 +572,16 @@ export function Busca() {
 
       <Footer />
       <BottomNav />
+
+      <ToastAjuda
+        visivel={toast.visivel}
+        pergunta={toast.pergunta}
+        motivo={toast.motivo}
+        contextoExtra={{ pagina: "/busca" }}
+        onDispensar={() =>
+          setToast((t) => ({ ...t, visivel: false }))
+        }
+      />
     </div>
   )
 }

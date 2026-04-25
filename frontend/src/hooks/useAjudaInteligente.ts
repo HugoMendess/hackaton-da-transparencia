@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { supabase } from "@/lib/supabase"
 
 export type Fonte = { titulo: string; url: string }
@@ -56,10 +56,24 @@ export function useAjudaInteligente() {
   const [mensagens, setMensagens] = useState<MensagemConversa[]>([])
   const [perguntando, setPerguntando] = useState(false)
 
-  const abrir = useCallback((ctx?: ContextoAjuda) => {
-    if (ctx) setContexto(ctx)
-    setAberto(true)
-  }, [])
+  // Ref para a função perguntar atual, permitindo abrir() chamar
+  // sem criar dependência circular nas declarações useCallback
+  const perguntarRef = useRef<
+    (pergunta: string, ctx?: ContextoAjuda) => Promise<void>
+  >(async () => {})
+
+  const abrir = useCallback(
+    (ctx?: ContextoAjuda, perguntaInicial?: string) => {
+      if (ctx) setContexto(ctx)
+      setAberto(true)
+      // Se veio com pergunta inicial, dispara automaticamente
+      // (UX do toast "Posso ajudar?")
+      if (perguntaInicial?.trim()) {
+        setTimeout(() => perguntarRef.current(perguntaInicial.trim(), ctx), 100)
+      }
+    },
+    []
+  )
 
   const fechar = useCallback(() => {
     setAberto(false)
@@ -131,6 +145,9 @@ export function useAjudaInteligente() {
     },
     [contexto, perguntando]
   )
+
+  // Sincroniza a ref com a função atual a cada render
+  perguntarRef.current = perguntar
 
   return {
     aberto,
