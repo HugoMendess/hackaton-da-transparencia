@@ -39,6 +39,7 @@ export function Busca() {
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                maxLength={500}
                 placeholder="Ex: quanto foi gasto com merenda em São Luís este mês"
                 aria-label="Termo ou pergunta"
                 className={cn(
@@ -61,12 +62,11 @@ export function Busca() {
           {submitted && (
             <div className="mt-4 rounded-md border border-dashed border-border bg-muted/40 p-4">
               <p className="text-sm">
-                <strong>Resultados para:</strong>{" "}
+                <strong>Buscando:</strong>{" "}
                 <span className="font-mono">{submitted}</span>
               </p>
               <p className="mt-1 text-xs text-muted-foreground">
-                Em breve: integração com a busca real do portal e a AjudaInteligente
-                aparecerá como toast lateral discreto.
+                Carregando resultados...
               </p>
             </div>
           )}

@@ -21,13 +21,14 @@ export function useTermosBuscados(limit = 12) {
 
   useEffect(() => {
     let cancelled = false
+    const safeLimit = Math.min(Math.max(1, Math.floor(limit)), 50)
 
     supabase
       .from("termos_buscados")
       .select("termo, total_buscas")
       .eq("bloqueado", false)
       .order("total_buscas", { ascending: false })
-      .limit(limit)
+      .limit(safeLimit)
       .then(({ data, error }) => {
         if (cancelled) return
         if (error) {

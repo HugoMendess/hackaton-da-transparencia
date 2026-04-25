@@ -84,6 +84,15 @@ export function DashboardInicial({ onTermoClick }: { onTermoClick?: (termo: stri
   )
 }
 
+function slugifyId(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+}
+
 function Card({
   title,
   description,
@@ -97,14 +106,15 @@ function Card({
   children: React.ReactNode
   className?: string
 }) {
+  const id = `card-${slugifyId(title)}`
   return (
     <section
       className={`rounded-lg border border-border bg-card p-4 ${className ?? ""}`}
-      aria-labelledby={`card-${title}`}
+      aria-labelledby={id}
     >
       <div className="mb-3 flex items-start justify-between gap-2">
         <div>
-          <h3 id={`card-${title}`} className="flex items-center gap-2 font-semibold">
+          <h3 id={id} className="flex items-center gap-2 font-semibold">
             {icon}
             <span>{title}</span>
           </h3>
