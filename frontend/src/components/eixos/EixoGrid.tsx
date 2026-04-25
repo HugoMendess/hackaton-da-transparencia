@@ -9,6 +9,8 @@ import {
   Home,
   HandHeart,
   Hammer,
+  Drama,
+  Leaf,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react"
@@ -21,16 +23,20 @@ const ICONS: Record<string, LucideIcon> = {
   Home,
   HandHeart,
   Hammer,
+  Drama,
+  Leaf,
 }
 
 /**
- * Grid de eixos temáticos.
+ * Grid de 9 eixos temáticos (3x3 no desktop).
  *
- * Cada card carrega uma imagem decorativa de:
- *   /images/eixos/{slug}.svg (placeholder atual)
+ * Cada card carrega imagem de /images/eixos/{slug}.svg (placeholder
+ * atual). Quando a equipe entregar a versão .webp, basta substituir
+ * o arquivo no mesmo path.
  *
- * Quando a equipe entregar a imagem real (.webp), substituir o caminho
- * para /images/eixos/{slug}.webp em uma única linha (ver IMAGENS_NECESSARIAS.md).
+ * O eixo com `destaque: true` (Gestão Pública) recebe apenas borda
+ * primária e badge "Mais buscado" - mantém o mesmo tamanho dos demais
+ * para preservar a harmonia do grid.
  */
 export function EixoGrid() {
   return (
@@ -44,7 +50,7 @@ export function EixoGrid() {
             Por onde começar
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            7 eixos da vida do cidadão. Sem jargão. Em até 3 toques.
+            9 eixos da vida do cidadão. Sem jargão. Em até 3 toques.
           </p>
         </div>
       </div>
@@ -57,35 +63,36 @@ export function EixoGrid() {
               <Link
                 to={`/eixo/${eixo.slug}`}
                 className={cn(
-                  "group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card",
+                  "group flex h-full flex-col overflow-hidden rounded-lg border bg-card",
                   "transition-all duration-200",
-                  "hover:border-primary/40 hover:shadow-md",
-                  "focus-visible:border-primary focus-visible:shadow-md",
-                  eixo.destaque && "border-primary/40 sm:col-span-2 lg:col-span-3"
+                  "hover:shadow-md focus-visible:shadow-md",
+                  eixo.destaque
+                    ? "border-primary/40 ring-1 ring-primary/20 hover:border-primary/60"
+                    : "border-border hover:border-primary/40"
                 )}
                 aria-label={`Acessar eixo ${eixo.nome}`}
               >
-                {/* Imagem decorativa do eixo */}
-                <div
-                  className={cn(
-                    "relative w-full overflow-hidden bg-muted",
-                    eixo.destaque ? "aspect-[16/5] sm:aspect-[16/4]" : "aspect-[16/9]"
-                  )}
-                >
+                {/* Imagem decorativa (16:9) */}
+                <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted">
                   <img
                     src={`/images/eixos/${eixo.slug}.svg`}
                     alt=""
                     aria-hidden="true"
                     loading="lazy"
-                    className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    className="absolute inset-0 size-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                   />
+                  {eixo.destaque && (
+                    <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-primary-foreground shadow-md">
+                      Mais buscado
+                    </span>
+                  )}
                 </div>
 
                 {/* Conteúdo */}
                 <div className="flex flex-1 items-start gap-3 p-4">
                   <span
                     className={cn(
-                      "flex size-10 shrink-0 items-center justify-center rounded-md",
+                      "flex size-10 shrink-0 items-center justify-center rounded-md transition-colors",
                       eixo.destaque
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
@@ -95,16 +102,9 @@ export function EixoGrid() {
                   </span>
 
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-semibold text-foreground">
-                        {eixo.nome}
-                      </h3>
-                      {eixo.destaque && (
-                        <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-                          Mais buscado
-                        </span>
-                      )}
-                    </div>
+                    <h3 className="font-semibold text-foreground">
+                      {eixo.nome}
+                    </h3>
                     <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
                       {eixo.descricaoCidada}
                     </p>

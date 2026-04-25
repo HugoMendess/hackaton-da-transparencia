@@ -63,4 +63,18 @@ export const EIXOS: Eixo[] = [
     icone: "Hammer",
     destaque: false,
   },
+  {
+    slug: "cultura-esporte",
+    nome: "Cultura, Esporte e Lazer",
+    descricaoCidada: "Equipamentos culturais, eventos, esporte, juventude",
+    icone: "Drama",
+    destaque: false,
+  },
+  {
+    slug: "meio-ambiente",
+    nome: "Meio Ambiente",
+    descricaoCidada: "SEMA, recursos hídricos, fiscalização, áreas protegidas",
+    icone: "Leaf",
+    destaque: false,
+  },
 ]

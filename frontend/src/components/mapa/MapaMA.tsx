@@ -1,11 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { geoMercator, geoPath } from "d3-geo"
-import type {
-  Feature,
-  FeatureCollection,
-  Geometry,
-  GeoJsonProperties,
-} from "geojson"
 import { Loader2, MapPin, X, ZoomIn, ZoomOut, RotateCcw } from "lucide-react"
 import { useMunicipios } from "@/hooks/useMunicipios"
 import { formatBRL } from "@/lib/utils"
@@ -13,15 +7,18 @@ import { formatBRL } from "@/lib/utils"
 /**
  * Mapa interativo do Maranhão (217 municípios) implementado com SVG
  * puro + d3-geo. Sem dependência de bibliotecas com require() CJS.
- *
- * Dados: /geojson/maranhao-municipios.json (IBGE intermediária).
- * Indicador: gasto público estimado por município (mock determinístico
- * por código IBGE até a consolidação real do SIAFEM).
  */
 
-type MunicipioProps = GeoJsonProperties & { codarea: string | number }
-type GeoFeature = Feature<Geometry, MunicipioProps>
-type GeoCollection = FeatureCollection<Geometry, MunicipioProps>
+type FeatureRaw = {
+  type: "Feature"
+  properties: { codarea: string | number }
+  geometry: unknown
+}
+
+type GeoCollection = {
+  type: "FeatureCollection"
+  features: FeatureRaw[]
+}
 
 type DadoMunicipio = {
   gastoTotal: number
@@ -36,14 +33,16 @@ type Selecionado = {
   dado: DadoMunicipio
 }
 
+// Maranhão é mais alto que largo (latitude varia de -1 a -10).
+// ViewBox 800x900 acomoda bem com Mercator.
 const VIEWBOX_W = 800
-const VIEWBOX_H = 800
+const VIEWBOX_H = 900
 
 const CLASSE_FILL: Record<DadoMunicipio["classe"], string> = {
-  baixo: "hsl(152 50% 90%)",
-  medio: "hsl(152 60% 65%)",
-  alto: "hsl(152 70% 42%)",
-  altissimo: "hsl(152 75% 25%)",
+  baixo: "#DCFCE7",
+  medio: "#86EFAC",
+  alto: "#22C55E",
+  altissimo: "#15803D",
 }
 
 function gerarDadoMock(codarea: number): DadoMunicipio {
@@ -70,9 +69,7 @@ export function MapaMA() {
   const [selecionado, setSelecionado] = useState<Selecionado | null>(null)
   const [hover, setHover] = useState<string | null>(null)
   const [zoom, setZoom] = useState(1)
-  const svgRef = useRef<SVGSVGElement>(null)
 
-  // Carrega o GeoJSON apenas uma vez
   useEffect(() => {
     let cancelled = false
     fetch("/geojson/maranhao-municipios.json")
@@ -95,21 +92,32 @@ export function MapaMA() {
     }
   }, [])
 
-  // Path generator d3-geo com fitSize automático no viewbox
-  const pathGenerator = useMemo(() => {
-    if (!geo) return null
+  // Gera os paths SVG uma única vez quando o GeoJSON carrega
+  const paths = useMemo(() => {
+    if (!geo || geo.features.length === 0) return []
+
+    // d3-geo aceita FeatureCollection diretamente. Cast genérico para
+    // evitar conflitos de tipo entre @types/geojson e @types/d3-geo.
     const projection = geoMercator().fitSize(
       [VIEWBOX_W, VIEWBOX_H],
-      geo as unknown as GeoJSON.GeoJSON
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      geo as any
     )
-    return geoPath(projection)
+    const generator = geoPath(projection)
+
+    return geo.features.map((f) => {
+      const codarea = Number(f.properties.codarea)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const d = generator(f as any) ?? ""
+      return { codarea, d }
+    })
   }, [geo])
 
   const totalEstadual = useMemo(() => {
     if (!geo) return 0
     let total = 0
     for (const f of geo.features) {
-      total += gerarDadoMock(Number(f.properties?.codarea)).gastoTotal
+      total += gerarDadoMock(Number(f.properties.codarea)).gastoTotal
     }
     return total
   }, [geo])
@@ -149,7 +157,7 @@ export function MapaMA() {
         <div className="absolute right-3 top-3 z-10 flex flex-col gap-1 rounded-md border border-border bg-card/95 p-1 shadow-sm">
           <button
             type="button"
-            onClick={() => setZoom((z) => Math.min(z * 1.4, 6))}
+            onClick={() => setZoom((z) => Math.min(z * 1.4, 4))}
             className="flex size-7 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             aria-label="Aumentar zoom"
           >
@@ -174,38 +182,38 @@ export function MapaMA() {
         </div>
 
         <svg
-          ref={svgRef}
           viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-          className="aspect-square w-full"
+          className="block w-full"
+          style={{ background: "#F0FDF4" }}
           role="img"
           aria-label="Mapa interativo dos 217 municípios do Maranhão"
         >
-          <g style={{ transform: `scale(${zoom})`, transformOrigin: "center" }}>
-            {geo && pathGenerator &&
-              geo.features.map((f: GeoFeature) => {
-                const codarea = Number(f.properties?.codarea)
-                const nome = nomes.get(codarea) ?? "Município"
-                const dado = gerarDadoMock(codarea)
-                const isSelected = selecionado?.codarea === codarea
-                const d =
-                  pathGenerator(f as unknown as GeoJSON.GeoJSON) ?? ""
+          <g
+            transform={`translate(${VIEWBOX_W / 2}, ${VIEWBOX_H / 2}) scale(${zoom}) translate(${-VIEWBOX_W / 2}, ${-VIEWBOX_H / 2})`}
+          >
+            {paths.map(({ codarea, d }) => {
+              if (!d) return null
+              const nome = nomes.get(codarea) ?? "Município"
+              const dado = gerarDadoMock(codarea)
+              const isSelected = selecionado?.codarea === codarea
 
-                return (
-                  <path
-                    key={codarea}
-                    d={d}
-                    fill={isSelected ? "hsl(var(--primary))" : CLASSE_FILL[dado.classe]}
-                    stroke={isSelected ? "hsl(var(--primary))" : "hsl(var(--background))"}
-                    strokeWidth={isSelected ? 1.6 / zoom : 0.5 / zoom}
-                    className="cursor-pointer transition-colors duration-150 hover:stroke-primary hover:[stroke-width:1.4]"
-                    onMouseEnter={() => setHover(nome)}
-                    onMouseLeave={() => setHover(null)}
-                    onClick={() => setSelecionado({ codarea, nome, dado })}
-                    role="button"
-                    aria-label={`${nome}, ${formatBRL(dado.gastoTotal)} em gasto público estimado`}
-                  />
-                )
-              })}
+              return (
+                <path
+                  key={codarea}
+                  d={d}
+                  fill={isSelected ? "#0F7B40" : CLASSE_FILL[dado.classe]}
+                  stroke={isSelected ? "#0F7B40" : "#FFFFFF"}
+                  strokeWidth={isSelected ? 2 : 0.8}
+                  vectorEffect="non-scaling-stroke"
+                  style={{ cursor: "pointer", transition: "fill 0.12s" }}
+                  onMouseEnter={() => setHover(nome)}
+                  onMouseLeave={() => setHover(null)}
+                  onClick={() => setSelecionado({ codarea, nome, dado })}
+                  role="button"
+                  aria-label={`${nome}, ${formatBRL(dado.gastoTotal)} em gasto público estimado`}
+                />
+              )
+            })}
           </g>
         </svg>
 
@@ -253,7 +261,11 @@ export function MapaMA() {
 function LegendaItem({ cor, label }: { cor: string; label: string }) {
   return (
     <span className="inline-flex items-center gap-1.5">
-      <span className="size-3 rounded-sm" style={{ background: cor }} aria-hidden="true" />
+      <span
+        className="size-3 rounded-sm border border-border"
+        style={{ background: cor }}
+        aria-hidden="true"
+      />
       <span className="text-foreground/80">{label}</span>
     </span>
   )
