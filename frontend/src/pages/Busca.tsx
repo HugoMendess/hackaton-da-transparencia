@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { Search, Sparkles, Loader2 } from "lucide-react"
 import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { BottomNav } from "@/components/layout/BottomNav"
 import { DashboardInicial } from "@/components/busca/DashboardInicial"
 import { cn } from "@/lib/utils"
 
@@ -27,7 +29,7 @@ export function Busca() {
   }
 
   return (
-    <div className="min-h-svh bg-background text-foreground">
+    <div className="min-h-svh bg-background text-foreground pb-16 md:pb-0">
       <a href="#main" className="skip-link">Pular para o conteúdo</a>
       <Header />
 
@@ -121,6 +123,9 @@ export function Busca() {
           <DashboardInicial onTermoClick={aplicarTermo} />
         </section>
       </main>
+
+      <Footer />
+      <BottomNav />
     </div>
   )
 }

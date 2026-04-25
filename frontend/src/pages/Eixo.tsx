@@ -7,6 +7,8 @@ import {
   Sparkles,
 } from "lucide-react"
 import { Header } from "@/components/layout/Header"
+import { Footer } from "@/components/layout/Footer"
+import { BottomNav } from "@/components/layout/BottomNav"
 import { CardResumo } from "@/components/dashboard/CardResumo"
 import { GraficoBarra } from "@/components/dashboard/GraficoBarra"
 import { SerieHistorica } from "@/components/dashboard/SerieHistorica"
@@ -74,7 +76,7 @@ export function Eixo() {
     .reduce((s, d) => s + d.empenhado, 0)
 
   return (
-    <div className="min-h-svh bg-background text-foreground">
+    <div className="min-h-svh bg-background text-foreground pb-16 md:pb-0">
       <a href="#main" className="skip-link">Pular para o conteúdo</a>
       <Header />
 
@@ -128,8 +130,8 @@ export function Eixo() {
         </section>
 
         {/* Cards de resumo */}
-        <section className="container-page px-4 py-6">
-          <h2 className="sr-only">Resumo</h2>
+        <section className="container-page px-4 py-8">
+          <SectionHeader numero="01" titulo="Visão geral" descricao="Os números que importam para o cidadão" />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {dados.cardsResumo.map((card, i) => (
               <CardResumo key={card.label} card={card} destaque={i === 0} />
@@ -138,22 +140,25 @@ export function Eixo() {
         </section>
 
         {/* Gráficos */}
-        <section className="container-page grid gap-4 px-4 pb-6 lg:grid-cols-2">
-          <GraficoBarra
-            titulo="Composição dos gastos"
-            legenda={`Onde foi aplicado o orçamento (R$ ${(totalAnualMilhoes / 1000).toFixed(1)} bilhões em 2025)`}
-            dados={dados.composicaoGastos}
-          />
-          <SerieHistorica
-            titulo="Série histórica anual"
-            legenda="Empenhado, liquidado e pago de 2022 a 2026 (parcial)"
-            dados={dados.serieHistorica}
-          />
+        <section className="container-page px-4 pb-8">
+          <SectionHeader numero="02" titulo="Como o dinheiro foi usado" descricao={`Composição e evolução do orçamento de R$ ${(totalAnualMilhoes / 1000).toFixed(1)} bilhões em 2025`} />
+          <div className="grid gap-4 lg:grid-cols-2">
+            <GraficoBarra
+              titulo="Composição dos gastos"
+              legenda="Onde foi aplicado o orçamento (em milhões de reais)"
+              dados={dados.composicaoGastos}
+            />
+            <SerieHistorica
+              titulo="Série histórica anual"
+              legenda="Empenhado, liquidado e pago de 2022 a 2026 (parcial)"
+              dados={dados.serieHistorica}
+            />
+          </div>
         </section>
 
         {/* Destaques (lista) */}
         <section className="container-page px-4 pb-10">
-          <h2 className="mb-3 text-lg font-semibold">Destaques</h2>
+          <SectionHeader numero="03" titulo="Destaques" descricao="Iniciativas e órgãos com maior peso neste eixo" />
           <ul className="grid gap-3 sm:grid-cols-3">
             {dados.destaques.map((d) => (
               <li key={d.titulo}>
@@ -171,7 +176,41 @@ export function Eixo() {
           </ul>
         </section>
       </main>
+
+      <Footer />
+      <BottomNav />
     </div>
+  )
+}
+
+// --------------------------------------------------------------------
+// Cabeçalho de seção numerado (01, 02, 03)
+// --------------------------------------------------------------------
+function SectionHeader({
+  numero,
+  titulo,
+  descricao,
+}: {
+  numero: string
+  titulo: string
+  descricao?: string
+}) {
+  return (
+    <header className="mb-4 flex items-baseline gap-3">
+      <span className="font-display text-2xl font-bold text-primary/40">
+        {numero}
+      </span>
+      <div>
+        <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
+          {titulo}
+        </h2>
+        {descricao && (
+          <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">
+            {descricao}
+          </p>
+        )}
+      </div>
+    </header>
   )
 }
 
