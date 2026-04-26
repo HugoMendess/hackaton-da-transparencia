@@ -5,12 +5,14 @@ import {
   Calendar,
   TrendingUp,
   ArrowLeft,
+  ArrowRight,
   ExternalLink,
   Building2,
   MapPin,
   Briefcase,
   User,
   FileText,
+  ChevronDown,
   type LucideIcon,
 } from "lucide-react"
 import {
@@ -29,6 +31,13 @@ import { CardResumo } from "@/components/dashboard/CardResumo"
 import { TextoComGlossario } from "@/components/glossario/TermoTooltip"
 import { BotaoCompartilhar } from "@/components/compartilhar/BotaoCompartilhar"
 import { EIXOS } from "@/data/eixos"
+import {
+  type Servidor,
+  NOMES_FICTICIOS,
+  NIVEIS_PROFESSOR,
+  identificarCargo,
+  gerarServidores,
+} from "@/data/servidores"
 import { cn, formatBRL, formatNumber } from "@/lib/utils"
 
 const TIPO_ICONS: Record<string, LucideIcon> = {
@@ -47,6 +56,8 @@ const TIPO_LABELS: Record<string, string> = {
   termo: "Termo",
 }
 
+// CARGO_PARA_EIXO + identificarCargo movidos para data/servidores.ts (compartilhado com /servidor)
+
 type Transacao = {
   data: string
   descricao: string
@@ -61,12 +72,24 @@ type EvolucaoMes = {
   valor: number
 }
 
+// Servidor, NOMES_FICTICIOS, NIVEIS_PROFESSOR, LOTACOES_POR_EIXO movidos para data/servidores.ts
+
 export function Detalhe() {
   const [params] = useSearchParams()
   const termo = params.get("q") ?? ""
   const tipoParam = (params.get("tipo") ?? "termo").toLowerCase()
-  const eixoSlug = params.get("eixo") ?? "gestao-publica"
+  const eixoParam = params.get("eixo") ?? "gestao-publica"
   const tipo = tipoParam in TIPO_LABELS ? tipoParam : "termo"
+
+  // Corrige o eixo se o cargo pesquisado não bate com o eixo informado.
+  // Exemplo: "Professor" chega com eixo=obras vira eixo=educacao automaticamente.
+  const eixoSlug = useMemo(() => {
+    if (tipo === "cargo") {
+      const cargoMeta = identificarCargo(termo)
+      if (cargoMeta) return cargoMeta.slug
+    }
+    return eixoParam
+  }, [tipo, termo, eixoParam])
 
   const [carregando, setCarregando] = useState(true)
 
@@ -218,8 +241,16 @@ export function Detalhe() {
           </article>
         </section>
 
-        {/* Tabela de transações detalhadas */}
+        {/* Lista detalhada: servidores (cargo) ou transações (outros tipos) */}
         <section className="container-page px-4 pb-10">
+          {tipo === "cargo" ? (
+            <ListaServidoresCargo
+              servidores={dados.servidores}
+              carregando={carregando}
+              cargo={termo}
+              eixoSlug={eixoSlug}
+            />
+          ) : (
           <article className="rounded-lg border border-border bg-card shadow-sm">
             <header className="flex items-start gap-2 border-b border-border p-4">
               <span className="mt-0.5 flex size-7 items-center justify-center rounded-md bg-primary/10 text-primary">
@@ -313,6 +344,7 @@ export function Detalhe() {
               </div>
             )}
           </article>
+          )}
 
           {/* Ações */}
           <div className="mt-4 flex flex-wrap gap-2">
@@ -347,6 +379,255 @@ export function Detalhe() {
 
       <Footer />
       <BottomNav />
+    </div>
+  )
+}
+
+// --------------------------------------------------------------------
+// Lista de servidores no cargo (cards expansíveis com breakdown salarial)
+// --------------------------------------------------------------------
+function ListaServidoresCargo({
+  servidores,
+  carregando,
+  cargo,
+  eixoSlug,
+}: {
+  servidores: Servidor[]
+  carregando: boolean
+  cargo: string
+  eixoSlug: string
+}) {
+  const [selecionadoIdx, setSelecionadoIdx] = useState<number | null>(null)
+
+  return (
+    <article className="rounded-lg border border-border bg-card shadow-sm">
+      <header className="flex items-start gap-2 border-b border-border p-4">
+        <span className="mt-0.5 flex size-7 items-center justify-center rounded-md bg-primary/10 text-primary">
+          <User className="size-4" aria-hidden="true" />
+        </span>
+        <div className="flex-1">
+          <h3 className="font-semibold text-foreground">
+            Servidores neste cargo ({servidores.length})
+          </h3>
+          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+            Clique em qualquer servidor para abrir o extrato detalhado com proventos, descontos e líquido
+          </p>
+        </div>
+      </header>
+
+      {carregando ? (
+        <div className="space-y-2 p-4">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="h-16 animate-pulse rounded-md bg-muted"
+              style={{ animationDelay: `${i * 60}ms` }}
+            />
+          ))}
+        </div>
+      ) : (
+        <ul className="divide-y divide-border">
+          {servidores.map((s, idx) => {
+            const aberto = selecionadoIdx === idx
+            return (
+              <li key={`${s.nome}-${idx}`}>
+                <button
+                  type="button"
+                  onClick={() => setSelecionadoIdx(aberto ? null : idx)}
+                  aria-expanded={aberto}
+                  aria-controls={`breakdown-${idx}`}
+                  className={cn(
+                    "flex w-full items-center justify-between gap-3 p-4 text-left transition-colors",
+                    aberto ? "bg-accent/30" : "hover:bg-accent/30",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-inset"
+                  )}
+                >
+                  <div className="flex min-w-0 flex-1 items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                      <User className="size-5" aria-hidden="true" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate font-medium text-foreground">
+                        {s.nome}
+                      </p>
+                      <p className="truncate text-xs text-muted-foreground">
+                        {s.cargoNivel} · {s.orgao} · {s.lotacao}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-3">
+                    <div className="text-right">
+                      <p className="font-display text-base font-bold tabular text-success">
+                        {formatBRL(s.liquido)}
+                      </p>
+                      <p className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                        Líquido mensal
+                      </p>
+                    </div>
+                    <ChevronDown
+                      className={cn(
+                        "size-4 text-muted-foreground transition-transform",
+                        aberto && "rotate-180 text-primary"
+                      )}
+                      aria-hidden="true"
+                    />
+                  </div>
+                </button>
+
+                {aberto && (
+                  <div id={`breakdown-${idx}`}>
+                    <BreakdownServidor
+                      servidor={s}
+                      cargo={cargo}
+                      eixoSlug={eixoSlug}
+                      idx={idx}
+                    />
+                  </div>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </article>
+  )
+}
+
+// --------------------------------------------------------------------
+// Breakdown salarial detalhado (proventos x descontos x líquido)
+// --------------------------------------------------------------------
+function BreakdownServidor({
+  servidor,
+  cargo,
+  eixoSlug,
+  idx,
+}: {
+  servidor: Servidor
+  cargo: string
+  eixoSlug: string
+  idx: number
+}) {
+  const linhasProventos = [
+    { label: "Vencimento", valor: servidor.vencimento },
+    { label: "Gratificação técnica", valor: servidor.gratificacao },
+    { label: "Adicional por tempo de serviço", valor: servidor.adicionalTempo },
+    { label: "Outros proventos", valor: servidor.outrosProventos },
+  ]
+  const linhasDescontos = [
+    { label: "Contribuição previdenciária", valor: servidor.previdencia },
+    { label: "IRPF", valor: servidor.irpf },
+    { label: "Outros descontos", valor: servidor.outrosDescontos },
+  ]
+
+  return (
+    <div className="border-t border-border bg-muted/40 p-4">
+      {/* Dados do servidor (header de identificação) */}
+      <dl className="mb-4 grid grid-cols-2 gap-3 text-xs sm:grid-cols-4">
+        <div>
+          <dt className="font-medium text-muted-foreground">Lotação</dt>
+          <dd className="mt-0.5 text-foreground">{servidor.lotacao}</dd>
+        </div>
+        <div>
+          <dt className="font-medium text-muted-foreground">Órgão</dt>
+          <dd className="mt-0.5 text-foreground">{servidor.orgao}</dd>
+        </div>
+        <div>
+          <dt className="font-medium text-muted-foreground">Admissão</dt>
+          <dd className="mt-0.5 tabular text-foreground">{servidor.admissao}</dd>
+        </div>
+        <div>
+          <dt className="font-medium text-muted-foreground">CPF</dt>
+          <dd className="mt-0.5 tabular text-foreground">***.***.***-**</dd>
+        </div>
+      </dl>
+
+      <div className="grid gap-3 md:grid-cols-2">
+        {/* Proventos */}
+        <div className="rounded-md border border-border bg-card p-3">
+          <h4 className="mb-2 text-[10px] font-bold uppercase tracking-wider text-success">
+            Proventos
+          </h4>
+          <dl className="space-y-1.5 text-sm">
+            {linhasProventos.map((l) => (
+              <div
+                key={l.label}
+                className="flex items-center justify-between gap-2"
+              >
+                <dt className="text-muted-foreground">{l.label}</dt>
+                <dd className="tabular font-medium text-foreground">
+                  {formatBRL(l.valor)}
+                </dd>
+              </div>
+            ))}
+            <div className="mt-2 flex items-center justify-between gap-2 border-t border-border pt-2">
+              <dt className="font-semibold text-success">Total proventos</dt>
+              <dd className="tabular font-bold text-success">
+                {formatBRL(servidor.totalProventos)}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        {/* Descontos */}
+        <div className="rounded-md border border-border bg-card p-3">
+          <h4 className="mb-2 text-[10px] font-bold uppercase tracking-wider text-destructive">
+            Descontos
+          </h4>
+          <dl className="space-y-1.5 text-sm">
+            {linhasDescontos.map((l) => (
+              <div
+                key={l.label}
+                className="flex items-center justify-between gap-2"
+              >
+                <dt className="text-muted-foreground">{l.label}</dt>
+                <dd className="tabular font-medium text-foreground">
+                  {formatBRL(l.valor)}
+                </dd>
+              </div>
+            ))}
+            <div className="mt-2 flex items-center justify-between gap-2 border-t border-border pt-2">
+              <dt className="font-semibold text-destructive">Total descontos</dt>
+              <dd className="tabular font-bold text-destructive">
+                {formatBRL(servidor.totalDescontos)}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      {/* Líquido em destaque */}
+      <div className="mt-3 flex items-center justify-between gap-3 rounded-md border border-primary/30 bg-primary/5 p-3">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+            Remuneração líquida do mês
+          </p>
+          <p className="mt-0.5 text-xs text-muted-foreground">
+            Total proventos menos total descontos
+          </p>
+        </div>
+        <p className="font-display text-2xl font-bold tabular text-primary">
+          {formatBRL(servidor.liquido)}
+        </p>
+      </div>
+
+      {/* CTA: ver extrato completo (12 meses + gráficos) */}
+      <div className="mt-3 flex justify-end">
+        <Link
+          to={`/servidor?cargo=${encodeURIComponent(cargo)}&eixo=${encodeURIComponent(eixoSlug)}&idx=${idx}`}
+          className={cn(
+            "group inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-xs font-semibold",
+            "bg-gradient-to-br from-primary to-primary/85 text-primary-foreground",
+            "shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+            "transition-all duration-300 ease-out",
+            "hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(34,90,161,0.25),_0_12px_24px_-6px_rgba(34,90,161,0.55)]",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          )}
+          aria-label={`Ver extrato completo de ${servidor.nome} com gráficos e histórico mensal de 2026`}
+        >
+          Ver completo
+          <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+        </Link>
+      </div>
     </div>
   )
 }
@@ -427,32 +708,51 @@ function gerarDadosDetalhe(termo: string, tipo: string, eixoSlug: string) {
     valor: ((seed + i * 73) % 38) + 4, // 4 a 41 (em milhões)
   }))
 
-  // Transações detalhadas (15 itens)
-  const orgaos = ["SEDUC", "SES", "SEAD", "SINFRA", "PMMA", "SEINC"]
-  const naturezas = ["Material de consumo", "Serviços de terceiros", "Pessoal", "Equipamentos", "Obras"]
+  // Órgãos e natureza específicos do cargo (Professor → SEDUC/IEMA + Pessoal),
+  // com fallback transversal para outros tipos de busca.
+  const cargoMeta = tipo === "cargo" ? identificarCargo(termo) : null
+  const orgaos = cargoMeta?.orgaos ?? ["SEDUC", "SES", "SEAD", "SINFRA", "PMMA", "SEINC"]
+  const naturezasGenericas = ["Material de consumo", "Serviços de terceiros", "Pessoal", "Equipamentos", "Obras"]
   const statusOpcoes: Transacao["status"][] = ["Pago", "Liquidado", "Empenhado"]
 
   const transacoes: Transacao[] = Array.from({ length: 15 }, (_, i) => {
     const dia = ((seed + i * 7) % 28) + 1
     const mes = ((seed + i * 11) % 12) + 1
-    const valor = ((seed + i * 137) % 280 + 12) * 100_000
+    // Cargo: valor compatível com folha mensal (R$ 5k a R$ 45k).
+    // Outros tipos: mantém o range maior original (notas/contratos).
+    const valor = tipo === "cargo"
+      ? (((seed + i * 137) % 38) + 5) * 1_000
+      : (((seed + i * 137) % 280) + 12) * 100_000
     return {
       data: `${String(dia).padStart(2, "0")}/${String(mes).padStart(2, "0")}/2026`,
       descricao: gerarDescricaoTransacao(termo, tipo, i, seed),
       orgao: orgaos[(seed + i * 3) % orgaos.length],
-      natureza: naturezas[(seed + i * 5) % naturezas.length],
+      // Cargo sempre tem natureza "Pessoal" (folha de servidor).
+      natureza: tipo === "cargo" ? "Pessoal" : naturezasGenericas[(seed + i * 5) % naturezasGenericas.length],
       valor,
-      status: statusOpcoes[(seed + i * 13) % statusOpcoes.length],
+      // Cargo: prioriza Pago e Liquidado (folha não fica empenhada por muito tempo).
+      status: tipo === "cargo"
+        ? (i % 3 === 2 ? "Empenhado" : i % 2 === 0 ? "Pago" : "Liquidado")
+        : statusOpcoes[(seed + i * 13) % statusOpcoes.length],
     }
   })
+
+  // Servidores individuais quando o cidadão consulta por cargo. Lista cards
+  // clicáveis com breakdown salarial completo (proventos, descontos, líquido).
+  const servidores: Servidor[] = tipo === "cargo"
+    ? gerarServidores(termo, eixoSlug, seed, cargoMeta)
+    : []
 
   return {
     resposta: respostas[tipo] ?? respostas.termo,
     cards,
     evolucao,
     transacoes,
+    servidores,
   }
 }
+
+// gerarServidores, NOMES_FICTICIOS, NIVEIS_PROFESSOR movidos para data/servidores.ts
 
 function gerarDescricaoTransacao(termo: string, tipo: string, i: number, seed: number): string {
   const acoes = [
@@ -467,7 +767,15 @@ function gerarDescricaoTransacao(termo: string, tipo: string, i: number, seed: n
   if (tipo === "fornecedor") return `${acao} ${capitalize(termo)}`
   if (tipo === "municipio") return `Despesa em ${capitalize(termo)}`
   if (tipo === "orgao") return `Empenho da ${capitalize(termo)}`
-  if (tipo === "cargo") return `Folha de ${capitalize(termo)}`
+  if (tipo === "cargo") {
+    const nome = NOMES_FICTICIOS[(seed + i * 7) % NOMES_FICTICIOS.length]
+    const ehProfessor = termo.toLowerCase().includes("professor")
+    if (ehProfessor) {
+      const nivel = NIVEIS_PROFESSOR[(seed + i * 11) % NIVEIS_PROFESSOR.length]
+      return `Folha de ${nome} (${nivel})`
+    }
+    return `Folha de ${nome}`
+  }
   return `Despesa relacionada a ${capitalize(termo)}`
 }
 

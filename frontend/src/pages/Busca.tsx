@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {
   Search,
   Sparkles,
@@ -126,6 +127,7 @@ type ToastTrigger = {
 }
 
 export function Busca() {
+  const navigate = useNavigate()
   const [query, setQuery] = useState("")
   const [submitted, setSubmitted] = useState("")
   const [searching, setSearching] = useState(false)
@@ -441,7 +443,15 @@ export function Busca() {
                   <li key={a.tipo}>
                     <button
                       type="button"
-                      onClick={() => aplicarTermo(a.exemplos[0], a.tipo)}
+                      onClick={() => {
+                        // "Por Cargo" abre o catálogo de cargos diversificado
+                        // (em vez de buscar direto pelo primeiro exemplo).
+                        if (a.tipo === "cargo") {
+                          navigate("/cargos")
+                          return
+                        }
+                        aplicarTermo(a.exemplos[0], a.tipo)
+                      }}
                       data-atalho-card="true"
                       data-tema={a.tema}
                       className={cn(
@@ -706,9 +716,77 @@ function inferirTipo(termo: string): ResultadoMock["tipo"] {
   return "termo"
 }
 
+// Nomes ilustrativos para os resultados quando o cidadão pesquisa por
+// cargo (ex: "Professor"). São fictícios e marcados na nota de rodapé.
+const NOMES_FICTICIOS = [
+  "João Silva",
+  "Maria Antônio",
+  "Maria Gular",
+  "José Pereira",
+  "Ana Sousa",
+  "Carlos Oliveira",
+  "Fernanda Lima",
+  "Marcos Souza",
+  "Luiza Castro",
+  "Paulo Mendes",
+  "Beatriz Ferreira",
+  "Roberto Almeida",
+  "Patrícia Rocha",
+  "Antônio Carlos",
+  "Cláudia Nunes",
+]
+
+// Níveis da carreira do magistério, aplicados quando o cargo é "professor".
+const NIVEIS_PROFESSOR = [
+  "Nível Médio",
+  "Nível Superior",
+  "Especialista",
+  "Mestre",
+  "Doutor",
+]
+
 function gerarResultados(termo: string, tipoForcado?: ResultadoMock["tipo"]): ResultadoMock[] {
   const seed = hashString(termo)
   const tipo = tipoForcado ?? inferirTipo(termo)
+
+  // Caminho especial: cargo "Professor" gera pessoas com níveis no eixo Educação,
+  // com tipos de despesa específicos para servidor (folha, empenhos, diárias).
+  // Evita o ruído de "Professor - Notas fiscais" ou "Professor em Obras".
+  const ehProfessor = tipo === "cargo" && termo.toLowerCase().includes("professor")
+  if (ehProfessor) {
+    const eixoEducacao = { slug: "educacao", nome: "Educação e Futuro" }
+    const tiposPessoa = [
+      { lbl: "Folha de pagamento", det: "Última atualização: hoje" },
+      { lbl: "Empenhos do mês", det: "empenhos no mês" },
+      { lbl: "Pagamentos do trimestre", det: "Acumulado 90 dias" },
+      { lbl: "Diárias pagas", det: "Acumulado 12 meses" },
+      { lbl: "Despesa consolidada 2026", det: "Acumulado no ano" },
+    ]
+    const total = (seed % 12) + 8 // 8 a 19 resultados
+    return Array.from({ length: total }, (_, i) => {
+      const nome = NOMES_FICTICIOS[(seed + i * 7) % NOMES_FICTICIOS.length]
+      const nivel = NIVEIS_PROFESSOR[(seed + i * 11) % NIVEIS_PROFESSOR.length]
+      const t = tiposPessoa[i % tiposPessoa.length]
+      // Valores compatíveis com salário/folha de servidor (R$ 5k a R$ 45k)
+      const valor = (((seed + i * 137) % 38) + 5) * 1_000
+      const numero = ((seed + i * 19) % 12) + 1
+      const detalhe = t.det.includes("empenhos")
+        ? `${formatNumber(numero)} ${t.det}`
+        : t.det
+      const href = `/detalhe?q=${encodeURIComponent(termo)}&tipo=cargo&eixo=${eixoEducacao.slug}&recorte=${encodeURIComponent(t.lbl)}`
+      return {
+        titulo: `${nome} - Professor (${nivel})`,
+        subtitulo: `${t.lbl} - ${eixoEducacao.nome}`,
+        valor: formatBRL(valor),
+        detalhe,
+        href,
+        tipo: "cargo" as const,
+        eixoNome: eixoEducacao.nome,
+      }
+    })
+  }
+
+  // Caminho padrão (termos genéricos, fornecedor, órgão, município, etc.)
   const eixosAplicaveis = [
     { slug: "gestao-publica", nome: "Gestão Pública" },
     { slug: "saude", nome: "Saúde e Bem-Estar" },
@@ -736,8 +814,8 @@ function gerarResultados(termo: string, tipoForcado?: ResultadoMock["tipo"]): Re
   return Array.from({ length: total }, (_, i) => {
     const eixo = eixosAplicaveis[i % eixosAplicaveis.length]
     const t = tipos[i % tipos.length]
-    const valor = ((seed + i * 137) % 280 + 12) * 1_000_000
-    const numero = (seed + i * 19) % 58 + 4
+    const valor = (((seed + i * 137) % 280) + 12) * 1_000_000
+    const numero = ((seed + i * 19) % 58) + 4
     const detalhe = t.det.includes("contratos") ||
                     t.det.includes("empenhos") ||
                     t.det.includes("aguardando") ||

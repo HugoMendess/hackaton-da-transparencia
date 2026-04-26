@@ -7,6 +7,8 @@ import { Busca } from "@/pages/Busca"
 import { Eixo } from "@/pages/Eixo"
 import { Mapa } from "@/pages/Mapa"
 import { Detalhe } from "@/pages/Detalhe"
+import { Cargos } from "@/pages/Cargos"
+import { Servidor } from "@/pages/Servidor"
 import { Sobre } from "@/pages/Sobre"
 import { ScrollToTop } from "@/components/layout/ScrollToTop"
 import { AjudaInteligenteProvider } from "@/contexts/AjudaInteligenteContext"
@@ -23,6 +25,8 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/eixo/:slug" element={<Eixo />} />
           <Route path="/mapa" element={<Mapa />} />
           <Route path="/detalhe" element={<Detalhe />} />
+          <Route path="/cargos" element={<Cargos />} />
+          <Route path="/servidor" element={<Servidor />} />
           <Route path="/sobre" element={<Sobre />} />
         </Routes>
         <DrawerAjudaInteligente />
