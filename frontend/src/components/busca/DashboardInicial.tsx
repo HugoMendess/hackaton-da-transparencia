@@ -3,7 +3,6 @@ import {
   Sparkles,
   Activity,
   Award,
-  Database,
   Layers,
   ArrowUpRight,
   Flame,
@@ -620,35 +619,6 @@ function Card({
       </header>
       {children}
     </section>
-  )
-}
-
-function Metrica({
-  icon,
-  label,
-  valor,
-  legenda,
-}: {
-  icon?: React.ReactNode
-  label: string
-  valor: string
-  legenda?: string
-}) {
-  return (
-    <li className="flex items-center justify-between gap-3 py-2.5 first:pt-0 last:pb-0">
-      <div className="flex items-center gap-2">
-        {icon}
-        <span className="text-sm text-muted-foreground">{label}</span>
-      </div>
-      <div className="flex items-baseline gap-1">
-        <span className="text-xl font-semibold text-foreground tabular">
-          {valor}
-        </span>
-        {legenda && (
-          <span className="text-xs text-muted-foreground">{legenda}</span>
-        )}
-      </div>
-    </li>
   )
 }
 
