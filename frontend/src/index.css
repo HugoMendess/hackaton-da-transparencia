@@ -207,6 +207,123 @@
     height: 4px !important;
   }
 
+  /* Atalhos de busca: aplica o mesmo tratamento dos cards de métrica
+     (silhuetas brancas + faixa branca + sem glow) */
+  .high-contrast [data-atalho-card="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    border-width: 2px !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-atalho-card="true"] .bg-gradient-to-br,
+  .high-contrast [data-atalho-card="true"] .bg-orange-500 {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-atalho-card="true"] .text-primary-foreground,
+  .high-contrast [data-atalho-card="true"] .text-secondary-foreground,
+  .high-contrast [data-atalho-card="true"] .text-success-foreground,
+  .high-contrast [data-atalho-card="true"] .text-destructive-foreground,
+  .high-contrast [data-atalho-card="true"] .text-white {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  /* Podium dos termos mais buscados: remove gradients e cores de
+     medalha (yellow, slate, orange), usa borda branca grossa para
+     diferenciar as posições */
+  .high-contrast [data-podium="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-podium="true"] [class*="from-yellow"],
+  .high-contrast [data-podium="true"] [class*="from-slate"],
+  .high-contrast [data-podium="true"] [class*="from-orange"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+  }
+  .high-contrast [data-podium="true"] [class*="text-yellow"],
+  .high-contrast [data-podium="true"] [class*="text-slate"],
+  .high-contrast [data-podium="true"] [class*="text-white"] {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+  .high-contrast [data-podium-glow="true"] {
+    display: none !important;
+  }
+  /* Posição: 1° destaque com borda mais grossa, 2° e 3° normais */
+  .high-contrast [data-podium-pos="1"] {
+    border-width: 3px !important;
+  }
+
+  /* Mini-cards de Métrica: glow some, gradient vira sólido */
+  .high-contrast [data-metrica-mini="true"] {
+    background: hsl(var(--muted)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+  .high-contrast [data-metrica-mini="true"] .bg-gradient-to-br {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-metrica-mini="true"] .text-secondary-foreground,
+  .high-contrast [data-metrica-mini="true"] .text-primary-foreground {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+  .high-contrast [data-metrica-glow="true"] {
+    display: none !important;
+  }
+
+  /* ─── Cards do mapa em alto contraste ─────────────────────────
+     Filtro, Maranhão consolidado, painel município e indicadores
+     viram silhuetas brancas com fundo cinza escuro. */
+  .high-contrast [data-card-filtro="true"],
+  .high-contrast [data-card-consolidado="true"],
+  .high-contrast [data-card-municipio="true"],
+  .high-contrast [data-card-vazio="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    border-width: 2px !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-card-glow="true"] {
+    display: none !important;
+  }
+  .high-contrast [data-card-icon="true"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-card-icon="true"].text-primary-foreground,
+  .high-contrast [data-card-icon="true"] {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+  /* Indicadores Mini (Obras/Servidores): mesmas regras */
+  .high-contrast [data-indicador-mini="true"] {
+    background: hsl(var(--background)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+  .high-contrast [data-indicador-mini="true"] .bg-gradient-to-br {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-indicador-mini="true"] .text-white,
+  .high-contrast [data-indicador-mini="true"] .text-success-foreground {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  /* Badge do hero do mapa: igual aos outros badges */
+  .high-contrast [data-badge-hero-mapa="true"] {
+    background: hsl(var(--muted)) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--primary)) !important;
+    box-shadow: none !important;
+  }
+
   /* ─── Barra Institucional (header e hero) ──────────────────────
      A barra de 5 cores (vermelho/azul/verde/amarelo/laranja) vira
      uma única faixa branca em alto contraste, mantendo a função de

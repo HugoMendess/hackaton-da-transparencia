@@ -1,4 +1,4 @@
-import { Search, Map as MapIcon, Sparkles } from "lucide-react"
+import { Search, Map as MapIcon, Sparkles, Compass, Info, BarChart3 } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 import { Logo } from "@/components/layout/Logo"
 import { BackButton } from "@/components/layout/BackButton"
@@ -11,6 +11,7 @@ export function Header() {
   const location = useLocation()
   const isBuscaActive = location.pathname.startsWith("/busca")
   const isMapaActive = location.pathname.startsWith("/mapa")
+  const isHome = location.pathname === "/"
   const { abrir: abrirAjuda } = useAjudaInteligenteContext()
 
   return (
@@ -28,6 +29,39 @@ export function Header() {
         >
           <Logo />
         </Link>
+
+        {/* Atalhos de seção, apenas no desktop. Não substituem os ícones
+            de Buscar/Mapa/Pergunte da direita, são complementares e
+            apontam para as duas seções principais da home. */}
+        <nav
+          className="ml-6 hidden items-center gap-1 md:flex"
+          aria-label="Atalhos de seção"
+        >
+          <Link
+            to={isHome ? "#portal-hoje" : "/#portal-hoje"}
+            className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary"
+          >
+            <BarChart3 className="size-4" aria-hidden="true" />
+            <span>Dados do Portal</span>
+          </Link>
+
+          <Link
+            to={isHome ? "#eixos" : "/#eixos"}
+            className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary"
+          >
+            <Compass className="size-4" aria-hidden="true" />
+            <span>Começar Aqui</span>
+          </Link>
+
+          <Link
+            to="/sobre"
+            className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 text-sm font-semibold text-foreground transition-colors hover:bg-muted hover:text-primary"
+            aria-current={location.pathname === "/sobre" ? "page" : undefined}
+          >
+            <Info className="size-4" aria-hidden="true" />
+            <span>Sobre o Portal</span>
+          </Link>
+        </nav>
 
         <nav className="ml-auto flex items-center gap-1" aria-label="Navegação principal">
           <Link

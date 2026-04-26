@@ -22,12 +22,57 @@ import { useTermosBuscados } from "@/hooks/useTermosBuscados"
 import { useBuscaHistorico } from "@/hooks/useBuscaHistorico"
 import { cn, formatBRL, formatNumber } from "@/lib/utils"
 
+/**
+ * Tema institucional STC reaproveitado nos atalhos. Cada atalho recebe
+ * uma cor da paleta oficial (azul, vermelho, verde, laranja) aplicada
+ * de forma coerente em ícone, faixa e glow. Mesmo sistema dos cards
+ * de métrica da home. Strings literais p/ Tailwind detectar no scan.
+ */
+type Tema = {
+  faixa: string
+  iconBg: string
+  iconText: string
+  iconShadow: string
+  glow: string
+}
+
+const TEMAS = {
+  azul: {
+    faixa: "bg-primary",
+    iconBg: "bg-gradient-to-br from-primary to-primary/80",
+    iconText: "text-primary-foreground",
+    iconShadow: "shadow-md shadow-primary/30",
+    glow: "bg-primary/15",
+  },
+  vermelho: {
+    faixa: "bg-destructive",
+    iconBg: "bg-gradient-to-br from-destructive to-destructive/80",
+    iconText: "text-destructive-foreground",
+    iconShadow: "shadow-md shadow-destructive/30",
+    glow: "bg-destructive/15",
+  },
+  verde: {
+    faixa: "bg-success",
+    iconBg: "bg-gradient-to-br from-success to-success/80",
+    iconText: "text-success-foreground",
+    iconShadow: "shadow-md shadow-success/30",
+    glow: "bg-success/15",
+  },
+  laranja: {
+    faixa: "bg-orange-500",
+    iconBg: "bg-gradient-to-br from-orange-500 to-orange-400",
+    iconText: "text-white",
+    iconShadow: "shadow-md shadow-orange-500/30",
+    glow: "bg-orange-500/15",
+  },
+} as const satisfies Record<string, Tema>
+
 type Atalho = {
   tipo: "municipio" | "orgao" | "fornecedor" | "cargo"
   label: string
   icone: LucideIcon
   exemplos: string[]
-  cor: string
+  tema: keyof typeof TEMAS
 }
 
 const ATALHOS: Atalho[] = [
@@ -36,28 +81,28 @@ const ATALHOS: Atalho[] = [
     label: "Município",
     icone: MapPin,
     exemplos: ["São Luís", "Imperatriz", "Caxias"],
-    cor: "from-emerald-500 to-emerald-600",
+    tema: "azul",
   },
   {
     tipo: "orgao",
     label: "Órgão",
     icone: Building2,
     exemplos: ["SEDUC", "SES", "Polícia Civil"],
-    cor: "from-sky-500 to-sky-600",
+    tema: "vermelho",
   },
   {
     tipo: "fornecedor",
     label: "Fornecedor",
     icone: Briefcase,
     exemplos: ["Norcia", "Fast Ambiental", "CNPJ"],
-    cor: "from-amber-500 to-amber-600",
+    tema: "verde",
   },
   {
     tipo: "cargo",
     label: "Cargo",
     icone: User,
     exemplos: ["Professor", "Médico", "Soldado"],
-    cor: "from-rose-500 to-rose-600",
+    tema: "laranja",
   },
 ]
 
@@ -284,9 +329,14 @@ export function Busca() {
                   type="submit"
                   disabled={query.trim().length === 0 || searching}
                   className={cn(
-                    "inline-flex h-12 items-center justify-center gap-2 rounded-md px-5 text-sm font-semibold transition-colors duration-200",
-                    "bg-primary text-primary-foreground hover:bg-primary/90",
-                    "disabled:opacity-50 disabled:hover:bg-primary"
+                    "group inline-flex h-12 items-center justify-center gap-2 rounded-lg px-5 text-sm font-semibold",
+                    "bg-gradient-to-br from-primary to-primary/85 text-primary-foreground",
+                    "shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+                    "ring-1 ring-primary/30",
+                    "transition-all duration-300 ease-out",
+                    "hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(34,90,161,0.25),_0_12px_24px_-6px_rgba(34,90,161,0.55)]",
+                    "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 disabled:hover:shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   )}
                 >
                   {searching ? (
@@ -384,31 +434,72 @@ export function Busca() {
                 Atalhos para os tipos de consulta mais comuns
               </p>
             </header>
-            <ul className="grid grid-cols-2 gap-3 md:grid-cols-4">
-              {ATALHOS.map((a) => (
-                <li key={a.tipo}>
-                  <button
-                    type="button"
-                    onClick={() => aplicarTermo(a.exemplos[0], a.tipo)}
-                    className="group flex h-full w-full flex-col items-start gap-2 rounded-lg border border-border bg-card p-4 text-left transition-all duration-200 hover:border-primary/40 hover:shadow-md focus-visible:border-primary"
-                  >
-                    <span
+            <ul className="grid grid-cols-2 gap-4 md:grid-cols-4">
+              {ATALHOS.map((a) => {
+                const tema = TEMAS[a.tema]
+                return (
+                  <li key={a.tipo}>
+                    <button
+                      type="button"
+                      onClick={() => aplicarTermo(a.exemplos[0], a.tipo)}
+                      data-atalho-card="true"
+                      data-tema={a.tema}
                       className={cn(
-                        "flex size-9 items-center justify-center rounded-md bg-gradient-to-br text-white shadow-sm",
-                        a.cor
+                        "group relative flex h-full w-full flex-col items-start gap-3 overflow-hidden rounded-xl border border-border/70 bg-card p-5 text-left",
+                        "shadow-[0_1px_2px_rgba(0,0,0,0.04),_0_8px_24px_-10px_rgba(0,0,0,0.08)]",
+                        "transition-all duration-300 ease-out",
+                        "hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-[0_4px_12px_rgba(0,0,0,0.06),_0_16px_36px_-12px_rgba(0,0,0,0.12)]",
+                        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                       )}
                     >
-                      <a.icone className="size-5" aria-hidden="true" />
-                    </span>
-                    <span className="font-semibold text-foreground">
-                      Por {a.label}
-                    </span>
-                    <span className="text-xs leading-relaxed text-muted-foreground">
-                      Ex: {a.exemplos.slice(0, 2).join(", ")}
-                    </span>
-                  </button>
-                </li>
-              ))}
+                      {/* Glow decorativo no canto (cor do tema) */}
+                      <span
+                        aria-hidden="true"
+                        data-glow-canto="true"
+                        className={cn(
+                          "pointer-events-none absolute -right-8 -top-8 size-24 rounded-full blur-2xl",
+                          tema.glow
+                        )}
+                      />
+
+                      <span
+                        className={cn(
+                          "flex size-10 items-center justify-center rounded-lg transition-transform duration-300 group-hover:scale-105",
+                          tema.iconBg,
+                          tema.iconText,
+                          tema.iconShadow
+                        )}
+                      >
+                        <a.icone className="size-5" aria-hidden="true" />
+                      </span>
+                      <span className="font-semibold text-foreground">
+                        Por {a.label}
+                      </span>
+                      <span className="text-xs leading-relaxed text-muted-foreground">
+                        Ex: {a.exemplos.slice(0, 2).join(", ")}
+                      </span>
+
+                      {/* Faixa colorida institucional na base */}
+                      <span
+                        aria-hidden="true"
+                        data-faixa-tema="true"
+                        className={cn(
+                          "absolute inset-x-0 bottom-0 h-1 transition-all duration-300 group-hover:h-1.5",
+                          tema.faixa
+                        )}
+                      />
+                      <span
+                        aria-hidden="true"
+                        data-glow-tema="true"
+                        className={cn(
+                          "pointer-events-none absolute inset-x-0 bottom-0 h-12 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-25",
+                          tema.faixa
+                        )}
+                      />
+                    </button>
+                  </li>
+                )
+              })}
             </ul>
           </section>
         )}
@@ -487,15 +578,27 @@ export function Busca() {
               </ul>
             ) : resultadosTotais && resultadosTotais.length > 0 ? (
               <>
-                <ul className="space-y-2">
+                <ul className="space-y-3">
                   {resultadosTotais.slice(0, exibindo).map((r, i) => (
                     <li key={i}>
                       <a
                         href={r.href}
-                        className="group flex flex-col gap-1 rounded-md border border-border bg-card p-3 transition-colors duration-200 hover:border-primary/40 hover:bg-accent/30 sm:flex-row sm:items-center sm:gap-4"
+                        className={cn(
+                          "group relative flex flex-col gap-1 overflow-hidden rounded-xl border border-border/70 bg-card p-4",
+                          "shadow-[0_1px_2px_rgba(0,0,0,0.04),_0_6px_18px_-8px_rgba(0,0,0,0.08)]",
+                          "transition-all duration-300 ease-out",
+                          "hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_4px_10px_rgba(34,90,161,0.06),_0_14px_30px_-10px_rgba(34,90,161,0.14)]",
+                          "sm:flex-row sm:items-center sm:gap-4"
+                        )}
                       >
+                        {/* Acento lateral azul que aparece no hover */}
+                        <span
+                          aria-hidden="true"
+                          className="pointer-events-none absolute inset-y-0 left-0 w-1 origin-left scale-y-0 bg-gradient-to-b from-primary to-primary/60 transition-transform duration-300 ease-out group-hover:scale-y-100"
+                        />
+
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-semibold text-foreground">
+                          <h3 className="font-semibold text-foreground transition-colors group-hover:text-primary">
                             {r.titulo}
                           </h3>
                           <p className="mt-0.5 text-xs text-muted-foreground">
@@ -511,7 +614,7 @@ export function Busca() {
                           </span>
                         </div>
                         <ArrowUpRight
-                          className="hidden size-4 shrink-0 text-muted-foreground/60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary sm:block"
+                          className="hidden size-4 shrink-0 text-muted-foreground/60 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary sm:block"
                           aria-hidden="true"
                         />
                       </a>

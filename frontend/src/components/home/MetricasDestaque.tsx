@@ -90,8 +90,9 @@ const METRICAS: Metrica[] = [
 export function MetricasDestaque() {
   return (
     <section
+      id="portal-hoje"
       aria-labelledby="metricas-destaque-titulo"
-      className="border-y border-border bg-card"
+      className="scroll-mt-20 border-y border-border bg-card"
     >
       <div className="container-page px-4 py-8">
         <header className="mb-6 max-w-2xl">

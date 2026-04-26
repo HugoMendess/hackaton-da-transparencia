@@ -165,5 +165,36 @@ A substituição é mais ambiciosa, mas é a única que entrega o passo de 2026 
 O Portal da Transparência ataca as 4 frentes simultaneamente. A especificação completa de como cada uma é resolvida está em `SOLUCAO.md`.
 
 ---
+
+## Estado da Implementação (atualizado 2026-04-26)
+
+### Frontend
+- 9 eixos temáticos com dashboards completos
+- Mapa interativo com 217 municípios (Leaflet)
+- **Filtro de cidade no mapa** com autocomplete (resolve a barreira de
+  geolocalização para cidadãos que não sabem onde a cidade fica)
+- Página de busca com dashboard inicial criativo (podium dos termos
+  mais buscados, gauge circular do score TCE-MA, timeline horizontal
+  de atualizações)
+- Cards refinados em todas as páginas com sombras multi-layer, hover
+  lift, gradientes sutis e tema institucional STC por cor
+- Acessibilidade WCAG AAA com modo alto contraste agressivo
+- Identidade visual STC (azul, vermelho, verde, mostarda, laranja)
+  aplicada em barra institucional, faixas coloridas dos cards e PDF
+
+### IA
+- AjudaInteligente com Claude Haiku 4.5
+- Multi-turn de até 10 interações com sanitização de histórico
+- RAG primitivo nos 9 eixos
+- Integração com API pública do Portal MA (`/api/consulta-unidades`)
+- Cache semântico SHA-256 + 10 perguntas pré-cacheadas
+- 7 salvaguardas de segurança (LGPD, anti-injection, rate limit, etc)
+
+### Funcionalidades extras
+- Compartilhamento via WhatsApp em qualquer eixo, busca ou município
+- Memorial PDF gerado on-demand com identidade visual STC
+- Página /sobre institucional
+
+---
 Criado por André Lopes
 Desenvolvedor Fullstack
