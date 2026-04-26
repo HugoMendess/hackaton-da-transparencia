@@ -105,9 +105,7 @@ A resposta certa não foi escolher uma única direção, foi compor todas em um 
 
 **Eixos Temáticos (substituem os menus contábeis).** Sete eixos organizam o portal pela vida do cidadão. Diferente do que parece intuitivo, **Gestão Pública (servidores, salários, fornecedores, contratos) está no topo** porque concentra 72% do uso real do portal atual. Os demais eixos (Saúde, Educação, Programas Sociais, Obras, Habitação, Segurança) representam o uso aspiracional que a STC quer ampliar.
 
-**AjudaInteligente.** A IA do Portal da Transparência não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje. Aparece em dois entry points:
-- **Busca avançada:** quando a busca retorna muitos resultados, zero, ou é complexa
-- **Explorer dos dashboards:** ícone 💡 nos cards e gráficos, sugestão proativa após 15 segundos
+**AjudaInteligente.** A IA do Portal da Transparência não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje.
 
 **Dashboard inicial nas páginas de busca.** Resolve o problema das páginas de busca atuais que não trazem nada visual. Primeira dobra com termos mais buscados em tempo real (extraídos dos dados reais cedidos pela STC), métricas em destaque e atualizações recentes. A apresentação da STC de 2022 já mencionava essa direção ("Mais Buscados").
 
