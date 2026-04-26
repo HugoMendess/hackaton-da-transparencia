@@ -181,6 +181,20 @@ O Portal da Transparência ataca as 4 frentes simultaneamente. A especificação
 - Acessibilidade WCAG AAA com modo alto contraste agressivo
 - Identidade visual STC (azul, vermelho, verde, mostarda, laranja)
   aplicada em barra institucional, faixas coloridas dos cards e PDF
+- **Catálogo de cargos `/cargos`** com 28 cargos diversificados em 9
+  eixos (Professor, Médico, Soldado, Engenheiro, Auditor, etc.) com
+  filtro por eixo, busca textual e métricas agregadas (folha mensal,
+  servidores, salário médio)
+- **Extrato individual do servidor `/servidor`** com dashboard de
+  gráficos (linha, pizza, barras agrupadas) + tabela mensal completa
+  de 10 rubricas × 12 meses (com terço de férias em Junho e 13º em
+  Dezembro)
+- **Lista de servidores expansível no `/detalhe`** (tipo=cargo) com
+  breakdown salarial inline (Proventos, Descontos, Líquido) e botão
+  "Ver completo" para o extrato anual
+- **Correção automática de eixo por cargo**: pesquisar "Professor"
+  vindo de `/eixo/obras` redireciona contextualmente para Educação
+  com órgãos certos (SEDUC, IEMA, UEMA) e natureza Pessoal
 
 ### IA
 - AjudaInteligente com Claude Haiku 4.5
@@ -193,7 +207,13 @@ O Portal da Transparência ataca as 4 frentes simultaneamente. A especificação
 ### Funcionalidades extras
 - Compartilhamento via WhatsApp em qualquer eixo, busca ou município
 - Memorial PDF gerado on-demand com identidade visual STC
-- Página /sobre institucional
+- Página `/sobre` reescrita do zero com foco no Selo Diamante (hero
+  com `DiamanteVisual` SVG, timeline da evolução dos selos, dashboard
+  dos 8 critérios da CGU, 4 cards "Selo na vida real", 4 cards de
+  métricas reais, schema cromático rotativo azul/vermelho/verde/laranja)
+- Nomes fictícios e níveis do magistério (Médio/Superior/Especialista/
+  Mestre/Doutor) nos extratos de servidor para apresentação realista,
+  com CPF sempre mascarado por LGPD por padrão
 
 ---
 Criado por André Lopes

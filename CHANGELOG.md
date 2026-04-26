@@ -8,6 +8,178 @@ seguindo versionamento semântico [SemVer](https://semver.org/lang/pt-BR/).
 
 ---
 
+## [0.7.0] - 2026-04-26
+
+### Added
+
+#### Catálogo de cargos diversificado (`/cargos`)
+- **Nova rota `/cargos`** com catálogo completo dos 28 cargos da rede estadual,
+  organizados por eixo da vida do cidadão. Resolve o problema do atalho
+  "Por Cargo" da `/busca` que levava direto a "Professor" sem diversificação.
+- **`data/cargos-catalog.ts`**: dataset com 28 cargos cobrindo os 9 eixos
+  (Educação, Saúde, Segurança, Obras, Habitação, Programas Sociais,
+  Cultura/Esporte, Meio Ambiente, Gestão Pública). Cada cargo tem nome,
+  descrição cidadã, total de folha mensal, número de servidores, salário
+  médio e flag `destaque` (Professor, Médico, Soldado PM).
+- **`pages/Cargos.tsx`**: grid responsivo (1/2/3/4 colunas), filtro por
+  texto e por eixo, header agregando 3 stats (cargos exibidos, folha total,
+  servidores). Cards clicáveis levam para `/detalhe?tipo=cargo&q=<cargo>&eixo=<slug>`.
+
+#### Extrato individual do servidor (`/servidor`)
+- **Nova rota `/servidor`** com extrato completo do servidor, acessada via
+  botão "Ver completo" em cada breakdown da `/detalhe`.
+- **`pages/Servidor.tsx`** com layout em 4 camadas:
+  - Header com avatar grande + nome + cargo (nível) + 4 cards de
+    identificação (Órgão, Lotação, Admissão, CPF mascarado).
+  - Panorama 2026 em 4 cards de resumo (Líquido mensal, Proventos no
+    ano, Descontos no ano, Líquido no ano).
+  - **Dashboard de gráficos no topo**: linha de evolução mensal com 3
+    séries (Proventos, Descontos, Líquido), pizza de composição dos
+    proventos, barras agrupadas Proventos vs Descontos.
+  - **Tabela mensal completa**: 10 rubricas × 12 meses (Jan a Dez), com
+    coluna sticky, linhas-totais coloridas (Total Proventos verde, Total
+    Descontos vermelho, Líquido azul) e zeros renderizados como `—`.
+- **Histórico mensal realista**: junho recebe terço de férias (+33%),
+  dezembro recebe 13º (+85%), demais meses estáveis. Implementado em
+  `gerarHistoricoMensal` (data/servidores.ts).
+
+#### Lista de servidores no `/detalhe` (tipo=cargo)
+- **`ListaServidoresCargo`** substitui a tabela genérica de transações
+  quando o cidadão pesquisa por cargo. Mostra 8-12 servidores em cards
+  clicáveis com nome, cargo+nível, órgão, lotação e líquido mensal.
+- **`BreakdownServidor` expansível inline**: ao clicar no card, abre
+  identificação (Lotação, Órgão, Admissão, CPF mascarado) + 2 colunas
+  (Proventos verde, Descontos vermelho) + card destaque com Líquido
+  azul + **botão "Ver completo"** levando para `/servidor`.
+
+#### Chips de cargos populares no `ConsultaEspecifica`
+- Quando o cidadão clica na aba "Por cargo", aparecem chips clicáveis
+  pré-filtrados pelo eixo:
+  - Educação: Professor, Diretor Escolar, Coordenador Pedagógico, Bibliotecário
+  - Saúde: Médico, Enfermeiro, Técnico de Enfermagem, Farmacêutico
+  - Segurança: Soldado, Sargento, Delegado, Bombeiro, Agente Penitenciário
+  - Obras: Engenheiro Civil, Arquiteto, Topógrafo, Técnico em Obras
+  - (mais 5 eixos com cargos contextuais)
+- Click no chip preenche o input e dispara a busca automaticamente.
+
+#### Sugestões contextuais por eixo
+- **`SUGESTOES_POR_EIXO`** no `ConsultaEspecifica` reescreve placeholder
+  e texto de ajuda dos campos conforme o eixo onde o cidadão está.
+  Em `/eixo/obras`, o campo "Por cargo" agora sugere "Engenheiro Civil,
+  Técnico em Obras, Topógrafo" no lugar do genérico "professor, médico,
+  soldado". Resolve o problema do cidadão pesquisar "Professor em Obras".
+
+#### Página `/sobre` reescrita do zero com foco no Selo Diamante
+- **Hero épico do Diamante**: gradient azul + pattern de pontos + 2 glows
+  (white + secondary), `DiamanteVisual` custom (anel circular SVG com
+  score 98,5% animado em mostarda + ícone Gem grande dourado com glow +
+  badge flutuante "98,5/100"). Inclui 3 mini-selos de credibilidade
+  (Top 1 Estado MA, Selo Diamante CGU, Score 98,5).
+- **Timeline da evolução dos selos** (5 marcos: Ouro 2020, Prata 2021,
+  Bronze 2022, Diamante 2023+2024) com linha conectora horizontal em
+  gradient amber→orange→primary e badge "atual" no Diamante consecutivo.
+- **Dashboard de critérios da CGU**: 8 critérios com progress bars
+  individuais somando 98,5/100. Inclui card de compromisso da nova
+  versão (manter Diamante, elevar para 100/100, preservar 115 categorias,
+  redirecionar URLs, auditoria diária).
+- **Significado pro cidadão** em 4 cards (Tempo real, Completo, Visível,
+  Auditado) com explicação cidadã + nota técnica.
+- **Métricas reais** em 4 cards coloridos (320 mil usuários, 4 milhões
+  de visualizações, +1.144% busca, 56% mobile).
+- **Problema vs Solução** lado a lado, **6 Diferenciais**, **Stack
+  tecnológica em 3 blocos** (Frontend, Backend, IA/DevOps), **Equipe**
+  com 3 cards (André, Alexandre, Alexsander), **Compliance** com 6 leis,
+  **CTA final** com mesmo gradient do hero.
+
+### Changed
+
+#### Schema cromático rotativo nos cards de `/sobre`
+- **`TEMAS_CARD`** com 4 cores institucionais (azul, vermelho, verde,
+  laranja) aplicadas como faixa inferior nos cards repetidos
+  (CardCriterio, CardSignificado, Diferencial, BlocoStack, CardEquipe).
+- Mesmo padrão usado nos cards de eixo da home (faixa colorida no
+  bottom + animação `group-hover:h-1.5`).
+- `CardMetrica` ganhou prop `cor: "primary" | "success" | "orange" |
+  "destructive"` substituindo o anterior `secondary` por `orange` para
+  alinhar ao schema.
+
+#### Atalho "Por Cargo" da `/busca` agora navega para `/cargos`
+- Antes: clicar no card "Por Cargo" disparava `aplicarTermo("Professor",
+  "cargo")` indo direto para resultados de Professor.
+- Depois: clicar navega para `/cargos` (catálogo diversificado).
+
+#### Resultados de "Professor" na `/busca` diversificados
+- **`gerarResultados`** detecta o caso especial cargo=Professor e gera
+  8-19 cards distintos com formato "Nome - Professor (Nível)" no lugar
+  de "Professor - X" repetido em todos os eixos. Restringe os resultados
+  ao eixo Educação (em vez de ciclar entre todos), usa tipos de despesa
+  específicos para servidor (Folha, Empenhos, Pagamentos, Diárias,
+  Despesa Consolidada) e valores compatíveis com folha (R$ 5k a R$ 45k
+  no lugar de R$ 12 mi a R$ 280 mi).
+
+#### Detalhe corrige automaticamente o eixo pelo cargo
+- **`CARGO_PARA_EIXO`** no `data/servidores.ts` mapeia 16 cargos para
+  seu eixo correto e órgãos prováveis (Professor → Educação SEDUC/IEMA;
+  Médico → Saúde SES/EMSERH; Soldado → Segurança PMMA, etc.).
+- `useMemo` no Detalhe corrige o eixoSlug se a URL veio com o eixo
+  errado (ex: `eixo=obras` + cargo=professor vira `eixo=educacao`).
+- Tabela de transações usa órgãos do cargo (Professor → SEDUC/IEMA/UEMA
+  no lugar de SES/PMMA aleatórios).
+- Natureza da transação fixa em "Pessoal" para tipo=cargo (no lugar
+  de "Serviços de terceiros" aleatório).
+- Valores compatíveis com folha (R$ 5k-45k) no lugar do range genérico
+  R$ 12mi-280mi.
+- Status prioriza Pago e Liquidado (folha não fica empenhada por muito
+  tempo).
+
+#### Nomes fictícios e níveis do magistério no Detalhe
+- **`NOMES_FICTICIOS`**: 15 nomes brasileiros genéricos (João Silva,
+  Maria Antônio, Maria Gular, José Pereira, Ana Sousa, Carlos Oliveira,
+  Fernanda Lima, Marcos Souza, Luiza Castro, Paulo Mendes, Beatriz
+  Ferreira, Roberto Almeida, Patrícia Rocha, Antônio Carlos, Cláudia
+  Nunes). Substituem "Folha de Professor" repetido 15 vezes por
+  "Folha de João Silva", "Folha de Maria Antônio", etc.
+- **`NIVEIS_PROFESSOR`**: 5 níveis do plano de cargos do magistério
+  (Médio, Superior, Especialista, Mestre, Doutor). Aplicados quando
+  o cargo pesquisado contém "professor". Resultado: "Folha de João
+  Silva (Especialista)" em cada linha.
+
+### Fixed
+
+#### Resultados clicáveis no `ConsultaEspecifica`
+- O `<article>` decorativo dos resultados agora é um `<Link>` real
+  apontando para `/detalhe?q=<filtro>&tipo=<tipo>&eixo=<eixoSlug>`.
+- Mapeamento `TIPO_PARA_DETALHE` traduz `servidor` → `cargo` (a rota
+  `/detalhe` espera `tipo=cargo`).
+- A11y: adicionados `aria-label`, `focus-visible:ring-2`, e o
+  `ArrowRight` agora aparece em mobile também (não só em sm:).
+
+#### Badge "atual" do Diamante 2023/2024 estava clipada
+- O `overflow-hidden` adicionado no `CardSelo` durante o teste de
+  bordas vermelhas estava clipando a badge `-top-2`. Removido,
+  mantendo só o `relative` original. A badge mostarda volta a aparecer.
+
+### Refactored
+
+#### Extração para `data/servidores.ts`
+- Movidos do `Detalhe.tsx` para `data/servidores.ts`:
+  - Tipo `Servidor` (15 campos: nome, cargo, lotação, admissão,
+    proventos, descontos, líquido).
+  - Tipo `CargoMeta` e mapa `CARGO_PARA_EIXO` (16 cargos).
+  - Função `identificarCargo` (substring match case-insensitive).
+  - Função `gerarServidores` (gerador determinístico com seed +
+    índice, salário-base por nível do magistério).
+  - Função `gerarHistoricoMensal` (NEW): gera 12 meses com variações
+    realistas (terço de férias em junho, 13º em dezembro).
+  - Constantes `NOMES_FICTICIOS`, `NIVEIS_PROFESSOR`, `LOTACOES_POR_EIXO`.
+- Compartilhado entre `/detalhe` (lista de cards) e `/servidor`
+  (extrato completo). Geração 100% determinística garante que a
+  mesma URL sempre retorna o mesmo servidor sem persistir estado
+  entre páginas.
+- Removidas ~110 linhas duplicadas do `Detalhe.tsx`.
+
+---
+
 ## [0.6.0] - 2026-04-26
 
 ### Added
