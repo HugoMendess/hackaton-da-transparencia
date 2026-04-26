@@ -20,7 +20,7 @@ export function Logo({ className }: { className?: string }) {
       loading="eager"
       decoding="async"
       data-logo="true"
-      className={cn("h-11 w-auto", className)}
+      className={cn("h-14 w-auto", className)}
     />
   )
 }

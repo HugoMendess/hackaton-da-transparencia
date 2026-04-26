@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
-const STORAGE_KEY = "transparama:busca:historico"
+const STORAGE_KEY = "portal-transparencia:busca:historico"
 const MAX_ITEMS = 5
 
 /**

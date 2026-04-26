@@ -4,9 +4,12 @@
 
 @layer base {
   :root {
-    /* Tema institucional MA: verde primário + dourado de destaque */
+    /* Paleta institucional do Portal da Transparência:
+       azul (lupa do logo) + vermelho (destrutivo) + preto (texto)
+       + mostarda (destaque/atenção). Todas as relações cumprem
+       contraste mínimo WCAG AA, com a primary em AAA sobre branco. */
     --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    --foreground: 222 47% 11%;          /* preto azulado p/ texto */
 
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -14,30 +17,30 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 152 70% 28%;
+    --primary: 215 65% 38%;             /* azul Portal MA, ~#225AA1 */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 80% 52%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 42 78% 48%;            /* mostarda quente, ~#D9A123 */
+    --secondary-foreground: 0 0% 8%;
 
     --muted: 210 20% 96%;
     --muted-foreground: 215 20% 35%;
 
-    --accent: 152 50% 94%;
-    --accent-foreground: 152 70% 22%;
+    --accent: 215 50% 94%;              /* azul muito claro p/ áreas sutis */
+    --accent-foreground: 215 65% 25%;
 
-    --destructive: 0 72% 51%;
+    --destructive: 0 72% 48%;           /* vermelho Portal MA, ~#D62B2B */
     --destructive-foreground: 0 0% 100%;
 
-    --success: 152 65% 28%;
+    --success: 152 60% 32%;             /* verde mantido p/ status "Pago" */
     --success-foreground: 0 0% 100%;
 
-    --info: 210 90% 38%;
+    --info: 215 70% 45%;                /* mesmo eixo do primary, mais brilho */
     --info-foreground: 0 0% 100%;
 
     --border: 215 20% 88%;
     --input: 215 20% 88%;
-    --ring: 152 70% 28%;
+    --ring: 215 65% 38%;                /* foco azul */
 
     --radius: 0.625rem;
   }
@@ -52,30 +55,30 @@
     --popover: 215 30% 10%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 152 60% 50%;
+    --primary: 215 70% 60%;             /* azul mais claro p/ contraste no escuro */
     --primary-foreground: 215 30% 8%;
 
-    --secondary: 45 80% 60%;
+    --secondary: 42 80% 60%;             /* mostarda clara */
     --secondary-foreground: 215 30% 8%;
 
     --muted: 215 25% 15%;
     --muted-foreground: 215 15% 65%;
 
-    --accent: 152 30% 20%;
-    --accent-foreground: 152 60% 80%;
+    --accent: 215 40% 22%;
+    --accent-foreground: 215 70% 80%;
 
-    --destructive: 0 62% 50%;
+    --destructive: 0 70% 55%;
     --destructive-foreground: 0 0% 98%;
 
     --success: 152 60% 50%;
     --success-foreground: 215 30% 8%;
 
-    --info: 210 90% 60%;
+    --info: 215 80% 70%;
     --info-foreground: 215 30% 8%;
 
     --border: 215 25% 18%;
     --input: 215 25% 18%;
-    --ring: 152 60% 50%;
+    --ring: 215 70% 60%;
   }
 
   /* Modo alto contraste (WCAG AAA 7:1+).
@@ -89,7 +92,7 @@
     --popover-foreground: 0 0% 100%;
     --primary: 0 0% 100%;         /* primário invertido para branco */
     --primary-foreground: 0 0% 0%;
-    --secondary: 50 100% 55%;     /* amarelo brilhante (alta visibilidade no preto) */
+    --secondary: 45 100% 58%;     /* mostarda brilhante (alta visibilidade no preto) */
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 12%;            /* cinza muito escuro para áreas sutis */
     --muted-foreground: 0 0% 100%;
@@ -157,6 +160,101 @@
     background: #000 !important;
     color: #fff !important;
     border-color: #fff !important;
+  }
+
+  /* ─── Cards de Métrica em alto contraste ──────────────────────
+     Em alto contraste removemos toda a paleta colorida (azul, vermelho,
+     verde, laranja). O foco é luminância: silhuetas brancas sobre fundo
+     cinza escuro. As cores decorativas competem com o texto e violam o
+     espírito do WCAG AAA, que prioriza alto contraste de luminância. */
+
+  .high-contrast [data-metrica-card="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    border-width: 2px !important;
+    box-shadow: none !important;
+  }
+
+  /* Glows decorativos somem (blur sobre preto vira ruído) */
+  .high-contrast [data-glow-canto="true"],
+  .high-contrast [data-glow-tema="true"] {
+    display: none !important;
+  }
+
+  /* Ícone do card: TODOS ficam brancos com símbolo preto, ignorando
+     o tema de cor. Sobrescreve gradientes (.bg-gradient-to-br) e cores
+     literais (.bg-orange-500) usadas no tema "laranja". */
+  .high-contrast [data-metrica-card="true"] .bg-gradient-to-br,
+  .high-contrast [data-metrica-card="true"] .bg-orange-500 {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-metrica-card="true"] .text-primary-foreground,
+  .high-contrast [data-metrica-card="true"] .text-secondary-foreground,
+  .high-contrast [data-metrica-card="true"] .text-success-foreground,
+  .high-contrast [data-metrica-card="true"] .text-destructive-foreground,
+  .high-contrast [data-metrica-card="true"] .text-white {
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  /* Faixa colorida na base: vira branca uniforme (4px) para todos
+     os cards, mantendo a presença visual de "rodapé do card" sem
+     introduzir cores. */
+  .high-contrast [data-faixa-tema="true"] {
+    background-color: hsl(var(--primary)) !important;
+    height: 4px !important;
+  }
+
+  /* ─── Barra Institucional (header e hero) ──────────────────────
+     A barra de 5 cores (vermelho/azul/verde/amarelo/laranja) vira
+     uma única faixa branca em alto contraste, mantendo a função de
+     separador visual sem introduzir paleta colorida. */
+  .high-contrast [data-barra-institucional="true"] > span {
+    background-color: hsl(var(--primary)) !important;
+  }
+
+  /* ─── Botão "Pergunte" no header ───────────────────────────────
+     Gradient mostarda + glow viram fundo branco sólido com texto
+     preto. Mantém destaque visual no menu. */
+  .high-contrast [data-btn-pergunte="true"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    color: hsl(var(--primary-foreground)) !important;
+    box-shadow: none !important;
+    --tw-ring-color: hsl(var(--border)) !important;
+  }
+
+  /* ─── Badge "Hackathon" no hero ────────────────────────────────
+     Fundo black/30 + border mostarda + Sparkles dourado viram
+     fundo cinza-escuro com borda e texto brancos. */
+  .high-contrast [data-badge-hero="true"] {
+    background: hsl(var(--muted)) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--primary)) !important;
+    box-shadow: none !important;
+    --tw-ring-color: transparent !important;
+    backdrop-filter: none !important;
+  }
+  .high-contrast [data-badge-hero="true"] .text-secondary {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* ─── Traço sob a palavra "Maranhão" no título do hero ────────
+     Vira branco/40 (sutil, não compete com o texto principal). */
+  .high-contrast [data-marca-titulo="true"] {
+    background-color: hsl(var(--primary) / 0.4) !important;
+  }
+
+  /* ─── CTA "Pesquisar no portal" do hero ────────────────────────
+     Gradient mostarda + shadow colorida viram botão sólido branco. */
+  .high-contrast [data-cta-hero="primario"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    color: hsl(var(--primary-foreground)) !important;
+    box-shadow: none !important;
+    --tw-ring-color: hsl(var(--border)) !important;
   }
 
   /* Fonte aumentada */

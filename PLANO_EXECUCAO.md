@@ -51,7 +51,7 @@
 
 | Quem | O que fazer |
 |---|---|
-| **André** | Iniciar projeto: `npm create vite@latest transparama -- --template react-ts`. Configurar Tailwind, shadcn/ui, estrutura de pastas conforme ARQUITETURA.md. Conectar repositório GitHub |
+| **André** | Iniciar projeto: `npm create vite@latest portal-transparencia -- --template react-ts`. Configurar Tailwind, shadcn/ui, estrutura de pastas conforme ARQUITETURA.md. Conectar repositório GitHub |
 | **Alexsander** | Setup Supabase: criar projeto, aplicar schema (eixos, glossario, termos_buscados, ia_cache, conteudos_cidadaos). Importar termos da planilha cedida (top 100). RLS configurada |
 | **Alexandre** | Setup Edge Function `/ask`: esqueleto, sanitização, rate limiting, lista de bloqueio LGPD. Configuração da chave da Anthropic |
 

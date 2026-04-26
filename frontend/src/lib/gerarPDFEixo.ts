@@ -6,7 +6,7 @@ import type { DadosEixo } from "@/data/eixos-dataset"
  *
  * O PDF é construído programaticamente (jsPDF puro, sem html2canvas) para
  * garantir leveza e portabilidade. O layout segue a identidade visual do
- * portal: capa com gradiente verde, tipografia hierárquica e seções
+ * portal: cabeçalho azul institucional, tipografia hierárquica e seções
  * numeradas (01, 02, 03) idênticas às da página de eixo.
  *
  * O cidadão usa este PDF como prova/relatório para levar a reuniões de
@@ -15,12 +15,12 @@ import type { DadosEixo } from "@/data/eixos-dataset"
  * Largura A4: 210mm. Margem padrão: 15mm. Linha útil: 180mm.
  */
 
-const PRIMARY: [number, number, number] = [22, 122, 67] // verde institucional
-const PRIMARY_DARK: [number, number, number] = [16, 92, 50]
+const PRIMARY: [number, number, number] = [34, 90, 161] // azul Portal MA, ~#225AA1
+const PRIMARY_DARK: [number, number, number] = [22, 60, 110]
 const FG: [number, number, number] = [20, 24, 28]
 const MUTED: [number, number, number] = [100, 116, 125]
-const BORDER: [number, number, number] = [220, 228, 222]
-const BG_SOFT: [number, number, number] = [241, 247, 243]
+const BORDER: [number, number, number] = [216, 224, 235]
+const BG_SOFT: [number, number, number] = [235, 242, 250]
 
 const MARGEM = 15
 const LARGURA = 210
@@ -99,7 +99,7 @@ function desenharCapa(
   void _y
   void dados
 
-  // Faixa branca com borda inferior verde (deixa o logo respirar)
+  // Faixa branca com borda inferior azul (deixa o logo respirar)
   const faixaAltura = 32
   doc.setFillColor(255, 255, 255)
   doc.rect(0, 0, LARGURA, faixaAltura, "F")

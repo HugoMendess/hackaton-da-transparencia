@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 
-const STORAGE_KEY = "transparama:a11y"
+const STORAGE_KEY = "portal-transparencia:a11y"
 
 export type ConfigA11y = {
   altoContraste: boolean
@@ -65,7 +65,7 @@ function salvar(config: ConfigA11y) {
  * instâncias do hook reagirem (ex: Header e BottomNav exibirem o
  * mesmo estado em sincronia).
  */
-const EVENTO_MUDANCA = "transparama:a11y:changed"
+const EVENTO_MUDANCA = "portal-transparencia:a11y:changed"
 
 export function useAcessibilidade() {
   // Lazy initial state: lê localStorage no primeiro render, sem flash
