@@ -98,8 +98,14 @@ export function Eixo() {
 
       <main id="main">
         {/* Breadcrumb + título */}
-        <section className="border-b border-border bg-gradient-to-b from-accent/30 via-background to-background">
-          <div className="container-page px-4 py-6">
+        <section className="relative overflow-hidden border-b border-border bg-gradient-to-b from-accent/40 via-background to-background">
+          {/* Glow azul decorativo */}
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-16 size-72 rounded-full bg-primary/10 blur-3xl"
+          />
+
+          <div className="container-page relative px-4 py-6">
             <Link
               to="/"
               className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -109,7 +115,7 @@ export function Eixo() {
             </Link>
 
             <div className="mt-3 flex flex-wrap items-baseline gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+              <h1 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
                 {eixo.nome}
               </h1>
               <span className="text-sm text-muted-foreground">
@@ -120,14 +126,24 @@ export function Eixo() {
                   type="button"
                   onClick={baixarPDF}
                   disabled={gerandoPDF}
-                  className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 py-1.5 text-sm font-medium border border-border bg-background transition-all hover:bg-muted hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-progress disabled:opacity-70"
+                  data-btn-pdf="true"
+                  className={cn(
+                    "group inline-flex items-center gap-1.5 rounded-lg min-h-touch px-3.5 py-1.5 text-sm font-semibold",
+                    "bg-gradient-to-br from-primary to-primary/85 text-primary-foreground",
+                    "shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+                    "ring-1 ring-primary/30",
+                    "transition-all duration-300 ease-out",
+                    "hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(34,90,161,0.25),_0_12px_24px_-6px_rgba(34,90,161,0.55)]",
+                    "disabled:cursor-progress disabled:opacity-70 disabled:hover:translate-y-0",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  )}
                   aria-label={`Baixar relatório PDF do eixo ${eixo.nome}`}
                   title="Baixar Memorial Cidadão (PDF)"
                 >
                   {gerandoPDF ? (
                     <Loader2 className="size-4 animate-spin" aria-hidden="true" />
                   ) : (
-                    <FileDown className="size-4" aria-hidden="true" />
+                    <FileDown className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" aria-hidden="true" />
                   )}
                   <span>{gerandoPDF ? "Gerando..." : "Baixar PDF"}</span>
                 </button>
@@ -141,21 +157,38 @@ export function Eixo() {
             </div>
 
             {/* Pergunta-âncora respondida em linguagem cidadã */}
-            <article className="mt-4 max-w-3xl rounded-lg border border-primary/20 bg-card p-4">
-              <header className="mb-2 flex items-center gap-2">
-                <span className="flex size-7 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <article
+              data-pergunta-ancora="true"
+              className={cn(
+                "group relative mt-5 max-w-3xl overflow-hidden rounded-xl border border-primary/30 p-5",
+                "bg-gradient-to-br from-accent/30 via-card to-card",
+                "shadow-[0_2px_4px_rgba(34,90,161,0.06),_0_10px_28px_-10px_rgba(34,90,161,0.18)]"
+              )}
+            >
+              {/* Glow azul no canto */}
+              <span
+                aria-hidden="true"
+                data-pergunta-glow="true"
+                className="pointer-events-none absolute -right-8 -top-8 size-28 rounded-full bg-primary/15 blur-2xl"
+              />
+
+              <header className="relative mb-3 flex items-center gap-2.5">
+                <span
+                  className="flex size-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-md shadow-primary/30"
+                  data-pergunta-icon="true"
+                >
                   <Sparkles className="size-4" aria-hidden="true" />
                 </span>
-                <p className="text-xs font-medium uppercase tracking-wide text-primary">
-                  Pergunta cidadã respondida
+                <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                  Pergunta cidadã respondida pela IA
                 </p>
               </header>
 
-              <p className="text-base font-medium text-foreground">
+              <p className="relative text-base font-semibold leading-snug text-foreground md:text-lg">
                 {dados.perguntaAncora}
               </p>
 
-              <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              <div className="relative mt-2 text-sm leading-relaxed text-muted-foreground">
                 <TextoComGlossario>{dados.resposta}</TextoComGlossario>
               </div>
             </article>
@@ -195,23 +228,62 @@ export function Eixo() {
           </div>
         </section>
 
-        {/* Destaques (lista) */}
+        {/* Destaques (lista com tema rotativo: azul, mostarda, verde) */}
         <section className="container-page px-4 pb-8">
           <SectionHeader numero="03" titulo="Destaques" descricao="Iniciativas e órgãos com maior peso neste eixo" />
-          <ul className="grid gap-3 sm:grid-cols-3">
-            {dados.destaques.map((d) => (
-              <li key={d.titulo}>
-                <article className="flex h-full flex-col gap-1 rounded-lg border border-border bg-card p-4 shadow-sm">
-                  <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {d.subtitulo}
-                  </p>
-                  <h3 className="font-semibold text-foreground">{d.titulo}</h3>
-                  <p className="mt-1 text-base font-semibold tabular text-primary">
-                    {d.valor}
-                  </p>
-                </article>
-              </li>
-            ))}
+          <ul className="grid gap-4 sm:grid-cols-3">
+            {dados.destaques.map((d, i) => {
+              const tema = TEMAS_DESTAQUE[i % TEMAS_DESTAQUE.length]
+              return (
+                <li key={d.titulo}>
+                  <article
+                    data-destaque-card="true"
+                    data-destaque-tema={tema.nome}
+                    className={cn(
+                      "group relative flex h-full flex-col gap-2 overflow-hidden rounded-xl border border-border/70 bg-card p-5",
+                      "shadow-[0_1px_2px_rgba(0,0,0,0.04),_0_8px_22px_-10px_rgba(0,0,0,0.08)]",
+                      "transition-all duration-300 ease-out",
+                      "hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-[0_4px_12px_rgba(34,90,161,0.06),_0_16px_36px_-12px_rgba(34,90,161,0.14)]"
+                    )}
+                  >
+                    {/* Glow no canto */}
+                    <span
+                      aria-hidden="true"
+                      data-destaque-glow="true"
+                      className={cn(
+                        "pointer-events-none absolute -right-6 -top-6 size-20 rounded-full blur-2xl",
+                        tema.glow
+                      )}
+                    />
+
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      {d.subtitulo}
+                    </p>
+                    <h3 className="font-semibold text-foreground transition-colors group-hover:text-primary">
+                      {d.titulo}
+                    </h3>
+                    <p
+                      className={cn(
+                        "mt-auto pt-2 font-display text-lg font-bold tabular",
+                        tema.textoValor
+                      )}
+                    >
+                      {d.valor}
+                    </p>
+
+                    {/* Faixa colorida na base */}
+                    <span
+                      aria-hidden="true"
+                      data-destaque-faixa="true"
+                      className={cn(
+                        "absolute inset-x-0 bottom-0 h-1 transition-all duration-300 group-hover:h-1.5",
+                        tema.faixa
+                      )}
+                    />
+                  </article>
+                </li>
+              )
+            })}
           </ul>
         </section>
 
@@ -232,6 +304,33 @@ export function Eixo() {
   )
 }
 
+/**
+ * Temas rotativos para os 3 cards de destaques.
+ * Cada destaque pega uma cor da paleta institucional (azul/mostarda/verde),
+ * dando variedade visual sem perder coerência. Strings literais para
+ * Tailwind detectar no scan estático.
+ */
+const TEMAS_DESTAQUE = [
+  {
+    nome: "azul",
+    faixa: "bg-primary",
+    glow: "bg-primary/15",
+    textoValor: "text-primary",
+  },
+  {
+    nome: "mostarda",
+    faixa: "bg-secondary",
+    glow: "bg-secondary/20",
+    textoValor: "text-secondary-foreground",
+  },
+  {
+    nome: "verde",
+    faixa: "bg-success",
+    glow: "bg-success/15",
+    textoValor: "text-success",
+  },
+] as const
+
 // --------------------------------------------------------------------
 // Cabeçalho de seção numerado (01, 02, 03)
 // --------------------------------------------------------------------
@@ -245,11 +344,20 @@ function SectionHeader({
   descricao?: string
 }) {
   return (
-    <header className="mb-4 flex items-baseline gap-3">
-      <span className="font-display text-2xl font-bold text-primary/40">
+    <header className="mb-5 flex items-start gap-4">
+      <span
+        aria-hidden="true"
+        data-section-numero="true"
+        className={cn(
+          "flex size-12 shrink-0 items-center justify-center rounded-xl",
+          "bg-gradient-to-br from-primary/15 via-primary/10 to-accent",
+          "ring-1 ring-primary/20",
+          "font-display text-xl font-bold tabular text-primary"
+        )}
+      >
         {numero}
       </span>
-      <div>
+      <div className="min-w-0 flex-1 pt-1">
         <h2 className="text-lg font-semibold tracking-tight text-foreground md:text-xl">
           {titulo}
         </h2>
@@ -276,24 +384,30 @@ function BadgeFonte({
   erro: string | null
 }) {
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+    <div className="relative mt-4 flex flex-wrap items-center gap-2 text-xs">
       <span
+        data-status-fonte={status}
         className={cn(
-          "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-medium",
-          status === "oficial" && "bg-success/10 text-success",
-          status === "fallback" && "bg-secondary/15 text-secondary-foreground",
-          status === "carregando" && "bg-muted text-muted-foreground"
+          "inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 font-semibold ring-1",
+          status === "oficial" && "bg-success/10 text-success ring-success/30",
+          status === "fallback" && "bg-secondary/15 text-secondary-foreground ring-secondary/40",
+          status === "carregando" && "bg-muted text-muted-foreground ring-border"
         )}
       >
         <span
           className={cn(
-            "size-1.5 rounded-full",
-            status === "oficial" && "bg-success",
-            status === "fallback" && "bg-secondary",
-            status === "carregando" && "animate-pulse bg-muted-foreground"
+            "relative flex size-2 items-center justify-center",
+            status === "oficial" && "text-success",
+            status === "fallback" && "text-secondary",
+            status === "carregando" && "text-muted-foreground"
           )}
           aria-hidden="true"
-        />
+        >
+          {status === "oficial" && (
+            <span className="absolute inset-0 animate-ping rounded-full bg-current opacity-50" />
+          )}
+          <span className="relative size-1.5 rounded-full bg-current" />
+        </span>
         {status === "oficial" && "Conexão com o Portal confirmada"}
         {status === "fallback" && "Dados curados (Portal indisponível)"}
         {status === "carregando" && "Verificando o Portal..."}
@@ -303,9 +417,9 @@ function BadgeFonte({
         href={fonte.url}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center gap-1 text-muted-foreground transition-colors hover:text-primary"
+        className="inline-flex items-center gap-1 rounded-full border border-border/70 bg-background px-2.5 py-1 text-muted-foreground transition-colors hover:border-primary/40 hover:text-primary"
       >
-        Fonte oficial: {fonte.nome}
+        Fonte oficial: <span className="font-semibold text-foreground">{fonte.nome}</span>
         <ExternalLink className="size-3" aria-hidden="true" />
       </a>
 
@@ -327,16 +441,28 @@ function NaoEncontrado({ slug }: { slug: string }) {
     <div className="min-h-svh bg-background text-foreground">
       <Header />
       <main className="container-page flex flex-col items-center px-4 py-16 text-center">
-        <h1 className="text-2xl font-semibold">Eixo não encontrado</h1>
+        <span className="flex size-16 items-center justify-center rounded-full bg-destructive/10 text-destructive">
+          <AlertCircle className="size-8" aria-hidden="true" />
+        </span>
+        <h1 className="mt-4 font-display text-2xl font-bold tracking-tight md:text-3xl">
+          Eixo não encontrado
+        </h1>
         <p className="mt-2 max-w-md text-sm text-muted-foreground">
-          Não conhecemos um eixo com o identificador <code className="rounded bg-muted px-1.5 py-0.5 text-xs">{slug}</code>.
+          Não conhecemos um eixo com o identificador <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-semibold text-foreground">{slug}</code>.
           Volte para a tela inicial e escolha um dos eixos disponíveis.
         </p>
         <Link
           to="/"
-          className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+          className={cn(
+            "group mt-6 inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold",
+            "bg-gradient-to-br from-primary to-primary/85 text-primary-foreground",
+            "shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+            "ring-1 ring-primary/30",
+            "transition-all duration-300 ease-out",
+            "hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(34,90,161,0.25),_0_12px_24px_-6px_rgba(34,90,161,0.55)]"
+          )}
         >
-          <ArrowLeft className="size-4" aria-hidden="true" />
+          <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-0.5" aria-hidden="true" />
           Voltar para a tela inicial
         </Link>
       </main>
@@ -352,21 +478,27 @@ function EmConstrucao({ eixo }: { eixo: string }) {
     <div className="min-h-svh bg-background text-foreground">
       <Header />
       <main className="container-page flex flex-col items-center px-4 py-16 text-center">
-        <span className="rounded-full bg-secondary/15 px-3 py-1 text-xs font-medium text-secondary-foreground">
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/40 bg-secondary/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-secondary-foreground">
+          <Sparkles className="size-3.5" aria-hidden="true" />
           Em construção
         </span>
-        <h1 className="mt-4 text-2xl font-semibold">{eixo}</h1>
+        <h1 className="mt-4 font-display text-2xl font-bold tracking-tight md:text-3xl">{eixo}</h1>
         <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
           Este eixo aparece no mapa do portal mas o dashboard detalhado ainda
           está sendo curado. Os eixos em produção no MVP são{" "}
-          <strong>Gestão Pública</strong>, <strong>Educação</strong> e{" "}
-          <strong>Saúde</strong>.
+          <strong className="text-foreground">Gestão Pública</strong>, <strong className="text-foreground">Educação</strong> e{" "}
+          <strong className="text-foreground">Saúde</strong>.
         </p>
         <Link
           to="/"
-          className="mt-6 inline-flex items-center gap-2 rounded-md border border-border bg-background px-4 py-2.5 text-sm font-medium transition-colors hover:bg-muted"
+          className={cn(
+            "group mt-6 inline-flex items-center gap-2 rounded-lg border border-border bg-background px-5 py-3 text-sm font-semibold text-foreground",
+            "shadow-[0_1px_2px_rgba(0,0,0,0.04)]",
+            "transition-all duration-300 ease-out",
+            "hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+          )}
         >
-          <ArrowLeft className="size-4" aria-hidden="true" />
+          <ArrowLeft className="size-4 transition-transform duration-300 group-hover:-translate-x-0.5" aria-hidden="true" />
           Voltar
         </Link>
       </main>

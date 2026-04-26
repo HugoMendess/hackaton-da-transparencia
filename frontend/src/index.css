@@ -324,6 +324,59 @@
     box-shadow: none !important;
   }
 
+  /* ─── Página de Eixo em alto contraste ─────────────────────────
+     Card "Pergunta cidadã respondida": gradient + glow viram fundo
+     cinza escuro com borda branca. Ícone vira branco. */
+  .high-contrast [data-pergunta-ancora="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    border-width: 2px !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-pergunta-glow="true"] {
+    display: none !important;
+  }
+  .high-contrast [data-pergunta-icon="true"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    color: hsl(var(--primary-foreground)) !important;
+    box-shadow: none !important;
+  }
+
+  /* Botão "Baixar PDF": gradient azul vira branco sólido */
+  .high-contrast [data-btn-pdf="true"] {
+    background: hsl(var(--primary)) !important;
+    background-image: none !important;
+    color: hsl(var(--primary-foreground)) !important;
+    box-shadow: none !important;
+    --tw-ring-color: hsl(var(--border)) !important;
+  }
+
+  /* Section header (números 01, 02...): gradient + ring viram cinza+branco */
+  .high-contrast [data-section-numero="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    color: hsl(var(--primary)) !important;
+    --tw-ring-color: hsl(var(--border)) !important;
+  }
+
+  /* Cards de Destaques: silhuetas brancas, faixa branca, glow some */
+  .high-contrast [data-destaque-card="true"] {
+    background: hsl(var(--muted)) !important;
+    background-image: none !important;
+    border-color: hsl(var(--border)) !important;
+    border-width: 2px !important;
+    box-shadow: none !important;
+  }
+  .high-contrast [data-destaque-glow="true"] {
+    display: none !important;
+  }
+  .high-contrast [data-destaque-faixa="true"] {
+    background-color: hsl(var(--primary)) !important;
+    height: 4px !important;
+  }
+
   /* ─── Barra Institucional (header e hero) ──────────────────────
      A barra de 5 cores (vermelho/azul/verde/amarelo/laranja) vira
      uma única faixa branca em alto contraste, mantendo a função de

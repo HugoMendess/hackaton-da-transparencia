@@ -156,6 +156,7 @@ export function MapaMA() {
   const loading = loadingGeo || loadingNomes
 
   return (
+    <div className="space-y-4">
     <div className="grid gap-4 lg:grid-cols-[1fr_360px]">
       <div className="relative overflow-hidden rounded-xl border border-border/70 bg-card shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_10px_28px_-12px_rgba(0,0,0,0.10)]">
         {loading && (
@@ -272,17 +273,11 @@ export function MapaMA() {
         </article>
 
         {selecionado ? (
-          <>
-            <PainelMunicipio
-              sel={selecionado}
-              totalEstadual={totalEstadual}
-              onClose={() => setSelecionado(null)}
-            />
-            <CategoriasMunicipio
-              codarea={selecionado.codarea}
-              nome={selecionado.nome}
-            />
-          </>
+          <PainelMunicipio
+            sel={selecionado}
+            totalEstadual={totalEstadual}
+            onClose={() => setSelecionado(null)}
+          />
         ) : (
           <article
             className="relative overflow-hidden rounded-xl border-2 border-dashed border-border/70 bg-gradient-to-br from-muted/30 to-muted/10 p-5 text-center"
@@ -304,6 +299,17 @@ export function MapaMA() {
           </article>
         )}
       </aside>
+    </div>
+
+    {/* Explorar por categoria: ocupa a largura inteira embaixo do mapa
+        quando há município selecionado, aproveitando o espaço vago e
+        organizando cards à esquerda + detalhes à direita */}
+    {selecionado && (
+      <CategoriasMunicipio
+        codarea={selecionado.codarea}
+        nome={selecionado.nome}
+      />
+    )}
     </div>
   )
 }

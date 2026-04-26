@@ -9,6 +9,8 @@ import {
   Hammer,
   Users,
   ArrowRight,
+  X,
+  MousePointer2,
   type LucideIcon,
 } from "lucide-react"
 import { BotaoCompartilhar } from "@/components/compartilhar/BotaoCompartilhar"
@@ -141,127 +143,174 @@ export function CategoriasMunicipio({
     : null
 
   return (
-    <article className="rounded-lg border border-border bg-card p-4">
-      <header className="mb-3">
-        <h3 className="text-sm font-semibold text-foreground">
-          Explorar por categoria
+    <article
+      data-categorias-municipio="true"
+      className="overflow-hidden rounded-xl border border-border/70 bg-card p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_10px_28px_-12px_rgba(0,0,0,0.10)]"
+    >
+      <header className="mb-4">
+        <h3 className="text-base font-semibold text-foreground">
+          Explorar {nome} por categoria
         </h3>
         <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
-          Toque em uma área para ver os dados específicos do município.
+          Toque em uma área para ver os dados específicos do município à direita.
         </p>
       </header>
 
-      {/* Grid de ícones */}
-      <ul className="grid grid-cols-4 gap-2">
-        {CATEGORIAS.map((c) => {
-          const ativa = aberta === c.slug
-          const Icon = c.icon
-          return (
-            <li key={c.slug}>
-              <button
-                type="button"
-                onClick={() => setAberta(ativa ? null : c.slug)}
-                aria-pressed={ativa}
-                aria-label={`${c.label}, ver dados no município`}
-                className={cn(
-                  "group flex w-full flex-col items-center gap-1 rounded-md p-2 text-center transition-colors",
-                  ativa
-                    ? "bg-primary/10 ring-1 ring-primary/30"
-                    : "hover:bg-muted"
-                )}
-              >
-                <span
+      {/* Layout horizontal:
+          - Esquerda: grid de cards de categoria
+          - Direita: detalhes da categoria aberta (ou hint quando nada aberto) */}
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
+        {/* Cards das 7 categorias */}
+        <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4">
+          {CATEGORIAS.map((c) => {
+            const ativa = aberta === c.slug
+            const Icon = c.icon
+            return (
+              <li key={c.slug}>
+                <button
+                  type="button"
+                  onClick={() => setAberta(ativa ? null : c.slug)}
+                  aria-pressed={ativa}
+                  aria-label={`${c.label}, ver dados no município`}
+                  data-categoria-btn="true"
                   className={cn(
-                    "flex size-9 items-center justify-center rounded-md bg-gradient-to-br text-white shadow-sm transition-transform",
-                    c.cor,
-                    ativa && "scale-105"
+                    "group flex w-full flex-col items-center gap-3 rounded-xl border p-5 text-center",
+                    "transition-all duration-300 ease-out",
+                    ativa
+                      ? "border-primary/40 bg-accent/40 shadow-md ring-1 ring-primary/20"
+                      : "border-border/60 bg-card hover:-translate-y-0.5 hover:border-primary/30 hover:bg-muted/40 hover:shadow-md"
                   )}
                 >
-                  <Icon className="size-4" aria-hidden="true" />
-                </span>
-                <span
-                  className={cn(
-                    "text-[11px] font-medium leading-tight",
-                    ativa ? "text-primary" : "text-foreground"
-                  )}
-                >
-                  {c.label}
-                </span>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
-
-      {/* Detalhes da categoria selecionada */}
-      {aberta && dadoAberto && categoriaAberta && (
-        <div
-          className="mt-4 space-y-3 rounded-md border border-primary/20 bg-accent/20 p-3"
-          role="region"
-          aria-label={`Detalhes de ${categoriaAberta.label}`}
-        >
-          <header className="flex items-baseline justify-between gap-2">
-            <p className="text-xs font-medium uppercase tracking-wide text-primary">
-              {categoriaAberta.label} em {nome}
-            </p>
-            <button
-              type="button"
-              onClick={() => setAberta(null)}
-              className="text-[11px] text-muted-foreground underline-offset-2 hover:text-foreground hover:underline"
-            >
-              fechar
-            </button>
-          </header>
-
-          <div className="grid grid-cols-2 gap-2">
-            <Indicador
-              label="Investido"
-              valor={formatBRL(dadoAberto.valorTotal)}
-              legenda="Acumulado 2026"
-            />
-            <Indicador
-              label={capitalize(dadoAberto.itensLabel)}
-              valor={formatNumber(dadoAberto.itensQtd)}
-              legenda="No município"
-            />
-          </div>
-
-          <div>
-            <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-              Destaques
-            </p>
-            <ul className="space-y-1">
-              {dadoAberto.destaques.map((d) => (
-                <li
-                  key={d.titulo}
-                  className="flex items-baseline justify-between gap-2 rounded-sm bg-card px-2 py-1.5 text-xs"
-                >
-                  <span className="truncate text-foreground">{d.titulo}</span>
-                  <span className="shrink-0 tabular font-semibold text-primary">
-                    {formatBRL(d.valor)}
+                  <span
+                    className={cn(
+                      "flex size-20 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-lg transition-transform duration-300 group-hover:scale-105",
+                      c.cor,
+                      ativa && "scale-110"
+                    )}
+                  >
+                    <Icon className="size-10" aria-hidden="true" />
                   </span>
-                </li>
-              ))}
-            </ul>
-          </div>
+                  <span
+                    className={cn(
+                      "text-sm font-semibold leading-tight md:text-base",
+                      ativa ? "text-primary" : "text-foreground"
+                    )}
+                  >
+                    {c.label}
+                  </span>
+                </button>
+              </li>
+            )
+          })}
+        </ul>
 
-          <div className="flex flex-col gap-2 sm:flex-row">
-            <Link
-              to={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+        {/* Detalhes da categoria selecionada (ou estado vazio) */}
+        <div className="lg:border-l lg:border-border lg:pl-5">
+          {aberta && dadoAberto && categoriaAberta ? (
+            <div
+              className="space-y-4 animate-in fade-in slide-in-from-right-2 duration-300"
+              role="region"
+              aria-label={`Detalhes de ${categoriaAberta.label}`}
             >
-              Ver detalhes completos
-              <ArrowRight className="size-3.5" aria-hidden="true" />
-            </Link>
-            <BotaoCompartilhar
-              caminho={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
-              mensagem={`📍 ${categoriaAberta.label} em ${nome}: ${formatBRL(dadoAberto.valorTotal)} investidos, ${formatNumber(dadoAberto.itensQtd)} ${dadoAberto.itensLabel}`}
-              rotulo="Compartilhar"
-              variante="padrao"
-            />
-          </div>
+              <header className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-2.5">
+                  <span
+                    className={cn(
+                      "flex size-9 items-center justify-center rounded-lg bg-gradient-to-br text-white shadow-md",
+                      categoriaAberta.cor
+                    )}
+                  >
+                    <categoriaAberta.icon className="size-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-primary">
+                      Categoria selecionada
+                    </p>
+                    <h4 className="font-display text-base font-bold tracking-tight text-foreground">
+                      {categoriaAberta.label} em {nome}
+                    </h4>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setAberta(null)}
+                  className="inline-flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  aria-label="Fechar detalhes"
+                >
+                  <X className="size-4" aria-hidden="true" />
+                </button>
+              </header>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Indicador
+                  label="Investido"
+                  valor={formatBRL(dadoAberto.valorTotal)}
+                  legenda="Acumulado 2026"
+                />
+                <Indicador
+                  label={capitalize(dadoAberto.itensLabel)}
+                  valor={formatNumber(dadoAberto.itensQtd)}
+                  legenda="No município"
+                />
+              </div>
+
+              <div>
+                <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                  Destaques
+                </p>
+                <ul className="space-y-1.5">
+                  {dadoAberto.destaques.map((d) => (
+                    <li
+                      key={d.titulo}
+                      className="flex items-baseline justify-between gap-2 rounded-md border border-border/60 bg-background px-3 py-2 text-xs transition-colors hover:border-primary/40"
+                    >
+                      <span className="truncate text-foreground">{d.titulo}</span>
+                      <span className="shrink-0 tabular font-semibold text-primary">
+                        {formatBRL(d.valor)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-2 pt-1 sm:flex-row">
+                <Link
+                  to={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
+                  className={cn(
+                    "group/cta inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold",
+                    "bg-gradient-to-br from-primary to-primary/85 text-primary-foreground",
+                    "shadow-[0_2px_4px_rgba(34,90,161,0.20),_0_8px_18px_-6px_rgba(34,90,161,0.40)]",
+                    "ring-1 ring-primary/30 transition-all duration-300 ease-out",
+                    "hover:-translate-y-0.5 hover:shadow-[0_4px_8px_rgba(34,90,161,0.25),_0_12px_24px_-6px_rgba(34,90,161,0.55)]"
+                  )}
+                >
+                  Ver detalhes completos
+                  <ArrowRight className="size-4 transition-transform duration-300 group-hover/cta:translate-x-0.5" aria-hidden="true" />
+                </Link>
+                <BotaoCompartilhar
+                  caminho={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
+                  mensagem={`📍 ${categoriaAberta.label} em ${nome}: ${formatBRL(dadoAberto.valorTotal)} investidos, ${formatNumber(dadoAberto.itensQtd)} ${dadoAberto.itensLabel}`}
+                  rotulo="Compartilhar"
+                  variante="padrao"
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border/70 bg-muted/20 p-6 text-center">
+              <span className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <MousePointer2 className="size-5" aria-hidden="true" />
+              </span>
+              <p className="text-sm font-semibold text-foreground">
+                Toque em uma categoria
+              </p>
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Os indicadores de {nome} aparecem aqui assim que você
+                escolher uma categoria à esquerda.
+              </p>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </article>
   )
 }

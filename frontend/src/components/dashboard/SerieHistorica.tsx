@@ -27,10 +27,10 @@ export function SerieHistorica({
 }) {
   return (
     <article
-      className="rounded-lg border border-border bg-card p-4 shadow-sm"
+      className="group/grafico rounded-xl border border-border/70 bg-card p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04),_0_10px_28px_-12px_rgba(0,0,0,0.10)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:shadow-[0_4px_12px_rgba(34,90,161,0.06),_0_18px_36px_-12px_rgba(34,90,161,0.14)]"
       aria-labelledby={`serie-${titulo}`}
     >
-      <header className="mb-3">
+      <header className="mb-4">
         <h3
           id={`serie-${titulo}`}
           className="font-semibold text-foreground"
