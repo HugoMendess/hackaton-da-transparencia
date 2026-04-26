@@ -1,6 +1,6 @@
 # WIREFRAMES DOS SLIDES - PITCH Portal da Transparência
 
-> Layout textual dos 5 slides da apresentação. Cada slide leva no máximo 2 elementos visuais grandes.
+> Layout textual dos 6 slides da apresentação. Cada slide leva no máximo 2 elementos visuais grandes.
 > Formato 16:9, alto contraste, fonte mínima 32pt para projetor.
 > Paleta sugerida: Azul-MA primário (#0A4D8C), Verde-Diamante (#1FAE74), Cinza-neutro (#5B6B7A), Branco (#FFFFFF).
 
@@ -12,11 +12,11 @@
 2. **Dado grande, contexto pequeno.** Número em fonte gigante, descrição embaixo.
 3. **Zero parágrafo.** Se vai ler em voz alta, não escreve no slide.
 4. **Fonte mínima 32pt.** Quem está no fundo da sala precisa enxergar.
-5. **Logo Portal da Transparência discreto** no canto inferior direito de todos os slides (exceto SLIDE 5 que é a marca em si).
+5. **Logo Portal da Transparência discreto** no canto inferior direito de todos os slides (exceto SLIDE 6 que é a marca em si).
 
 ---
 
-## SLIDE 1 - PROBLEMA (00:00 - 00:30)
+## SLIDE 1 - PROBLEMA (00:00 - 00:25)
 
 **Objetivo:** abrir os olhos com 3 dados que ninguém esperava ver.
 
@@ -59,7 +59,7 @@
 
 ---
 
-## SLIDE 2 - CAPA SOLUÇÃO (00:30 - 00:45)
+## SLIDE 2 - CAPA SOLUÇÃO (00:25 - 00:40)
 
 **Objetivo:** ancorar o nome da marca antes da demo. Logo grande, tagline curta.
 
@@ -99,7 +99,7 @@
 
 ---
 
-## SLIDE 3 - DE/PARA (00:45 - 01:00)
+## SLIDE 3 - DE/PARA (00:40 - 00:55)
 
 **Objetivo:** mostrar o salto qualitativo em 6 linhas, antes da demo confirmar.
 
@@ -144,7 +144,7 @@
 
 ---
 
-## SLIDE 4 - DIFERENCIAIS + ROADMAP (02:30 - 02:50)
+## SLIDE 4 - DIFERENCIAIS + ROADMAP (02:25 - 02:40)
 
 **Objetivo:** consolidar o que foi mostrado em 4 selos memoráveis + indicar futuro.
 
@@ -190,31 +190,72 @@
 
 ---
 
-## SLIDE 5 - FINAL + SLOGAN + QR (02:50 - 03:00)
+## SLIDE 5 - EQUIPE (02:40 - 02:50)
 
-**Objetivo:** deixar a marca, slogan-âncora e CTA pra banca acessar.
+**Objetivo:** dar rosto e credibilidade à proposta. 3 cards em linha, papéis claros.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
+│              A equipe por trás do Portal da Transparência          │
+│              (cabeçalho, azul-MA, fonte 32pt)                      │
+│                                                                     │
+│  ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐│
+│  │                  │   │                  │   │                  ││
+│  │   [foto/avatar]  │   │   [foto/avatar]  │   │   [foto/avatar]  ││
+│  │     180x180      │   │     180x180      │   │     180x180      ││
+│  │                  │   │                  │   │                  ││
+│  │   André Lopes    │   │ Alexandre        │   │ Alexsander       ││
+│  │   (azul-MA, 26pt)│   │ Oliveira         │   │ Oliveira         ││
+│  │                  │   │ (azul-MA, 26pt)  │   │ (azul-MA, 26pt)  ││
+│  │   Fullstack      │   │                  │   │                  ││
+│  │   + Dados        │   │   IA + Backend   │   │   Backend +      ││
+│  │ (cinza, 18pt)    │   │ (cinza, 18pt)    │   │   Sistemas       ││
+│  │                  │   │                  │   │ (cinza, 18pt)    ││
+│  └──────────────────┘   └──────────────────┘   └──────────────────┘│
+│                                                                     │
+│       Três especialidades complementares. Uma proposta pronta.      │
+│              (verde-diamante, fonte 22pt, itálico)                 │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+**Elementos:**
+- Cabeçalho curto em azul-MA
+- 3 cards iguais, alinhados horizontalmente
+- Avatar circular (foto real ou ilustração consistente entre os três)
+- Nome em destaque, papel logo abaixo
+- Linha-resumo embaixo amarrando as 3 especialidades
+- Logo Portal da Transparência discreto no canto inferior direito
+
+**Alternativa sem foto:** trocar avatar por monograma circular (`AL`, `AO`, `AO`) com cor sólida azul-MA. Funciona se a equipe não tiver fotos consistentes.
+
+---
+
+## SLIDE 6 - FINAL + OBRIGADO + SLOGAN + QR (02:50 - 03:00)
+
+**Objetivo:** fechar com agradecimento, slogan-âncora e CTA pra banca acessar.
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
 │                       ╔══════════════════════╗                     │
 │                       ║                      ║                     │
-│                       ║   Portal da Transparência        ║                     │
-│                       ║   (logo, 100pt)      ║                     │
-│                       ║                      ║                     │
+│                       ║ Portal da            ║                     │
+│                       ║ Transparência        ║                     │
+│                       ║   (logo, 90pt)       ║                     │
 │                       ╚══════════════════════╝                     │
 │                                                                     │
+│                       Obrigado!                                    │
+│                  (azul-MA, fonte 56pt, bold)                       │
 │                                                                     │
 │           O dado finalmente fala a língua de quem precisa dele.    │
-│                  (verde-diamante, fonte 38pt, bold)                │
-│                                                                     │
+│                  (verde-diamante, fonte 32pt, itálico)             │
 │                                                                     │
 │  ┌──────────────────────┐                                          │
-│  │                      │     transparama.ma.gov.br                 │
-│  │    [QR Code]         │     (azul-MA, fonte 28pt)                │
-│  │    250x250px         │                                          │
-│  │                      │     Equipe Portal da Transparência                    │
+│  │                      │     transparencia.ma.gov.br               │
+│  │    [QR Code]         │     (azul-MA, fonte 26pt)                │
+│  │    220x220px         │                                          │
 │  │                      │     Hackathon STC 2026                    │
 │  └──────────────────────┘     (cinza, fonte 18pt)                  │
 │                                                                     │
@@ -222,9 +263,10 @@
 ```
 
 **Elementos:**
-- Logo grande no topo
-- Slogan-âncora em verde-diamante, fonte grande, bold
-- QR à esquerda, URL e identificação da equipe à direita
+- Logo no topo
+- "Obrigado!" em destaque, azul-MA, fonte grande, bold
+- Slogan-âncora em verde-diamante logo abaixo
+- QR à esquerda, URL e identificação do hackathon à direita
 - Lugar para a banca apontar a câmera e acessar imediatamente
 
 **Importante:** o QR precisa apontar pra URL pública do protótipo, testada antes do palco. Se a URL ainda não estiver no domínio oficial, pode usar Vercel temporário, mas testar do celular da banca.
@@ -240,8 +282,8 @@
 - [ ] **Logo Portal da Transparência** salvo em SVG transparente, nas variações cor / branca / monocromática
 - [ ] **Exportar em PDF** além do formato editável, fallback caso o software do palco trave
 - [ ] **Testar no projetor:** projetor de evento costuma ser amarelado e pouco brilhante, ajustar contraste antes
-- [ ] **Numeração:** cada slide com `1/5`, `2/5`, etc. no canto inferior esquerdo, ajuda quem cronometra
-- [ ] **Backup:** versão 9:16 dos 5 slides para uso em redes sociais pós-evento (mesmo conteúdo, layout adaptado)
+- [ ] **Numeração:** cada slide com `1/6`, `2/6`, etc. no canto inferior esquerdo, ajuda quem cronometra
+- [ ] **Backup:** versão 9:16 dos 6 slides para uso em redes sociais pós-evento (mesmo conteúdo, layout adaptado)
 
 ---
 

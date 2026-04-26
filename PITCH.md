@@ -10,27 +10,28 @@
 
 | Tempo | Bloco | Suporte visual |
 |---|---|---|
-| 00:00 - 00:30 | 1. Problema (dados que abrem os olhos) | **SLIDE 1** - 3 dados na tela |
-| 00:30 - 00:45 | 2. Solução (o que é o Portal da Transparência) | **SLIDE 2** - capa do produto |
-| 00:45 - 01:00 | 3. De/Para (antes vs depois) | **SLIDE 3** - tabela visual |
-| 01:00 - 02:30 | 4. DEMO ao vivo (90s) | **TELAS 1 a 4** do protótipo |
-| 02:30 - 02:50 | 5. Diferenciais + Próximos Passos | **SLIDE 4** - 4 selos |
-| 02:50 - 03:00 | 6. FINAL + Slogan | **SLIDE 5** - QR code |
+| 00:00 - 00:25 | 1. Problema (dados que abrem os olhos) | **SLIDE 1** - 3 dados na tela |
+| 00:25 - 00:40 | 2. Solução (o que é o Portal da Transparência) | **SLIDE 2** - capa do produto |
+| 00:40 - 00:55 | 3. De/Para (antes vs depois) | **SLIDE 3** - tabela visual |
+| 00:55 - 02:25 | 4. DEMO ao vivo (90s) | **TELAS 1 a 4** do protótipo |
+| 02:25 - 02:40 | 5. Diferenciais + Próximos Passos | **SLIDE 4** - 4 selos |
+| 02:40 - 02:50 | 6. Equipe | **SLIDE 5** - 3 integrantes |
+| 02:50 - 03:00 | 7. FINAL + Obrigado + Slogan | **SLIDE 6** - QR code |
 
 ---
 
-## Bloco 1 - Problema (00:00 - 00:30) | SLIDE 1
+## Bloco 1 - Problema (00:00 - 00:25) | SLIDE 1
 
 **[SLIDE 1]** Tela com 3 cards grandes em destaque:
 - `56%` mobile, fica 155s (vs 325s no desktop)
 - `72%` da atenção em Remuneração + Ficha Financeira
 - `+1.144%` de uso da busca em 1 ano
 
-**Texto falado (30 segundos):**
+**Texto falado (25 segundos):**
 
-> "320 mil cidadãos por ano, 4 milhões de visualizações, Selo Diamante por dois anos seguidos. No papel, o Portal da Transparência do Maranhão é referência nacional."
+> "320 mil cidadãos por ano. Selo Diamante por dois anos. No papel, o Portal da Transparência do Maranhão é referência nacional."
 
-> "Mas três dados do uso real mudam a conversa: 56% acessa pelo celular e fica metade do tempo de quem usa desktop. 72% de toda a atenção do portal está concentrada em duas páginas, Remuneração e Ficha Financeira. E a busca cresceu 1.144% em um ano, sem que a busca evoluísse junto."
+> "Mas três dados do uso real mudam a conversa: 56% acessa pelo celular e fica metade do tempo do desktop. 72% da atenção concentrada em Remuneração e Ficha Financeira. E a busca cresceu 1.144% em um ano, sem evoluir junto."
 
 > "Os dados existem. O acesso a eles, não."
 
@@ -145,7 +146,7 @@
 
 ---
 
-## Bloco 5 - Diferenciais + Próximos Passos (02:30 - 02:50) | SLIDE 4
+## Bloco 5 - Diferenciais + Próximos Passos (02:25 - 02:40) | SLIDE 4
 
 **[SLIDE 4]** 4 selos grandes na tela:
 - **DADOS** - 72% do uso real priorizado, dashboard vivo na busca
@@ -153,21 +154,31 @@
 - **MAPA** - 217 municípios, contratos e obras georreferenciados
 - **ROADMAP** - 5 fases, Selo Diamante mantido, 115 categorias cobertas em 12 meses
 
-**Texto falado (20 segundos):**
+**Texto falado (15 segundos):**
 
-> "O que vocês viram: dados que o cidadão busca priorizados, IA com acesso real ao banco e LGPD nativo, mapa interativo dos 217 municípios. Tudo mobile-first."
+> "O que vocês viram: dados priorizados, IA com acesso ao banco, mapa dos 217 municípios. Tudo mobile-first."
 
-> "Roadmap em 5 fases pós-piloto: refino com a STC, backend próprio, cobertura das 115 categorias, coexistência com o portal atual e substituição. Selo Diamante mantido. Juçara continua atendendo. STC continua gestora."
+> "Roadmap em 5 fases até virar portal único, com Selo Diamante mantido, Juçara coexistindo e STC como gestora oficial."
 
 ---
 
-## Bloco 6 - FINAL + Slogan (02:50 - 03:00) | SLIDE 5
+## Bloco 6 - Equipe (02:40 - 02:50) | SLIDE 5
 
-**[SLIDE 5]** Logo grande + slogan + QR code + URL pública.
+**[SLIDE 5]** 3 cards horizontais com nome, foto opcional e papel de cada integrante.
 
 **Texto falado (10 segundos):**
 
-> "**Portal da Transparência. O dado finalmente fala a língua de quem precisa dele.**"
+> "A equipe: André Lopes, fullstack e dados. Alexandre Oliveira, IA e backend. Alexsander Oliveira, backend e sistemas. Três especialidades, uma proposta pronta para a STC."
+
+---
+
+## Bloco 7 - FINAL + Obrigado + Slogan (02:50 - 03:00) | SLIDE 6
+
+**[SLIDE 6]** Logo grande + Obrigado + slogan + QR code + URL pública.
+
+**Texto falado (10 segundos):**
+
+> "**O dado finalmente fala a língua de quem precisa dele. Obrigado.**"
 
 > Mostrar o QR e a URL.
 
@@ -178,7 +189,7 @@
 - [ ] Protótipo aberto na TELA 1 antes de subir
 - [ ] Celular real conectado ao projetor (reforça 56% acessa por mobile)
 - [ ] Wifi/4G testado, fallback offline com print das telas no SLIDE 4 caso caia
-- [ ] 5 slides preparados (1 Problema, 2 Capa, 3 De/Para, 4 Diferenciais, 5 Final)
+- [ ] 6 slides preparados (1 Problema, 2 Capa, 3 De/Para, 4 Diferenciais, 5 Equipe, 6 Final)
 - [ ] Banca pontua Usabilidade 30% + Acessibilidade 25% + Clareza 20% = 75% nas telas, ensaiar 4x
 - [ ] Cronômetro no chão, target 2:55 para deixar margem
 - [ ] Demo das 2 perguntas-âncora (folha de servidores + contratos do município) é obrigatória
