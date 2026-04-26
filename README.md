@@ -1,145 +1,300 @@
-# 🏛️ Portal da Transparência
+<div align="center">
 
-> **O futuro Portal da Transparência do Maranhão. Construído para o cidadão, do celular para o desktop, sem jargão e em até 3 passos.**
+![Hackathon da Transparência - Equipe 4](frontend/public/images/01.png)
 
-Projeto desenvolvido no **Hackathon da Transparência Maranhense 2026**
-organizado por STC + SECTI + EGMA + FAPEMA | 24 a 26 de abril | São Luís, MA
+# Portal da Transparência do Maranhão
 
-**Repositório:** https://github.com/agenciadigitalslz/Portal da Transparência
+**A próxima geração do portal, redesenhada para o cidadão.
+Mobile-first, busca em linguagem natural com IA, em até 3 toques.**
 
----
+[![Deploy Status](https://api.netlify.com/api/v1/badges/db16b83a-5082-404e-8b9c-57aaadf4468c/deploy-status)](https://app.netlify.com/projects/portaltransparencia/deploys)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-6-3178C6?style=flat&logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?style=flat&logo=supabase&logoColor=white)
+![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=flat&logo=netlify&logoColor=white)
+![Hackathon](https://img.shields.io/badge/Hackathon-Transparência%202026-0A4D8C?style=flat)
 
-## A Proposta
+### [Acessar Demo](https://portaltransparencia.netlify.app) · [Memorial](MEMORIAL.md) · [Pitch](PITCH.md) · [Wireframes](WIREFRAMES_PITCH.md)
 
-O **Portal da Transparência** é a proposta de **substituição do atual Portal da Transparência do Maranhão**. Não é uma camada sobre o portal existente, é a próxima geração do portal, redesenhada do zero a partir de quem ele deve servir: o cidadão maranhense.
-
-A linha histórica oficial do portal já apontava para esse caminho:
-
-| Ano | Foco |
-|---|---|
-| 2010 | Cumprir a obrigação legal (LRF + LAI) |
-| 2015 | Compliance integral, desenvolvimento rápido |
-| 2017 | Interface amigável, primeira aproximação da linguagem cidadã |
-| 2021 | Inovação na apresentação, acesso com menos clicks, multi-plataforma |
-| 2022 | Estratégia de Linguagem Simples + atalho "Mais Buscados" |
-| 2023 | Novo Portal (parceria SEATRAN + LabiGov) |
-| **2026** | **Usabilidade total, o cidadão no centro** |
-
-O Portal da Transparência é o passo de 2026 entregue como produto, na continuidade técnica do que a STC vinha construindo desde 2021.
+</div>
 
 ---
 
-## A Dor que o Portal da Transparência Resolve
+## Sobre o Projeto
 
-| Indicador | Realidade (dado oficial) |
+Projeto da **Equipe 4** desenvolvido no **Hackathon da Transparência Maranhense 2026**, organizado por STC, SECTI, EGMA e FAPEMA, em São Luís - MA, entre 24 e 26 de abril.
+
+O **Portal da Transparência** é a proposta de **substituição do atual portal**, mantendo o Selo Diamante e os 320 mil usuários anuais, mas redesenhado a partir do dado real de uso, sem a barreira do burocratiquês e funcionando de verdade no celular.
+
+> *"O nosso compromisso é um pouco menos com o legal e mais com a sociedade."*
+> Secretaria da Transparência e Controle do MA, abertura do Hackathon 2026.
+
+---
+
+## A Dor que o Projeto Resolve
+
+| Indicador real (Analytics oficiais cedidos pela STC) | Realidade |
 |---|---|
 | Usuários únicos por ano | ~320.000 |
 | Visualizações por ano | ~4.000.000 |
 | Acesso via celular | **56%** |
-| Tempo médio de engajamento mobile | 155 segundos |
-| Tempo médio de engajamento desktop | 325 segundos |
-| Tipos de informação | 115 categorias |
-| **72% das visualizações** | Páginas de **Remuneração** e **Ficha Financeira** |
-| Crescimento da busca avançada (2024-2025) | **+1.144%** (16K -> 205K views) |
+| Tempo médio mobile | 155 segundos |
+| Tempo médio desktop | 325 segundos |
+| **72% das visualizações** | concentradas em **Remuneração + Ficha Financeira** |
+| Crescimento da busca avançada (2024 a 2025) | **+1.144%** (de 16K para 205K acessos) |
+| CPF buscado na busca avançada | **126 vezes** (vetor LGPD ativo) |
 
-**O cidadão usa o portal massivamente para fiscalizar a máquina pública** (salários, fornecedores, contratos). Mas a UX expulsa quem chega pelo celular: 56% acessa por mobile e fica menos da metade do tempo de desktop.
-
----
-
-## A Solução em Uma Frase
-
-**Um portal de transparência mobile-first, com busca em linguagem natural, ajuda inteligente contextual com acesso ao banco de dados real, glossário vivo e visualizações que respondem perguntas reais do cidadão, em até 3 passos.**
+**Tradução:** o cidadão maranhense usa o portal para fiscalizar a máquina pública, mas a UX o expulsa antes dele encontrar o que veio buscar. O dado existe, o acesso a ele, não.
 
 ---
 
-## As 4 Frentes do Desafio Oficial
+## A Solução em 4 Pilares
 
-| Frente | Como o Portal da Transparência responde | Peso na banca |
-|---|---|---|
-| 🧭 Navegação | Eixos de vida (Saúde, Educação, Gestão Pública, etc.), regra dos 3 passos, sem jargão no caminho | 30% (Usabilidade) |
-| 📱 Mobile First | Interface touch-friendly, PWA, jornadas curtas, otimizado para celular | 30% (Usabilidade) |
-| ♿ Acessibilidade | WCAG 2.1 AA + e-MAG, leitor de tela, alto contraste, navegação por teclado | 25% |
-| 📊 Visualização | Cards de resumo, gráficos contextualizados, narrativa por seção, dashboard inicial em páginas de busca | 20% (Clareza) |
+<table>
+<tr>
+<td width="50%">
 
-> Critérios da banca somam: Usabilidade 30% + Acessibilidade 25% + Clareza 20% + Viabilidade Técnica 15% + Impacto e Inovação 10%.
+### Dados Priorizados
+
+72% do uso real está em folha de servidor e contratos. Gestão Pública entra no topo da home. Páginas de busca abrem com termos mais buscados em tempo real, métricas-chave e atualizações recentes.
+
+</td>
+<td width="50%">
+
+### IA com Acesso ao Banco
+
+A AjudaInteligente é uma IA com acesso real ao banco de dados (coisa que a Juçara não tem). RAG estrito sobre os dados oficiais via pgvector, cita fonte em toda resposta, CPF bloqueado por padrão.
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+### Mapa Interativo
+
+Mapa do Maranhão com os 217 municípios coloridos por indicadores. Cidadão toca onde mora e vê os contratos ativos, obras em andamento e quanto a cidade dele recebeu.
+
+</td>
+<td width="50%">
+
+### Glossário Vivo + 3 Toques
+
+Termo técnico clicável vira explicação cidadã sem tirar do fluxo. Regra dos 3 toques em toda jornada. WCAG 2.1 AA e e-MAG nativos. Compartilhar Zap em todo dado.
+
+</td>
+</tr>
+</table>
 
 ---
 
-## Diferenciais Centrais
+## Linha Histórica do Portal
 
-1. **AjudaInteligente.** Painel lateral estilo Alura que aparece de forma inteligente quando o cidadão precisa: ao tentar uma busca complexa, ao explorar um dashboard, ao clicar em um termo. Toast discreto "Posso ajudar?". Acesso real ao banco de dados, coisa que a Juçara não tem hoje.
+A proposta não é ruptura, é a continuidade técnica do que a STC vinha planejando desde 2010:
 
-2. **Dashboard inicial em páginas de busca.** Primeira dobra com termos mais buscados em tempo real (Remuneração, Folha de pagamento, Contratos), métricas em destaque, novidades. Substitui a lista vazia atual da busca avançada.
+| Ano | Foco oficial |
+|---|---|
+| 2010 | Cumprimento da criação do portal (LRF + LAI) |
+| 2015 | Compliance integral, desenvolvimento rápido |
+| 2017 | Interface amigável, primeira aproximação da linguagem cidadã |
+| 2021 | Inovação na apresentação, acesso com menos clicks, multi-plataforma |
+| 2022 | Estratégia de Linguagem Simples, atalho "Mais Buscados" |
+| 2023 | Novo Portal (parceria SEATRAN + LabiGov) |
+| **2026** | **Usabilidade total, com o cidadão no centro (este hackathon)** |
 
-3. **Glossário Vivo** que detecta termos técnicos no conteúdo e os explica em linguagem simples ao toque, sem tirar o cidadão do fluxo.
+---
 
-4. **Eixos de vida temáticos** com **Gestão Pública promovido** ao topo (porque é onde 72% do uso real acontece). No lugar de menus contábeis, jornadas que respondem perguntas como *"quanto custa a folha de servidores?"*.
+## Componentes Principais
 
-5. **Mapa do MA por município** com indicadores de gasto comparados à média estadual.
+### Eixos Temáticos da Vida do Cidadão
 
-6. **Compatibilidade total com a Juçara.** A Juçara existe e funciona como atendente virtual em vários portais do governo. O Portal da Transparência não substitui a Juçara, complementa: traz acesso ao banco de dados real onde a Juçara não tem.
+Sete eixos no lugar dos menus contábeis: **Gestão Pública** (priorizado), Saúde, Educação, Programas Sociais, Obras, Habitação e Segurança.
+
+### Dashboard Inicial nas Páginas de Busca
+
+Substitui a tela vazia do portal atual. Primeira dobra com termos mais buscados em tempo real, métricas em destaque e atualizações recentes.
+
+### AjudaInteligente
+
+Toast discreto "Posso ajudar?" aparece quando faz sentido (busca complexa, muitos resultados, zero resultados, hover prolongado). Drawer lateral com gráfico, citação da fonte oficial e link para o dado bruto.
+
+### Mapa do MA
+
+217 municípios clicáveis com indicadores comparados à média estadual. Painel local com contratos ativos, obras e gastos.
+
+### Glossário Vivo
+
+Detector automático de termos técnicos no conteúdo. Toque, e o termo vira explicação em linguagem simples sem tirar o cidadão do fluxo.
+
+### Compartilhar Zap
+
+Botão presente em todo dado relevante. Gera imagem PNG pronta para WhatsApp, Twitter e Instagram, com a marca do portal e a fonte oficial.
+
+### Camada de Acessibilidade Persistente
+
+Alto contraste, controle de fonte, modo simplificado, leitor de tela. WCAG 2.1 AA e e-MAG nativos.
 
 ---
 
 ## Stack Tecnológica
 
-| Camada | Produto Final | MVP do Hackathon |
+| Camada | Tecnologia | Por quê |
 |---|---|---|
-| Frontend | React 18 + Vite + Tailwind + shadcn/ui | Mesma stack |
-| Banco | PostgreSQL com versionamento | Supabase (Postgres + Auth + Edge Functions) |
-| IA | Claude API via Edge Function | Claude API via Edge Function (Supabase) |
-| RAG | pgvector | pgvector |
-| Visualização | Recharts + react-simple-maps | Mesma stack |
-| PWA | Service Worker, cache offline | Configuração básica |
-| Deploy | Vercel + região Brasil | Vercel |
+| Framework | React 19 + Vite + TypeScript | Setup rápido, bundle leve |
+| Estilização | Tailwind CSS 3 + shadcn/ui + Radix | Mobile-first nativo, acessível por padrão |
+| Roteamento | react-router-dom 7 | SPA com rotas amigáveis |
+| Banco | Supabase (Postgres + pgvector) | Pronto, seguro, escalável, RAG nativo |
+| Mapa | Leaflet + react-leaflet | GeoJSON do MA, leve, customizável |
+| Gráficos | Recharts | Acessível e responsivo |
+| IA | Claude (Anthropic) via Edge Function | Qualidade em pt-BR, chave protegida |
+| Compartilhar | html2canvas-pro + jspdf | PNG e PDF gerados client-side |
+| Deploy | Netlify | CDN global, build com cache, redirect SPA |
 
 ---
 
-## Entregáveis do Hackathon
+## Critérios da Banca e Como Cada Um é Atacado
 
-| Entregável | Status |
-|---|---|
-| Protótipo funcional online | A executar |
-| Memorial descritivo (PDF) | Em revisão final |
-| Pitch de 3 minutos | A ensaiar |
-| Comparativo Atual vs Portal da Transparência | Em construção |
-| Roadmap de transição | Documentado em ARQUITETURA.md |
+| Critério | Peso | Como o projeto atende |
+|---|---|---|
+| **Usabilidade** | 30% | Regra dos 3 toques, mobile-first, AjudaInteligente, dashboard inicial na busca |
+| **Acessibilidade** | 25% | WCAG 2.1 AA + e-MAG, Glossário Vivo, alto contraste, leitor de tela, modo simplificado |
+| **Clareza da Informação** | 20% | Linguagem cidadã, cards de resumo, narrativa por seção, gráficos contextualizados |
+| **Viabilidade Técnica** | 15% | Stack pronta para produção, arquitetura modular, deploy ativo, banco curado |
+| **Impacto e Inovação** | 10% | IA com acesso ao banco real, dashboard de busca, mapa por município |
+
+> Usabilidade + Acessibilidade somam 55% do peso. O foco do produto é nesses dois critérios.
 
 ---
 
 ## Estrutura do Repositório
 
 ```
-Portal da Transparência/
+hackaton-da-transparencia/
 ├── README.md                  ← este arquivo
-├── CONTEXTO.md                ← problema e diagnóstico do portal atual
-├── SOLUCAO.md                 ← especificação completa do Portal da Transparência
-├── PERSONAS.md                ← personas e jornadas de valor
-├── ARQUITETURA.md             ← arquitetura de produto + arquitetura do MVP
-├── PITCH.md                   ← roteiro dos 3 minutos
-├── PLANO_EXECUCAO.md          ← cronograma das 48h
+├── netlify.toml               ← config de deploy (base, publish, redirect SPA)
+│
 ├── MEMORIAL.md                ← memorial descritivo (entregável oficial)
-├── GLOSSARIO.md               ← glossário de termos técnicos
+├── PITCH.md                   ← roteiro do pitch de 3 minutos
+├── WIREFRAMES_PITCH.md        ← wireframes textuais dos 6 slides
+│
+├── CONTEXTO.md                ← problema e diagnóstico do portal atual
+├── SOLUCAO.md                 ← especificação completa do produto
+├── PERSONAS.md                ← personas e jornadas
+├── ARQUITETURA.md             ← arquitetura técnica e plano de migração
+├── PLANO_EXECUCAO.md          ← cronograma da imersão de 20h
+├── DADOS_REAIS.md             ← consolidador dos dados oficiais cedidos
 ├── ANALISE_COMPLETA.md        ← análise estratégica do desafio
-├── DADOS_REAIS.md             ← consolidador de dados oficiais (planilhas e apresentações)
-└── frontend/                  ← código (a iniciar)
+├── GLOSSARIO.md               ← glossário de termos técnicos
+│
+├── frontend/                  ← aplicação React + Vite
+│   ├── src/
+│   │   ├── components/        ← layout, home, dashboard, mapa, ia, ui
+│   │   ├── pages/             ← Busca, Detalhe, Eixo, Mapa
+│   │   ├── hooks/             ← acessibilidade, busca, ia
+│   │   ├── lib/               ← supabase, gerarPDFEixo, utils
+│   │   ├── data/              ← datasets curados dos eixos
+│   │   ├── services/          ← integrações
+│   │   ├── types/             ← tipagem (database, domínio)
+│   │   └── styles/
+│   └── public/                ← assets estáticos (favicon, imagens, geojson)
+│
+└── supabase/                  ← migrations e edge functions
 ```
 
 ---
 
-## Premiação (via FAPEMA)
+## Como Rodar Localmente
 
-🥇 1º lugar R$ 6.000 | 🥈 2º lugar R$ 3.000 | 🥉 3º lugar R$ 1.800
+### Requisitos
+
+- Node.js 20 ou superior
+- Conta Supabase com projeto criado (URL e ANON KEY)
+
+### Passos
+
+```bash
+# Clonar
+git clone https://github.com/agenciadigitalslz/hackaton-da-transparencia.git
+cd hackaton-da-transparencia/frontend
+
+# Instalar
+npm install
+
+# Configurar variáveis (copiar e preencher)
+cp .env.example .env.local
+# Edite .env.local com VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY
+
+# Rodar
+npm run dev
+# Acesse http://localhost:5173
+```
+
+### Build de produção
+
+```bash
+npm run build       # gera frontend/dist
+npm run preview     # serve localmente o build
+```
+
+---
+
+## Documentação Estendida
+
+| Documento | Conteúdo |
+|---|---|
+| [MEMORIAL.md](MEMORIAL.md) | Entregável oficial: diagnóstico, evidências, solução, impacto, stack, roadmap |
+| [PITCH.md](PITCH.md) | Roteiro cronometrado de 3 minutos, com slides e telas marcadas |
+| [WIREFRAMES_PITCH.md](WIREFRAMES_PITCH.md) | Layout textual dos 6 slides da apresentação |
+| [SOLUCAO.md](SOLUCAO.md) | Especificação completa do produto, princípios, componentes, MVP |
+| [CONTEXTO.md](CONTEXTO.md) | Problema, diagnóstico do portal atual, definição de UX |
+| [DADOS_REAIS.md](DADOS_REAIS.md) | Consolidador dos dados oficiais (Analytics + planilhas + apresentações) |
+| [ARQUITETURA.md](ARQUITETURA.md) | Arquitetura de produto, MVP e plano de migração |
+| [PERSONAS.md](PERSONAS.md) | 5 personas com jornadas de valor |
+| [GLOSSARIO.md](GLOSSARIO.md) | Glossário inicial de termos técnicos |
 
 ---
 
 ## Equipe
 
-Projeto desenvolvido em equipe:
+| Nome | Papel |
+|---|---|
+| **André Lopes** | Desenvolvedor Fullstack, Analista de Sistemas e Data Science |
+| **Alexandre Oliveira** | Dev Backend, Especialista em IA e Análise de Dados |
+| **Alexsander Oliveira** | Dev Backend e Analista de Sistemas |
 
-- **André Lopes** - Desenvolvedor Fullstack, Analista de Sistemas e Data Science
-- **Alexandre Oliveira** - Dev Backend, Especialista em IA e Análise de Dados
-- **Alexsander Oliveira** - Dev Backend e Analista de Sistemas
+---
+
+## Agradecimentos
+
+Aos organizadores do Hackathon da Transparência Maranhense 2026:
+
+- **STC - Secretaria da Transparência e Controle do Estado do Maranhão**
+- **SECTI - Secretaria de Estado da Ciência, Tecnologia e Inovação**
+- **EGMA - Escola de Governo do Maranhão**
+- **FAPEMA - Fundação de Amparo à Pesquisa e ao Desenvolvimento Científico e Tecnológico do Maranhão**
+
+E às equipes históricas do portal (2021 e 2023), citadas em `DADOS_REAIS.md`, que abriram o caminho que esta proposta tenta concluir.
+
+---
+
+## Premiação Oficial
+
+| Posição | Valor (FAPEMA) |
+|---|---|
+| 1º lugar | R$ 6.000 |
+| 2º lugar | R$ 3.000 |
+| 3º lugar | R$ 1.800 |
+
+---
+
+<div align="center">
+
+**Hackathon da Transparência Maranhense 2026** · 24 a 26 de abril · São Luís, MA
+
+[Demo](https://portaltransparencia.netlify.app) · [Repositório](https://github.com/agenciadigitalslz/hackaton-da-transparencia) · [Memorial](MEMORIAL.md)
+
+</div>
 
 ---
 Criado por André Lopes
