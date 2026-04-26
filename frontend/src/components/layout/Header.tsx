@@ -23,7 +23,7 @@ export function Header() {
         <Link
           to="/"
           className="flex items-center gap-2 rounded-md px-1 py-1 text-foreground transition-colors hover:text-primary focus-visible:text-primary"
-          aria-label="TransparaMA, ir para a página inicial"
+          aria-label="Portal da Transparência, ir para a página inicial"
         >
           <Logo />
         </Link>

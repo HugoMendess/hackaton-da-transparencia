@@ -93,7 +93,7 @@ export function DrawerAjudaInteligente() {
       {/* Drawer */}
       <aside
         role="dialog"
-        aria-label="AjudaInteligente do TransparaMA"
+        aria-label="AjudaInteligente do Portal da Transparência"
         aria-modal="true"
         className="fixed bottom-0 right-0 top-0 z-50 flex w-full max-w-md flex-col border-l border-border bg-card shadow-2xl"
       >

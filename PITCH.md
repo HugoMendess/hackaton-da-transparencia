@@ -1,4 +1,4 @@
-# PITCH - TransparaMA
+# PITCH - Portal da Transparência
 
 > **Tempo total: 3 minutos** (180 segundos exatos, definido pela organização do hackathon).
 > O protótipo deve estar aberto na TELA 1 antes da equipe subir no palco.
@@ -11,7 +11,7 @@
 | Tempo | Bloco | Suporte visual |
 |---|---|---|
 | 00:00 - 00:30 | 1. Problema (dados que abrem os olhos) | **SLIDE 1** - 3 dados na tela |
-| 00:30 - 00:45 | 2. Solução (o que é o TransparaMA) | **SLIDE 2** - capa do produto |
+| 00:30 - 00:45 | 2. Solução (o que é o Portal da Transparência) | **SLIDE 2** - capa do produto |
 | 00:45 - 01:00 | 3. De/Para (antes vs depois) | **SLIDE 3** - tabela visual |
 | 01:00 - 02:30 | 4. DEMO ao vivo (90s) | **TELAS 1 a 4** do protótipo |
 | 02:30 - 02:50 | 5. Diferenciais + Próximos Passos | **SLIDE 4** - 4 selos |
@@ -38,13 +38,13 @@
 
 ## Bloco 2 - Solução (00:30 - 00:45) | SLIDE 2
 
-**[SLIDE 2]** Logo TransparaMA + tagline:
+**[SLIDE 2]** Logo Portal da Transparência + tagline:
 
 > *"A próxima geração do Portal da Transparência do Maranhão."*
 
 **Texto falado (15 segundos):**
 
-> "Apresentamos o TransparaMA. Não é uma camada sobre o portal atual. É a próxima geração do portal, redesenhada a partir do dado real de uso, sem perder o Selo Diamante."
+> "Apresentamos o Portal da Transparência. Não é uma camada sobre o portal atual. É a próxima geração do portal, redesenhada a partir do dado real de uso, sem perder o Selo Diamante."
 
 ---
 
@@ -167,7 +167,7 @@
 
 **Texto falado (10 segundos):**
 
-> "**TransparaMA. O dado finalmente fala a língua de quem precisa dele.**"
+> "**Portal da Transparência. O dado finalmente fala a língua de quem precisa dele.**"
 
 > Mostrar o QR e a URL.
 
@@ -202,7 +202,7 @@
 
 ### "Vocês estão propondo substituir o portal atual?"
 
-> Sim. O TransparaMA é a próxima geração do portal, não uma camada sobre o atual. A linha histórica oficial já apontava para isso: 2010 cumpriu a lei, 2017 trouxe linguagem cidadã, 2022 trouxe Linguagem Simples e o atalho 'Mais Buscados', 2023 redesenhou. 2026 é o ano da usabilidade total. Estamos entregando esse passo como produto.
+> Sim. O Portal da Transparência é a próxima geração do portal, não uma camada sobre o atual. A linha histórica oficial já apontava para isso: 2010 cumpriu a lei, 2017 trouxe linguagem cidadã, 2022 trouxe Linguagem Simples e o atalho 'Mais Buscados', 2023 redesenhou. 2026 é o ano da usabilidade total. Estamos entregando esse passo como produto.
 
 ### "Como vocês fariam a transição de forma segura?"
 
@@ -210,11 +210,11 @@
 
 ### "O Selo Diamante é mantido?"
 
-> Sim, e o objetivo é elevar para 100. Toda categoria obrigatória do portal atual entra no roadmap. O TransparaMA não reduz compliance, ele soma utilidade ao compliance.
+> Sim, e o objetivo é elevar para 100. Toda categoria obrigatória do portal atual entra no roadmap. O Portal da Transparência não reduz compliance, ele soma utilidade ao compliance.
 
 ### "E a Juçara, como fica?"
 
-> A Juçara continua existindo e funcionando como atendente virtual em vários portais do governo. O TransparaMA não substitui a Juçara, complementa: ela responde dúvidas gerais, o TransparaMA traz acesso ao banco de dados real e ajuda inteligente embutida na jornada. São produtos diferentes que coexistem.
+> A Juçara continua existindo e funcionando como atendente virtual em vários portais do governo. O Portal da Transparência não substitui a Juçara, complementa: ela responde dúvidas gerais, o Portal da Transparência traz acesso ao banco de dados real e ajuda inteligente embutida na jornada. São produtos diferentes que coexistem.
 
 ### "Como vocês obtiveram os dados?"
 
@@ -238,7 +238,7 @@
 
 ### "Por que não usar a Juçara como interface da IA?"
 
-> A Juçara é um chatbot de atendimento, não tem acesso ao banco de dados do portal nem é especializada em busca contextual. O TransparaMA traz uma IA com acesso aos dados, embutida nos pontos onde o cidadão precisa (busca avançada, exploração de dashboard). São camadas diferentes e complementares.
+> A Juçara é um chatbot de atendimento, não tem acesso ao banco de dados do portal nem é especializada em busca contextual. O Portal da Transparência traz uma IA com acesso aos dados, embutida nos pontos onde o cidadão precisa (busca avançada, exploração de dashboard). São camadas diferentes e complementares.
 
 ---
 

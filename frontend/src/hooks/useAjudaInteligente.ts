@@ -23,22 +23,60 @@ export type ContextoAjuda = {
 }
 
 const MAX_MENSAGENS = 50
+const MAX_HISTORICO_TROCAS = 10
+const MAX_HISTORICO_MSG_LEN = 600
 
 function sanitizarFontes(fontes: Fonte[]): Fonte[] {
   return fontes.filter((f) => {
     if (!f.url || typeof f.url !== "string") return false
-    // Aceita apenas https, http (gov.br pode estar sem TLS) e paths internos
-    return (
-      f.url.startsWith("https://") ||
-      f.url.startsWith("http://") ||
-      f.url.startsWith("/")
-    )
+    // A Edge Function instrui o LLM a retornar apenas paths internos.
+    // Defesa em profundidade: aceita só caminho relativo (/) ou https
+    // de domínios .gov.br. Bloqueia http:// e qualquer outro domínio
+    // para evitar exfiltração caso o LLM seja induzido por prompt injection.
+    if (f.url.startsWith("/")) return true
+    if (f.url.startsWith("https://")) {
+      try {
+        const host = new URL(f.url).hostname.toLowerCase()
+        return host === "ma.gov.br" || host.endsWith(".ma.gov.br") || host.endsWith(".gov.br")
+      } catch {
+        return false
+      }
+    }
+    return false
   })
 }
 
 /** Mantém o histórico limitado a MAX_MENSAGENS, descartando o início */
 function capMensagens(arr: MensagemConversa[]): MensagemConversa[] {
   return arr.length > MAX_MENSAGENS ? arr.slice(-MAX_MENSAGENS) : arr
+}
+
+/**
+ * Converte as mensagens da UI no formato da Anthropic. Pega as últimas
+ * MAX_HISTORICO_TROCAS trocas (perguntas + respostas), descarta erros e
+ * trunca cada mensagem para limitar o consumo de tokens.
+ */
+function montarHistoricoParaIA(
+  arr: MensagemConversa[]
+): Array<{ role: "user" | "assistant"; content: string }> {
+  const fim: Array<{ role: "user" | "assistant"; content: string }> = []
+  // Pega as últimas trocas (cada troca = 1 pergunta + 1 resposta = 2 itens)
+  const slice = arr.slice(-(MAX_HISTORICO_TROCAS * 2))
+  for (const m of slice) {
+    if (m.tipo === "pergunta") {
+      fim.push({
+        role: "user",
+        content: m.texto.slice(0, MAX_HISTORICO_MSG_LEN),
+      })
+    } else if (m.tipo === "resposta") {
+      fim.push({
+        role: "assistant",
+        content: m.data.resposta.slice(0, MAX_HISTORICO_MSG_LEN),
+      })
+    }
+    // mensagens "erro" são descartadas: não fazem parte da conversa válida
+  }
+  return fim
 }
 
 /**
@@ -90,6 +128,11 @@ export function useAjudaInteligente() {
 
       const ctxFinal = { ...contexto, ...(ctx ?? {}) }
 
+      // Snapshot do histórico ANTES de adicionar a pergunta atual.
+      // Isso garante que o multi-turn vai pra Anthropic com as N trocas
+      // anteriores como contexto, e a pergunta atual como nova "user".
+      const historicoParaIA = montarHistoricoParaIA(mensagens)
+
       setMensagens((m) =>
         capMensagens([
           ...m,
@@ -102,7 +145,11 @@ export function useAjudaInteligente() {
         const { data, error } = await supabase.functions.invoke<RespostaIA>(
           "ask",
           {
-            body: { pergunta: limpo, contexto: ctxFinal },
+            body: {
+              pergunta: limpo,
+              contexto: ctxFinal,
+              historico: historicoParaIA,
+            },
           }
         )
 
@@ -143,7 +190,7 @@ export function useAjudaInteligente() {
         setPerguntando(false)
       }
     },
-    [contexto, perguntando]
+    [contexto, perguntando, mensagens]
   )
 
   // Sincroniza a ref com a função atual a cada render

@@ -1,5 +1,5 @@
 /**
- * Estrutura inicial dos 7 eixos temáticos do TransparaMA.
+ * Estrutura inicial dos 7 eixos temáticos do Portal da Transparência.
  * Em produção, vem do Supabase. Por enquanto, fonte estática com
  * Gestão Pública em destaque (uso real do portal: 72% das visualizações
  * estão em Remuneração + Ficha Financeira, conforme DADOS_REAIS.md).

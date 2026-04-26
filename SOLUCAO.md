@@ -1,8 +1,8 @@
-# 💡 SOLUÇÃO - TransparaMA, o Novo Portal da Transparência do MA
+# 💡 SOLUÇÃO - Portal da Transparência, o Novo Portal da Transparência do MA
 
 ## Visão
 
-O **TransparaMA** é o futuro Portal da Transparência do Maranhão. Substitui o portal atual mantendo o compliance Diamante e elevando o portal a um patamar de utilidade social: navegação por temas do cotidiano, mobile-first nativo, glossário vivo, busca em linguagem natural e ajuda inteligente contextual com acesso real ao banco de dados.
+O **Portal da Transparência** é o futuro Portal da Transparência do Maranhão. Substitui o portal atual mantendo o compliance Diamante e elevando o portal a um patamar de utilidade social: navegação por temas do cotidiano, mobile-first nativo, glossário vivo, busca em linguagem natural e ajuda inteligente contextual com acesso real ao banco de dados.
 
 > *"Transparência de verdade é aquela que o cidadão entende, encontra e compartilha."*
 
@@ -10,9 +10,9 @@ O **TransparaMA** é o futuro Portal da Transparência do Maranhão. Substitui o
 
 ## Posicionamento
 
-O TransparaMA não é uma camada sobre o portal existente. É a **próxima geração do portal**, projetada como produto. A STC continua como gestora oficial. Os dados continuam sendo os mesmos dados públicos. O que muda é a experiência, a arquitetura de informação e o motor que conecta o cidadão ao dado.
+O Portal da Transparência não é uma camada sobre o portal existente. É a **próxima geração do portal**, projetada como produto. A STC continua como gestora oficial. Os dados continuam sendo os mesmos dados públicos. O que muda é a experiência, a arquitetura de informação e o motor que conecta o cidadão ao dado.
 
-| | Portal Atual | TransparaMA (Novo Portal) |
+| | Portal Atual | Portal da Transparência (Novo Portal) |
 |---|---|---|
 | Arquitetura de informação | Lógica contábil do Estado | Eixos de vida do cidadão (com Gestão Pública promovida) |
 | Passos para encontrar | 5 a 10 cliques | Máximo 3 |
@@ -82,17 +82,17 @@ A home traz, além dos 7 eixos, atalhos para as buscas mais frequentes:
    - Diárias do mês
 ```
 
-A apresentação oficial da STC de 2022 já previa esse atalho ("Mais Buscados"). O TransparaMA materializa com dados reais em tempo real.
+A apresentação oficial da STC de 2022 já previa esse atalho ("Mais Buscados"). O Portal da Transparência materializa com dados reais em tempo real.
 
 ---
 
 ## Componentes-Chave do Sistema
 
-### 1. 🤖 AjudaInteligente (a IA do TransparaMA)
+### 1. 🤖 AjudaInteligente (a IA do Portal da Transparência)
 
-A IA do TransparaMA não é um produto à parte com persona própria. É uma **camada inteligente embutida na jornada do cidadão**, que aparece quando faz sentido. Inspirada no padrão da Alura (assistente lateral discreto).
+A IA do Portal da Transparência não é um produto à parte com persona própria. É uma **camada inteligente embutida na jornada do cidadão**, que aparece quando faz sentido. Inspirada no padrão da Alura (assistente lateral discreto).
 
-**Posicionamento estratégico:** a Juçara (chatbot oficial usado em vários portais do governo) continua existindo e funcionando como atendente virtual. O TransparaMA não substitui a Juçara, complementa: traz acesso real ao banco de dados, coisa que a Juçara não tem hoje.
+**Posicionamento estratégico:** a Juçara (chatbot oficial usado em vários portais do governo) continua existindo e funcionando como atendente virtual. O Portal da Transparência não substitui a Juçara, complementa: traz acesso real ao banco de dados, coisa que a Juçara não tem hoje.
 
 **Como aparece:**
 - Toast discreto "Posso ajudar?" no canto inferior direito
@@ -160,7 +160,7 @@ IA explica: "Este valor representa 28% do orçamento
 
 **Problema atual:** as páginas de busca do Portal MA hoje não trazem nada visual. Lista vazia até o cidadão digitar e clicar buscar.
 
-**Solução TransparaMA:** primeira dobra das páginas de busca traz contexto visual imediato.
+**Solução Portal da Transparência:** primeira dobra das páginas de busca traz contexto visual imediato.
 
 ```
 ┌────────────────────────────────────────────────────┐
@@ -188,7 +188,7 @@ IA explica: "Este valor representa 28% do orçamento
 └───────────────────────────────────────────────────┘
 ```
 
-A apresentação oficial da STC de 2022 já mencionou *"atalhos: Mais Buscados, Presença do Estado"* como direção desejada. O TransparaMA materializa.
+A apresentação oficial da STC de 2022 já mencionou *"atalhos: Mais Buscados, Presença do Estado"* como direção desejada. O Portal da Transparência materializa.
 
 ### 3. 📖 Glossário Vivo
 
@@ -217,7 +217,7 @@ Cada card pode disparar a AjudaInteligente para aprofundar contextualmente.
 
 ### 5. 📲 Compartilhar Zap
 
-Botão presente em todo dado relevante. Gera uma imagem (card visual) pronta para WhatsApp, Instagram e Twitter, com a marca do TransparaMA, o dado e a fonte oficial.
+Botão presente em todo dado relevante. Gera uma imagem (card visual) pronta para WhatsApp, Instagram e Twitter, com a marca do Portal da Transparência, o dado e a fonte oficial.
 
 ### 6. 🗺️ Mapa do Maranhão
 
@@ -242,7 +242,7 @@ Painel para órgãos publicadores e equipe da STC. Não faz parte do MVP do hack
 ### Fluxo padrão
 
 ```
-1. Cidadão abre o TransparaMA no celular
+1. Cidadão abre o Portal da Transparência no celular
    → PWA carrega instantaneamente, mesmo em 3G
 
 2. Vê:
@@ -315,7 +315,7 @@ Painel para órgãos publicadores e equipe da STC. Não faz parte do MVP do hack
 
 A banca exige resposta a pelo menos 1. Vamos responder as 4 com a AjudaInteligente:
 
-| Pergunta-âncora | Como o TransparaMA responde |
+| Pergunta-âncora | Como o Portal da Transparência responde |
 |---|---|
 | *"Quanto o governo gastou com saúde esse ano?"* | Eixo Saúde → Card de resumo → AjudaInteligente detalha |
 | *"As obras de educação estão sendo executadas?"* | Eixo Educação → Lista de obras com status → Mapa |
@@ -333,7 +333,7 @@ A banca exige resposta a pelo menos 1. Vamos responder as 4 com a AjudaInteligen
 | **Fase 2 - Backend e Admin** | 3 meses | API própria, ingestão automatizada, painel admin para órgãos |
 | **Fase 3 - Cobertura Plena** | 6 meses | Todas as 115 categorias, IA com dados em tempo real, auditoria completa |
 | **Fase 4 - Substituição** | 9 meses | Coexistência com o portal antigo, redirecionamentos, comunicação com cidadãos |
-| **Fase 5 - Portal Único** | 12 meses | TransparaMA como único portal oficial, portal antigo arquivado |
+| **Fase 5 - Portal Único** | 12 meses | Portal da Transparência como único portal oficial, portal antigo arquivado |
 
 ---
 

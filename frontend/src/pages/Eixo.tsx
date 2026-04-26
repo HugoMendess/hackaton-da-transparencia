@@ -5,6 +5,8 @@ import {
   AlertCircle,
   ExternalLink,
   Sparkles,
+  FileDown,
+  Loader2,
 } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
@@ -14,9 +16,11 @@ import { ConsultaEspecifica } from "@/components/dashboard/ConsultaEspecifica"
 import { GraficoBarra } from "@/components/dashboard/GraficoBarra"
 import { SerieHistorica } from "@/components/dashboard/SerieHistorica"
 import { TextoComGlossario } from "@/components/glossario/TermoTooltip"
+import { BotaoCompartilhar } from "@/components/compartilhar/BotaoCompartilhar"
 import { EIXOS } from "@/data/eixos"
 import { getDadosEixo } from "@/data/eixos-dataset"
 import { portalApi, PortalApiError } from "@/services/portalApi"
+import { gerarPDFEixo } from "@/lib/gerarPDFEixo"
 import { cn } from "@/lib/utils"
 
 type StatusFonte = "carregando" | "oficial" | "fallback"
@@ -28,6 +32,17 @@ export function Eixo() {
 
   const [statusFonte, setStatusFonte] = useState<StatusFonte>("carregando")
   const [erroApi, setErroApi] = useState<string | null>(null)
+  const [gerandoPDF, setGerandoPDF] = useState(false)
+
+  async function baixarPDF() {
+    if (!dados || gerandoPDF) return
+    setGerandoPDF(true)
+    try {
+      await gerarPDFEixo(eixo!.nome, dados)
+    } finally {
+      setGerandoPDF(false)
+    }
+  }
 
   // Tenta a API real do Portal MA. Em caso de timeout/erro, mantém fallback.
   // Apenas para os 3 eixos com dataset detalhado (gestao-publica, educacao, saude).
@@ -100,6 +115,29 @@ export function Eixo() {
               <span className="text-sm text-muted-foreground">
                 {eixo.descricaoCidada}
               </span>
+              <div className="ml-auto flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={baixarPDF}
+                  disabled={gerandoPDF}
+                  className="inline-flex items-center gap-1.5 rounded-md min-h-touch px-3 py-1.5 text-sm font-medium border border-border bg-background transition-all hover:bg-muted hover:border-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-progress disabled:opacity-70"
+                  aria-label={`Baixar relatório PDF do eixo ${eixo.nome}`}
+                  title="Baixar Memorial Cidadão (PDF)"
+                >
+                  {gerandoPDF ? (
+                    <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+                  ) : (
+                    <FileDown className="size-4" aria-hidden="true" />
+                  )}
+                  <span>{gerandoPDF ? "Gerando..." : "Baixar PDF"}</span>
+                </button>
+                <BotaoCompartilhar
+                  caminho={`/eixo/${slug}`}
+                  mensagem={`📊 ${eixo.nome} no Portal da Transparência: ${dados.resposta}`}
+                  rotulo="Compartilhar"
+                  variante="padrao"
+                />
+              </div>
             </div>
 
             {/* Pergunta-âncora respondida em linguagem cidadã */}

@@ -1,8 +1,8 @@
 # ⏱️ PLANO DE EXECUÇÃO - 48h do Hackathon
 
-> **Hoje é 25/04/2026.** Estamos no **dia 2 de 3** do hackathon. O dia 1 (24/04) foi de planejamento e definição estratégica. A documentação base está concluída e o posicionamento (TransparaMA como substituto oficial) está fechado. Materiais cedidos pela STC durante o hackathon (apresentações + planilhas de uso real) foram absorvidos em DADOS_REAIS.md. A partir de agora, o foco é desenvolvimento e demo.
+> **Hoje é 25/04/2026.** Estamos no **dia 2 de 3** do hackathon. O dia 1 (24/04) foi de planejamento e definição estratégica. A documentação base está concluída e o posicionamento (Portal da Transparência como substituto oficial) está fechado. Materiais cedidos pela STC durante o hackathon (apresentações + planilhas de uso real) foram absorvidos em DADOS_REAIS.md. A partir de agora, o foco é desenvolvimento e demo.
 
-**Repositório:** https://github.com/agenciadigitalslz/TransparaMA
+**Repositório:** https://github.com/agenciadigitalslz/Portal da Transparência
 
 ---
 
@@ -31,11 +31,11 @@
 
 - [x] Participação na abertura institucional (EGMA)
 - [x] Análise do desafio oficial e transcrição do áudio
-- [x] Definição da solução (TransparaMA como substituto)
+- [x] Definição da solução (Portal da Transparência como substituto)
 - [x] Documentação base completa (README, CONTEXTO, SOLUCAO, PERSONAS, ARQUITETURA, PITCH, MEMORIAL, ANALISE_COMPLETA)
 - [x] Curadoria do glossário inicial (30 termos)
 - [x] Mapeamento de eixos -> categorias da API oficial
-- [x] Repositório criado em https://github.com/agenciadigitalslz/TransparaMA
+- [x] Repositório criado em https://github.com/agenciadigitalslz/Portal da Transparência
 
 ---
 
@@ -203,7 +203,7 @@
 
 A banca avalia (Slide 13 do desafio oficial):
 
-| Critério | Peso | Foco do TransparaMA |
+| Critério | Peso | Foco do Portal da Transparência |
 |---|---|---|
 | Usabilidade | 30% | 3 toques, mobile-first, AjudaInteligente, dashboard busca |
 | Acessibilidade | 25% | WCAG 2.1 AA, glossário, contraste, leitor de tela |

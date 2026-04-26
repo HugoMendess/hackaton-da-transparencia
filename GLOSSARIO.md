@@ -1,6 +1,6 @@
 # 📖 GLOSSÁRIO - Termos Técnicos para Linguagem Simples
 
-> Este glossário alimenta o componente de tooltip na interface do TransparaMA.
+> Este glossário alimenta o componente de tooltip na interface do Portal da Transparência.
 > Formato JSON disponível em `frontend/src/data/glossario.json`
 
 ---

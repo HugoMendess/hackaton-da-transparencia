@@ -1,8 +1,8 @@
 # 👥 PERSONAS E JORNADAS
 
-> Quem é o cidadão maranhense que o TransparaMA precisa servir, e o que ele precisa fazer no portal.
+> Quem é o cidadão maranhense que o Portal da Transparência precisa servir, e o que ele precisa fazer no portal.
 
-O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 personas concretas que cobrem o espectro real de quem usa, ou tenta usar, o portal hoje.
+O Portal da Transparência não é desenhado para "o cidadão" abstrato. É desenhado para 5 personas concretas que cobrem o espectro real de quem usa, ou tenta usar, o portal hoje.
 
 **Insight crítico baseado em dados reais (DADOS_REAIS.md):** 72% das visualizações do portal atual estão nas páginas de Remuneração e Ficha Financeira. Os top 30 termos mais buscados são dominados por salários, nomes de servidores e fornecedores. **O uso real do portal é fiscalizatório, não descobertivo.** Por isso, as personas Joana (fornecedora) e Ana (jornalista) representam o **uso dominante atual**. Dona Maria e Carlos representam o **uso aspiracional** que a STC quer ampliar.
 
@@ -28,7 +28,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 - Sem instrução clara de como participar
 - Letra pequena, layout quebrado no celular
 
-**O que o TransparaMA entrega:**
+**O que o Portal da Transparência entrega:**
 - Eixo "Programas Sociais" visível na home, ícone grande
 - Página do programa com critérios em linguagem simples
 - Botão "Como Participar" com passo a passo
@@ -54,7 +54,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 - Tabelas brutas sem contexto comparativo
 - Sem informação sobre matrícula e vagas
 
-**O que o TransparaMA entrega:**
+**O que o Portal da Transparência entrega:**
 - Eixo "Educação e Futuro" com sub-itens claros
 - Mapa de escolas por município
 - Comparativo de gastos por escola
@@ -80,7 +80,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 - Sem visão consolidada por fornecedor
 - Editais de licitação em formato pouco amigável
 
-**O que o TransparaMA entrega:**
+**O que o Portal da Transparência entrega:**
 - Eixo "Gestão Pública" com seção de fornecedores e pagamentos
 - Glossário vivo explicando empenho, liquidação, pagamento
 - Notificações opt-in: "novo edital relevante para o seu CNPJ"
@@ -106,7 +106,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 - Sem download em CSV/JSON consolidado
 - Sem API documentada para uso jornalístico
 
-**O que o TransparaMA entrega:**
+**O que o Portal da Transparência entrega:**
 - Filtros avançados em todos os dashboards
 - Exportação em CSV e JSON com 1 clique
 - API pública documentada e versionada
@@ -128,14 +128,14 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 - Sem rastreabilidade clara de quem publicou o quê
 - Receio de impactar a navegação do cidadão a cada publicação
 
-**O que o TransparaMA entrega (Fase 2 do roadmap):**
+**O que o Portal da Transparência entrega (Fase 2 do roadmap):**
 - Painel admin por órgão, com perfis e permissões
 - Auditoria completa: quem mudou, quando, o que era antes
 - Validação automática de qualidade dos dados
 - Preview antes de publicar
 - Histórico de versões com possibilidade de rollback
 
-> Esta persona não é foco do MVP do hackathon, mas é central para a viabilidade do TransparaMA como substituto oficial. O respeito ao trabalho da STC e dos órgãos é parte do design.
+> Esta persona não é foco do MVP do hackathon, mas é central para a viabilidade do Portal da Transparência como substituto oficial. O respeito ao trabalho da STC e dos órgãos é parte do design.
 
 ---
 
@@ -146,7 +146,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 ### Jornada 1 - Investigação de Salário (Joana, persona dominante)
 
 ```
-1. Abre o TransparaMA, vê home com Gestão Pública em destaque
+1. Abre o Portal da Transparência, vê home com Gestão Pública em destaque
 2. Toca na busca, digita "remuneração servidor educação"
    → Página de busca abre com:
      - Dashboard inicial (top termos buscados, métricas)
@@ -174,7 +174,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 ### Jornada 3 - Investigação Jornalística (Ana)
 
 ```
-1. Abre o TransparaMA, digita na busca:
+1. Abre o Portal da Transparência, digita na busca:
    "quanto foi gasto com merenda em São Luís nos últimos 6 meses?"
 2. Resultados aparecem, mas a query é complexa
    → Toast aparece imediatamente: "Posso te ajudar com essa pergunta?"
@@ -187,7 +187,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 ### Jornada 4 - Programa Social (Dona Maria, persona aspiracional)
 
 ```
-1. Abre o TransparaMA no celular
+1. Abre o Portal da Transparência no celular
 2. Toca no card "Programas Sociais"
 3. Toca em "Maranhão Livre da Fome"
    → Vê resumo + critérios + botão "Como Participar"
@@ -198,7 +198,7 @@ O TransparaMA não é desenhado para "o cidadão" abstrato. É desenhado para 5 
 ### Jornada 5 - Vagas em Escolas (Carlos, persona aspiracional)
 
 ```
-1. Abre o TransparaMA, digita na busca:
+1. Abre o Portal da Transparência, digita na busca:
    "tem vaga na escola perto de casa?"
 2. Resultado vazio (busca complexa, mobile)
    → Toast aparece: "Posso te ajudar?" (trigger: zero results)

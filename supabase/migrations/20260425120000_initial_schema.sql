@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Schema inicial
+-- Portal da Transparência MA - Schema inicial
 -- ============================================================
 -- Migration: 20260425120000_initial_schema
 -- Aplica: extensões + tabelas core + cache + índices + RLS

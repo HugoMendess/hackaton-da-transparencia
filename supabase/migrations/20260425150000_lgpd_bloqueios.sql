@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Correções de auditoria LGPD e qualidade
+-- Portal da Transparência MA - Correções de auditoria LGPD e qualidade
 -- ============================================================
 -- Migration: 20260425150000_lgpd_bloqueios
 -- Aplica:

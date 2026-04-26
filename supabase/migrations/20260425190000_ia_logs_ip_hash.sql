@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Correção da auditoria: rate limit por IP
+-- Portal da Transparência MA - Correção da auditoria: rate limit por IP
 -- ============================================================
 -- Migration: 20260425190000_ia_logs_ip_hash
 -- Aplica: coluna ip_hash em ia_logs para rate limit funcional

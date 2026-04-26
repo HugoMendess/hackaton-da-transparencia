@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Seed: eixos e glossário
+-- Portal da Transparência MA - Seed: eixos e glossário
 -- ============================================================
 -- Migration: 20260425130000_seed_eixos_glossario
 -- Aplica: 7 eixos temáticos + 30 termos do glossário

@@ -34,7 +34,7 @@ Esse documento não defende a substituição do que está bom, defende a **evolu
 
 A própria STC sinalizou na abertura do hackathon que o passo de 2026 é maior que melhoria contínua: é redesenhar a experiência. *"O nosso compromisso é um pouco menos com o legal e mais com a sociedade."*
 
-O TransparaMA é a materialização desse passo, entregue como produto.
+O Portal da Transparência é a materialização desse passo, entregue como produto.
 
 ---
 
@@ -76,7 +76,7 @@ Quando o cidadão desiste, a transparência deixa de existir na prática, mesmo 
 
 ## A Definição de UX da STC (Adotada Pelo Projeto)
 
-A STC definiu na apresentação oficial os 3 critérios de uma boa UX e o TransparaMA assume cada um deles:
+A STC definiu na apresentação oficial os 3 critérios de uma boa UX e o Portal da Transparência assume cada um deles:
 
 | Critério | Pergunta-teste |
 |---|---|
@@ -96,7 +96,7 @@ Citadas diretamente pela STC na apresentação como exemplo do que o portal prec
 - *"Como eu sei quando vou receber o meu recurso?"*
 - *"Como cidadão sei se tem vaga na escola perto da minha casa?"*
 
-Nenhuma dessas perguntas usa um único termo contábil. O portal atual não responde nenhuma das três de forma direta. O TransparaMA é desenhado para responder todas, em até 3 passos.
+Nenhuma dessas perguntas usa um único termo contábil. O portal atual não responde nenhuma das três de forma direta. O Portal da Transparência é desenhado para responder todas, em até 3 passos.
 
 ---
 
@@ -113,7 +113,7 @@ Nenhuma dessas perguntas usa um único termo contábil. O portal atual não resp
 
 Adicionar uma "camada cidadã" sobre o portal atual seria a solução mais barata. Não é a solução certa.
 
-| Ponto | Camada por cima | Substituição (TransparaMA) |
+| Ponto | Camada por cima | Substituição (Portal da Transparência) |
 |---|---|---|
 | Arquitetura de informação | Continua contábil por baixo | Nasce temática |
 | Mobile | Adaptação | Construído primeiro para celular |
@@ -139,7 +139,7 @@ A substituição é mais ambiciosa, mas é a única que entrega o passo de 2026 
 - ✅ Provar a viabilidade do novo portal com um protótipo funcional
 - ✅ Demonstrar a regra dos 3 passos com pelo menos 2 eixos temáticos completos
 - ✅ Mostrar o assistente IA respondendo em linguagem natural
-- ✅ Apresentar o roadmap de transição segura do portal atual para o TransparaMA
+- ✅ Apresentar o roadmap de transição segura do portal atual para o Portal da Transparência
 - ✅ Manter a fonte oficial dos dados, a STC e o compliance preservados
 
 ---
@@ -162,7 +162,7 @@ A substituição é mais ambiciosa, mas é a única que entrega o passo de 2026 
 | **Acessibilidade** | Linguagem simples, alto contraste, narrativa explicativa |
 | **Visualização** | Gráficos e infográficos no lugar de tabelas brutas |
 
-O TransparaMA ataca as 4 frentes simultaneamente. A especificação completa de como cada uma é resolvida está em `SOLUCAO.md`.
+O Portal da Transparência ataca as 4 frentes simultaneamente. A especificação completa de como cada uma é resolvida está em `SOLUCAO.md`.
 
 ---
 Criado por André Lopes

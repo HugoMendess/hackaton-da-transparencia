@@ -1,9 +1,9 @@
-# 📄 MEMORIAL DESCRITIVO - TransparaMA
+# 📄 MEMORIAL DESCRITIVO - Portal da Transparência
 
 **Hackathon da Transparência Maranhense 2026**
 Equipe: André Lopes, Alexandre Oliveira, Alexsander Oliveira
 Data: 26 de abril de 2026
-Repositório: https://github.com/agenciadigitalslz/TransparaMA
+Repositório: https://github.com/agenciadigitalslz/Portal da Transparência
 
 ---
 
@@ -33,19 +33,19 @@ A linha histórica oficial do portal (extraída das apresentações cedidas pela
 | 2023 | Novo Portal (parceria SEATRAN + LabiGov) |
 | **2026** | **Usabilidade total, com o cidadão no centro (este hackathon)** |
 
-O TransparaMA é a materialização desse passo, na continuidade técnica do que a STC vinha planejando desde 2021.
+O Portal da Transparência é a materialização desse passo, na continuidade técnica do que a STC vinha planejando desde 2021.
 
 ---
 
-## 2. A Proposta - TransparaMA como Substituto Oficial
+## 2. A Proposta - Portal da Transparência como Substituto Oficial
 
-O **TransparaMA** é a proposta de **substituição do atual Portal da Transparência do Maranhão**. Não é uma camada complementar sobre o portal existente. É o **novo portal**, redesenhado do zero a partir do cidadão maranhense.
+O **Portal da Transparência** é a proposta de **substituição do atual Portal da Transparência do Maranhão**. Não é uma camada complementar sobre o portal existente. É o **novo portal**, redesenhado do zero a partir do cidadão maranhense.
 
-A escolha por substituir, em vez de complementar, é deliberada. Adicionar uma camada de UX por cima do portal atual resolveria a aparência mas não o problema estrutural: a arquitetura de informação herdada da lógica contábil do Estado. O TransparaMA reconstrói essa arquitetura a partir dos eixos de vida do cidadão, com **Gestão Pública priorizada** porque é onde o uso real está concentrado.
+A escolha por substituir, em vez de complementar, é deliberada. Adicionar uma camada de UX por cima do portal atual resolveria a aparência mas não o problema estrutural: a arquitetura de informação herdada da lógica contábil do Estado. O Portal da Transparência reconstrói essa arquitetura a partir dos eixos de vida do cidadão, com **Gestão Pública priorizada** porque é onde o uso real está concentrado.
 
 A STC continua como gestora oficial. Os órgãos continuam como publicadores. Os dados continuam oficiais. O que muda é a experiência, a arquitetura interna e o motor que conecta o cidadão ao dado.
 
-**Importante:** o TransparaMA **não substitui a Juçara**, o chatbot de atendimento usado em vários portais do governo. A Juçara continua atendendo dúvidas gerais. O TransparaMA traz algo que a Juçara não tem: acesso real ao banco de dados, embutido nos pontos onde o cidadão precisa.
+**Importante:** o Portal da Transparência **não substitui a Juçara**, o chatbot de atendimento usado em vários portais do governo. A Juçara continua atendendo dúvidas gerais. O Portal da Transparência traz algo que a Juçara não tem: acesso real ao banco de dados, embutido nos pontos onde o cidadão precisa.
 
 ---
 
@@ -57,9 +57,9 @@ A partir da análise do desafio proposto pela STC, identificamos três verbos ce
 2. **Entender** - mesmo quando encontra, não entende
 3. **Usar** - mesmo entendendo, não consegue aplicar no cotidiano
 
-A apresentação oficial do hackathon definiu um framework de 4 etapas (Slide 6) que o TransparaMA cobre integralmente:
+A apresentação oficial do hackathon definiu um framework de 4 etapas (Slide 6) que o Portal da Transparência cobre integralmente:
 
-| # | Etapa Oficial | Como o TransparaMA cobre |
+| # | Etapa Oficial | Como o Portal da Transparência cobre |
 |---|---|---|
 | 1 | **Descobrir** | Personas reais (Joana, Ana, Maria, Carlos), uso analisado pelos dados |
 | 2 | **Navegar** | Eixos de vida, AjudaInteligente, busca em linguagem natural |
@@ -88,7 +88,7 @@ A resposta certa não foi escolher uma única direção, foi compor todas em um 
 
 **Eixos Temáticos (substituem os menus contábeis).** Sete eixos organizam o portal pela vida do cidadão. Diferente do que parece intuitivo, **Gestão Pública (servidores, salários, fornecedores, contratos) está no topo** porque concentra 72% do uso real do portal atual. Os demais eixos (Saúde, Educação, Programas Sociais, Obras, Habitação, Segurança) representam o uso aspiracional que a STC quer ampliar.
 
-**AjudaInteligente.** A IA do TransparaMA não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita (padrão Alura) e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje. Aparece em dois entry points:
+**AjudaInteligente.** A IA do Portal da Transparência não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita (padrão Alura) e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje. Aparece em dois entry points:
 - **Busca avançada:** quando a busca retorna muitos resultados, zero, ou é complexa
 - **Explorer dos dashboards:** ícone 💡 nos cards e gráficos, sugestão proativa após 15 segundos
 
@@ -112,7 +112,7 @@ A resposta certa não foi escolher uma única direção, foi compor todas em um 
 
 A banca pontua (Slide 13 do desafio):
 
-| Critério | Peso | Como o TransparaMA atende |
+| Critério | Peso | Como o Portal da Transparência atende |
 |---|---|---|
 | **Usabilidade** | 30% | 3 toques, mobile-first, AjudaInteligente, dashboard de busca |
 | **Acessibilidade** | 25% | WCAG 2.1 AA, e-MAG, glossário, alto contraste, leitor de tela |
@@ -126,7 +126,7 @@ A banca pontua (Slide 13 do desafio):
 
 ## 6. Perguntas-Âncora Oficiais
 
-A entrega exige resposta a pelo menos 1 das 4 perguntas oficiais (Slide 10). O TransparaMA responde as 4:
+A entrega exige resposta a pelo menos 1 das 4 perguntas oficiais (Slide 10). O Portal da Transparência responde as 4:
 
 | Pergunta-âncora | Como respondemos |
 |---|---|
@@ -139,7 +139,7 @@ A entrega exige resposta a pelo menos 1 das 4 perguntas oficiais (Slide 10). O T
 
 ## 7. Personas Atendidas
 
-O TransparaMA serve 5 personas concretas (detalhe em PERSONAS.md):
+O Portal da Transparência serve 5 personas concretas (detalhe em PERSONAS.md):
 
 1. **Joana** (fornecedora) e **Ana** (jornalista) - representam o **uso dominante atual** (fiscalização)
 2. **Dona Maria** (vulnerabilidade) e **Carlos** (família) - representam o **uso aspiracional** (programas sociais, educação)
@@ -161,7 +161,7 @@ Cada decisão de produto serve a pelo menos uma das 5.
 | GeoJSON do Maranhão (IBGE) | GeoJSON | Mapa dos 217 municípios |
 | Supabase (Postgres + pgvector) | DB próprio | Eixos curados, glossário, cache, embeddings |
 
-Todos os dados são públicos e oficiais. O TransparaMA não cria, modifica ou armazena dados, apenas os apresenta de forma acessível e cita a fonte oficial.
+Todos os dados são públicos e oficiais. O Portal da Transparência não cria, modifica ou armazena dados, apenas os apresenta de forma acessível e cita a fonte oficial.
 
 ---
 
@@ -198,7 +198,7 @@ Todos os dados são públicos e oficiais. O TransparaMA não cria, modifica ou a
 
 ## 10. Compliance e Conformidade
 
-| Norma | Cobertura no TransparaMA |
+| Norma | Cobertura no Portal da Transparência |
 |---|---|
 | Lei de Acesso à Informação (12.527/2011) | Todos os dados obrigatórios continuam acessíveis |
 | Lei de Transparência (LC 131/2009) | Receitas e despesas com atualização mínima D+1 |
@@ -208,7 +208,7 @@ Todos os dados são públicos e oficiais. O TransparaMA não cria, modifica ou a
 | Decreto 10.540/2020 (SIAFIC) | Padrão de controle interno preservado |
 | Selo Diamante TCE-MA | Manter ou superar 98,5/100 |
 
-**Achado de segurança importante:** a análise da planilha de buscas mostrou que o portal atual permite que cidadãos busquem por CPF (um CPF específico foi buscado 126 vezes). O TransparaMA bloqueia buscas por dados pessoais sensíveis por padrão.
+**Achado de segurança importante:** a análise da planilha de buscas mostrou que o portal atual permite que cidadãos busquem por CPF (um CPF específico foi buscado 126 vezes). O Portal da Transparência bloqueia buscas por dados pessoais sensíveis por padrão.
 
 ---
 
@@ -221,7 +221,7 @@ Todos os dados são públicos e oficiais. O TransparaMA não cria, modifica ou a
 | Fase 2 - Backend e Admin | +3 meses | API própria, ingestão CDC, painel admin |
 | Fase 3 - Cobertura Plena | +6 meses | 115 categorias migradas, IA com RAG |
 | Fase 4 - Coexistência | +3 meses | Portal antigo redireciona, comunicação ao cidadão, Juçara integrada |
-| Fase 5 - Substituição Completa | +1 mês | TransparaMA como portal único oficial |
+| Fase 5 - Substituição Completa | +1 mês | Portal da Transparência como portal único oficial |
 
 Total estimado: 12 a 14 meses do MVP até substituição completa. Durante a coexistência (Fase 4), URLs do portal antigo redirecionam para os equivalentes no novo, e auditoria automatizada compara os dois portais diariamente.
 
@@ -266,7 +266,7 @@ KPIs de sucesso:
 
 ## 15. Repositório e Demo
 
-- **Repositório:** https://github.com/agenciadigitalslz/TransparaMA
+- **Repositório:** https://github.com/agenciadigitalslz/Portal da Transparência
 - **Demo online:** [a publicar no Vercel]
 - **QR Code:** [inserir antes da apresentação]
 

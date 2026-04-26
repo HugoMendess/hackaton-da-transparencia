@@ -1,4 +1,4 @@
-# 🎨 IMAGENS NECESSÁRIAS - TransparaMA
+# 🎨 IMAGENS NECESSÁRIAS - Portal da Transparência
 
 > Lista de assets visuais que a equipe precisa gerar para elevar o frontend ao nível visual de portais de referência (SP, GO) e superar o Portal MA atual.
 
@@ -31,7 +31,7 @@ Todas as imagens devem ser otimizadas em **WebP** (ou AVIF) com fallback PNG qua
 ### 3. `og-image.png` (compartilhamento social)
 - **Dimensões:** 1200 × 630 (padrão Open Graph)
 - **Onde aparece:** preview ao compartilhar no WhatsApp, LinkedIn, Twitter
-- **Conteúdo:** logo TransparaMA + tagline "O futuro Portal da Transparência do Maranhão" + brasão do MA estilizado em canto + cor de fundo verde primário (#0F7B40)
+- **Conteúdo:** logo Portal da Transparência + tagline "O futuro Portal da Transparência do Maranhão" + brasão do MA estilizado em canto + cor de fundo verde primário (#0F7B40)
 - **Tipografia:** Playfair Display Bold para o nome, Inter Medium para a tagline
 
 ### 4. `favicon.svg` (já existe Vite default, substituir)
@@ -41,7 +41,7 @@ Todas as imagens devem ser otimizadas em **WebP** (ou AVIF) com fallback PNG qua
 
 ### 5. `apple-touch-icon.png`
 - **Dimensões:** 180 × 180
-- **Conceito:** ícone TransparaMA com fundo verde primário sólido + colunata branca centralizada
+- **Conceito:** ícone Portal da Transparência com fundo verde primário sólido + colunata branca centralizada
 - **Onde aparece:** quando o cidadão adiciona como PWA no iPhone
 
 ### 6. `brasao-ma-stilizado.svg`
@@ -95,7 +95,7 @@ Localização: `frontend/public/images/eixos/`. Aparecem como decoração superi
 ### 10. Template `share-card-base.svg`
 - **Dimensões:** 1080 × 1350 (formato story do Instagram, vertical)
 - **Onde aparece:** template do botão "Compartilhar Zap"
-- **Layout:** título do dado (ex: "R$ 2,3 bi com Saúde") + valor grande no centro + logo TransparaMA + URL do portal + brasão do MA pequeno
+- **Layout:** título do dado (ex: "R$ 2,3 bi com Saúde") + valor grande no centro + logo Portal da Transparência + URL do portal + brasão do MA pequeno
 - **Tipografia:** Playfair Display Bold para o valor, Inter para o resto
 - **Cor de fundo:** verde primário com gradient sutil
 

@@ -54,7 +54,7 @@
 | 3 | **Compreender** | Linguagem simples, dataviz, narrativas |
 | 4 | **Compartilhar & Controlar** | Métricas, feedback, evolução |
 
-**O TransparaMA precisa cobrir as 4 etapas, com profundidade nas 2 primeiras (peso 55% da banca).**
+**O Portal da Transparência precisa cobrir as 4 etapas, com profundidade nas 2 primeiras (peso 55% da banca).**
 
 ---
 
@@ -202,7 +202,7 @@ A entrega exige responder pelo menos uma dessas perguntas:
 2. Não previne busca por CPF/dados sensíveis
 3. Não consolida sinônimos ("salário" vs "salario" vs "remuneração")
 
-A AjudaInteligente do TransparaMA precisa fazer isso por padrão (normalização + LGPD enforcement).
+A AjudaInteligente do Portal da Transparência precisa fazer isso por padrão (normalização + LGPD enforcement).
 
 ---
 
@@ -220,7 +220,7 @@ Baseada nas apresentações cedidas:
 | 2023 | Novo Portal: parceria SEATRAN + LabiGov + SECOM, tecnologias abertas | 2023 - novo_portal.pptx |
 | **2026** | **Usabilidade total, cidadão no centro (este hackathon)** | Hackathon_Desafios_Modern.pptx |
 
-### Continuidade que o TransparaMA estende
+### Continuidade que o Portal da Transparência estende
 
 A apresentação de 2022 já mencionou:
 - **Atalhos: "Mais Buscados", "Presença do Estado"** (nossa proposta de dashboard de busca valida isso)
@@ -228,7 +228,7 @@ A apresentação de 2022 já mencionou:
 - **Medir, Analisar, Ajustar** (nossa proposta de telemetria do AjudaInteligente)
 - **Ciência de Dados & Inteligência** (nossa proposta de IA com RAG)
 
-> **O TransparaMA não é uma ruptura, é a continuidade técnica do plano que a STC vinha construindo desde 2021. A 2026 entrega o que 2022 anunciou.**
+> **O Portal da Transparência não é uma ruptura, é a continuidade técnica do plano que a STC vinha construindo desde 2021. A 2026 entrega o que 2022 anunciou.**
 
 ---
 
@@ -260,7 +260,7 @@ A apresentação de 2022 já mencionou:
 
 ### A) Dashboard inicial da página de busca (insight do André)
 
-A apresentação de 2022 (Slide 7) já previa essa estratégia: *"Esses são os temas mais procurados no nosso Portal"*. O TransparaMA materializa isso usando dados reais de uso. Primeira dobra da página de busca:
+A apresentação de 2022 (Slide 7) já previa essa estratégia: *"Esses são os temas mais procurados no nosso Portal"*. O Portal da Transparência materializa isso usando dados reais de uso. Primeira dobra da página de busca:
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -298,7 +298,7 @@ Como busca é o ponto de dor explosivo (+18% em 2025), o trigger principal da Aj
 
 ### D) Anti-enumeração e LGPD são obrigatórios
 
-A planilha mostra CPFs sendo buscados. O TransparaMA precisa:
+A planilha mostra CPFs sendo buscados. O Portal da Transparência precisa:
 - Bloquear busca por CPFs/RGs/dados sensíveis
 - Normalizar variantes de capitalização e acentuação
 - Não logar pergunta vinculada a IP

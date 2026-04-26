@@ -1,17 +1,17 @@
-# 🏛️ TransparaMA
+# 🏛️ Portal da Transparência
 
 > **O futuro Portal da Transparência do Maranhão. Construído para o cidadão, do celular para o desktop, sem jargão e em até 3 passos.**
 
 Projeto desenvolvido no **Hackathon da Transparência Maranhense 2026**
 organizado por STC + SECTI + EGMA + FAPEMA | 24 a 26 de abril | São Luís, MA
 
-**Repositório:** https://github.com/agenciadigitalslz/TransparaMA
+**Repositório:** https://github.com/agenciadigitalslz/Portal da Transparência
 
 ---
 
 ## A Proposta
 
-O **TransparaMA** é a proposta de **substituição do atual Portal da Transparência do Maranhão**. Não é uma camada sobre o portal existente, é a próxima geração do portal, redesenhada do zero a partir de quem ele deve servir: o cidadão maranhense.
+O **Portal da Transparência** é a proposta de **substituição do atual Portal da Transparência do Maranhão**. Não é uma camada sobre o portal existente, é a próxima geração do portal, redesenhada do zero a partir de quem ele deve servir: o cidadão maranhense.
 
 A linha histórica oficial do portal já apontava para esse caminho:
 
@@ -25,11 +25,11 @@ A linha histórica oficial do portal já apontava para esse caminho:
 | 2023 | Novo Portal (parceria SEATRAN + LabiGov) |
 | **2026** | **Usabilidade total, o cidadão no centro** |
 
-O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica do que a STC vinha construindo desde 2021.
+O Portal da Transparência é o passo de 2026 entregue como produto, na continuidade técnica do que a STC vinha construindo desde 2021.
 
 ---
 
-## A Dor que o TransparaMA Resolve
+## A Dor que o Portal da Transparência Resolve
 
 | Indicador | Realidade (dado oficial) |
 |---|---|
@@ -54,7 +54,7 @@ O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica
 
 ## As 4 Frentes do Desafio Oficial
 
-| Frente | Como o TransparaMA responde | Peso na banca |
+| Frente | Como o Portal da Transparência responde | Peso na banca |
 |---|---|---|
 | 🧭 Navegação | Eixos de vida (Saúde, Educação, Gestão Pública, etc.), regra dos 3 passos, sem jargão no caminho | 30% (Usabilidade) |
 | 📱 Mobile First | Interface touch-friendly, PWA, jornadas curtas, otimizado para celular | 30% (Usabilidade) |
@@ -77,7 +77,7 @@ O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica
 
 5. **Mapa do MA por município** com indicadores de gasto comparados à média estadual.
 
-6. **Compatibilidade total com a Juçara.** A Juçara existe e funciona como atendente virtual em vários portais do governo. O TransparaMA não substitui a Juçara, complementa: traz acesso ao banco de dados real onde a Juçara não tem.
+6. **Compatibilidade total com a Juçara.** A Juçara existe e funciona como atendente virtual em vários portais do governo. O Portal da Transparência não substitui a Juçara, complementa: traz acesso ao banco de dados real onde a Juçara não tem.
 
 ---
 
@@ -102,7 +102,7 @@ O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica
 | Protótipo funcional online | A executar |
 | Memorial descritivo (PDF) | Em revisão final |
 | Pitch de 3 minutos | A ensaiar |
-| Comparativo Atual vs TransparaMA | Em construção |
+| Comparativo Atual vs Portal da Transparência | Em construção |
 | Roadmap de transição | Documentado em ARQUITETURA.md |
 
 ---
@@ -110,10 +110,10 @@ O TransparaMA é o passo de 2026 entregue como produto, na continuidade técnica
 ## Estrutura do Repositório
 
 ```
-TransparaMA/
+Portal da Transparência/
 ├── README.md                  ← este arquivo
 ├── CONTEXTO.md                ← problema e diagnóstico do portal atual
-├── SOLUCAO.md                 ← especificação completa do TransparaMA
+├── SOLUCAO.md                 ← especificação completa do Portal da Transparência
 ├── PERSONAS.md                ← personas e jornadas de valor
 ├── ARQUITETURA.md             ← arquitetura de produto + arquitetura do MVP
 ├── PITCH.md                   ← roteiro dos 3 minutos

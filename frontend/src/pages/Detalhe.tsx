@@ -27,6 +27,7 @@ import { Footer } from "@/components/layout/Footer"
 import { BottomNav } from "@/components/layout/BottomNav"
 import { CardResumo } from "@/components/dashboard/CardResumo"
 import { TextoComGlossario } from "@/components/glossario/TermoTooltip"
+import { BotaoCompartilhar } from "@/components/compartilhar/BotaoCompartilhar"
 import { EIXOS } from "@/data/eixos"
 import { cn, formatBRL, formatNumber } from "@/lib/utils"
 
@@ -329,6 +330,12 @@ export function Detalhe() {
               <Search className="size-4" aria-hidden="true" />
               Nova busca
             </Link>
+            <BotaoCompartilhar
+              caminho={`/detalhe?q=${encodeURIComponent(termo)}&tipo=${tipo}&eixo=${eixo.slug}`}
+              mensagem={`🔍 Olha o que descobri sobre "${termo}" (${tipoLabel}) no Portal da Transparência: ${dados.resposta}`}
+              rotulo="Compartilhar"
+              variante="primario"
+            />
           </div>
 
           <p className="mt-4 rounded-md border border-secondary/30 bg-secondary/10 p-2 text-xs text-foreground">

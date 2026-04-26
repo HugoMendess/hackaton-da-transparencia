@@ -78,7 +78,7 @@
     --ring: 152 60% 50%;
   }
 
-  /* Modo alto contraste (toggle do TransparaMA, WCAG AAA 7:1+).
+  /* Modo alto contraste (WCAG AAA 7:1+).
      Inversão total: fundo preto + texto branco, dark mode agressivo. */
   .high-contrast {
     --background: 0 0% 0%;        /* preto puro */
@@ -112,6 +112,13 @@
   .high-contrast img[aria-hidden="true"],
   .high-contrast img[alt=""] {
     display: none !important;
+  }
+
+  /* O logotipo institucional é colorido (PNG com texto preto e ícone
+     azul/vermelho/preto). Em alto contraste vira silhueta branca para
+     manter legibilidade sobre o fundo preto sem distorcer as cores. */
+  .high-contrast img[data-logo="true"] {
+    filter: brightness(0) invert(1);
   }
 
   /* Pinceladas decorativas do hero (background-image em div) ficam invisíveis */
@@ -152,7 +159,7 @@
     border-color: #fff !important;
   }
 
-  /* Fonte aumentada (toggle do TransparaMA) */
+  /* Fonte aumentada */
   .font-size-larger {
     font-size: 112.5%;
   }
@@ -160,7 +167,7 @@
     font-size: 125%;
   }
 
-  /* Reduzir movimento forçado (toggle do TransparaMA, além do prefers) */
+  /* Reduzir movimento forçado (além do prefers do sistema) */
   .reduce-motion *,
   .reduce-motion *::before,
   .reduce-motion *::after {
@@ -262,7 +269,7 @@
   }
 }
 
-/* Tooltip do Leaflet (mapa) com identidade visual do TransparaMA */
+/* Tooltip do Leaflet (mapa) com identidade visual do Portal */
 .mapa-tooltip {
   background: hsl(var(--foreground)) !important;
   color: hsl(var(--background)) !important;

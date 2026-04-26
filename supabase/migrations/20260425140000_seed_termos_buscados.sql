@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Seed: Top 100 termos buscados
+-- Portal da Transparência MA - Seed: Top 100 termos buscados
 -- ============================================================
 -- Migration: 20260425140000_seed_termos_buscados
 -- Fonte: Planilha Termos_Buscados_Consolidado.xlsx (cedida pela STC)

@@ -1,6 +1,6 @@
-# 🏗️ ARQUITETURA TÉCNICA - TransparaMA
+# 🏗️ ARQUITETURA TÉCNICA - Portal da Transparência
 
-> Este documento descreve duas arquiteturas: a **arquitetura de produto** (TransparaMA como portal oficial em produção, substituindo o atual) e a **arquitetura do MVP do hackathon** (subset funcional para demonstração em 48h).
+> Este documento descreve duas arquiteturas: a **arquitetura de produto** (Portal da Transparência como portal oficial em produção, substituindo o atual) e a **arquitetura do MVP do hackathon** (subset funcional para demonstração em 48h).
 
 ---
 
@@ -44,7 +44,7 @@
               ┌──────────┴──────────┐
               │                     │
    ┌──────────▼─────────┐ ┌─────────▼──────────┐
-   │  API TransparaMA   │ │ Edge Functions     │
+   │  API Portal da Transparência   │ │ Edge Functions     │
    │  (Node + Postgres) │ │ IA (Claude/Anthr.) │
    └──────────┬─────────┘ └─────────┬──────────┘
               │                     │
@@ -68,7 +68,7 @@
 | Camada | Responsabilidade |
 |---|---|
 | **Frontend** | Interface cidadã, PWA, mobile-first, acessibilidade, glossário vivo, cards de resumo |
-| **API TransparaMA** | Servir dados consolidados ao frontend, aplicar regras de exibição cidadã, cache |
+| **API Portal da Transparência** | Servir dados consolidados ao frontend, aplicar regras de exibição cidadã, cache |
 | **Edge Functions** | Processar perguntas do Assistente IA, gerar imagens do Compartilhar Zap, autenticar sessões admin |
 | **Camada de Ingestão** | ETL/CDC dos sistemas oficiais do Estado (SIAFEM, SIPRO, sistemas de RH, sistemas escolares) |
 | **Banco de Dados** | PostgreSQL com schemas versionados, auditoria, replicação geográfica |
@@ -435,7 +435,7 @@ Deno.serve(async (req) => {
 
 ### 3.7 Lista de Bloqueio de Buscas Sensíveis
 
-A planilha de buscas mostrou que o portal atual permite buscar por CPF (126 buscas para um CPF específico). O TransparaMA bloqueia:
+A planilha de buscas mostrou que o portal atual permite buscar por CPF (126 buscas para um CPF específico). O Portal da Transparência bloqueia:
 
 ```typescript
 const BLOCKED_PATTERNS = [
@@ -740,7 +740,7 @@ Meta de Lighthouse:
 | **Fase 2 - Backend e Admin** | +3 meses | API própria, ingestão CDC, painel admin com perfis |
 | **Fase 3 - Cobertura Plena** | +6 meses | 115 categorias migradas, IA com RAG estrito, auditoria completa |
 | **Fase 4 - Coexistência** | +3 meses | Portal antigo redireciona para o novo, comunicação aos cidadãos |
-| **Fase 5 - Substituição Completa** | +1 mês | TransparaMA como portal oficial único, antigo arquivado |
+| **Fase 5 - Substituição Completa** | +1 mês | Portal da Transparência como portal oficial único, antigo arquivado |
 
 **Ponto crítico de transição:** durante Fases 4 e 5, ambos os portais coexistem com URLs preservadas. URLs antigas redirecionam para os equivalentes no novo. Lighthouse e auditoria automatizada rodam diariamente comparando os dois.
 

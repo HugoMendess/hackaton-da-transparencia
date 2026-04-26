@@ -3,7 +3,7 @@
 **STC + SECTI + EGMA + FAPEMA | 24 a 26 de abril de 2026 | São Luís, MA**
 
 > Documento de uso interno da equipe. Atualizado com base na apresentação oficial do desafio.
-> Posicionamento: o TransparaMA é a proposta de **substituto oficial** do Portal da Transparência atual, não uma camada complementar.
+> Posicionamento: o Portal da Transparência é a proposta de **substituto oficial** do Portal da Transparência atual, não uma camada complementar.
 
 ---
 
@@ -51,7 +51,7 @@
 
 A STC está dizendo explicitamente: *"O nosso compromisso nesses próximos dois dias é um pouco menos com o legal e mais com a sociedade."*
 
-> ⚠️ **Decisão de produto:** o TransparaMA assume a posição de **substituto oficial do portal**, não de camada complementar. A linha histórica (2010 legal, 2017 cidadã, 2023 simples, 2026 usabilidade total) é o argumento estrutural para essa decisão. A substituição é responsável: 5 fases de transição, compliance preservado, STC como gestora oficial, redirecionamentos preservados.
+> ⚠️ **Decisão de produto:** o Portal da Transparência assume a posição de **substituto oficial do portal**, não de camada complementar. A linha histórica (2010 legal, 2017 cidadã, 2023 simples, 2026 usabilidade total) é o argumento estrutural para essa decisão. A substituição é responsável: 5 fases de transição, compliance preservado, STC como gestora oficial, redirecionamentos preservados.
 
 ---
 
@@ -300,7 +300,7 @@ Mapa interativo do Maranhão com os 217 municípios coloridos por indicadores de
 
 > 💡 **Recomendação estratégica:**
 >
-> **TransparaMA como substituto oficial = Dashboard Temático + Mobile First + Glossário Vivo + Assistente IA + Compartilhar Zap**
+> **Portal da Transparência como substituto oficial = Dashboard Temático + Mobile First + Glossário Vivo + Assistente IA + Compartilhar Zap**
 >
 > - **Dashboard por Tema** resolve a dor mais citada: menus por lógica contábil estão superados
 > - **Mobile First** garante que funciona para os 56% que acessam pelo celular
@@ -390,7 +390,7 @@ Frases ditas pela STC que podem ser usadas no pitch da equipe:
 
 ---
 
-*Documento atualizado em 25 de abril de 2026, com base na transcrição da apresentação oficial do desafio e na decisão de posicionamento do TransparaMA como substituto oficial.*
+*Documento atualizado em 25 de abril de 2026, com base na transcrição da apresentação oficial do desafio e na decisão de posicionamento do Portal da Transparência como substituto oficial.*
 
 ---
 Criado por André Lopes

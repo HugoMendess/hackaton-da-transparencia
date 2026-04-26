@@ -11,6 +11,7 @@ import {
   ArrowRight,
   type LucideIcon,
 } from "lucide-react"
+import { BotaoCompartilhar } from "@/components/compartilhar/BotaoCompartilhar"
 import { cn, formatBRL, formatNumber } from "@/lib/utils"
 
 /**
@@ -244,13 +245,21 @@ export function CategoriasMunicipio({
             </ul>
           </div>
 
-          <Link
-            to={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
-            className="inline-flex w-full items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Ver detalhes completos
-            <ArrowRight className="size-3.5" aria-hidden="true" />
-          </Link>
+          <div className="flex flex-col gap-2 sm:flex-row">
+            <Link
+              to={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+            >
+              Ver detalhes completos
+              <ArrowRight className="size-3.5" aria-hidden="true" />
+            </Link>
+            <BotaoCompartilhar
+              caminho={`/detalhe?q=${encodeURIComponent(nome)}&tipo=municipio&eixo=${categoriaAberta.slug}`}
+              mensagem={`📍 ${categoriaAberta.label} em ${nome}: ${formatBRL(dadoAberto.valorTotal)} investidos, ${formatNumber(dadoAberto.itensQtd)} ${dadoAberto.itensLabel}`}
+              rotulo="Compartilhar"
+              variante="padrao"
+            />
+          </div>
         </div>
       )}
     </article>

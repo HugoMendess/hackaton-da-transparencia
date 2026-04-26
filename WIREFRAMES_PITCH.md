@@ -1,4 +1,4 @@
-# WIREFRAMES DOS SLIDES - PITCH TransparaMA
+# WIREFRAMES DOS SLIDES - PITCH Portal da Transparência
 
 > Layout textual dos 5 slides da apresentação. Cada slide leva no máximo 2 elementos visuais grandes.
 > Formato 16:9, alto contraste, fonte mínima 32pt para projetor.
@@ -12,7 +12,7 @@
 2. **Dado grande, contexto pequeno.** Número em fonte gigante, descrição embaixo.
 3. **Zero parágrafo.** Se vai ler em voz alta, não escreve no slide.
 4. **Fonte mínima 32pt.** Quem está no fundo da sala precisa enxergar.
-5. **Logo TransparaMA discreto** no canto inferior direito de todos os slides (exceto SLIDE 5 que é a marca em si).
+5. **Logo Portal da Transparência discreto** no canto inferior direito de todos os slides (exceto SLIDE 5 que é a marca em si).
 
 ---
 
@@ -53,7 +53,7 @@
 - Cabeçalho de contexto em cinza, fonte média
 - 3 cards iguais com porcentagem gigante em azul-MA
 - Linha-fechamento embaixo em verde-diamante destacando a frase-âncora
-- Logo TransparaMA discreto no canto inferior direito
+- Logo Portal da Transparência discreto no canto inferior direito
 
 **Fonte dos dados:** `DADOS_REAIS.md` (Analytics GA4 2024-2026 + Top 25 páginas + Tendência 2025).
 
@@ -71,7 +71,7 @@
 │                                                                     │
 │                       ╔══════════════════════╗                     │
 │                       ║                      ║                     │
-│                       ║   TransparaMA        ║                     │
+│                       ║   Portal da Transparência        ║                     │
 │                       ║                      ║                     │
 │                       ║   (logotipo grande,  ║                     │
 │                       ║   azul-MA + verde-   ║                     │
@@ -92,7 +92,7 @@
 ```
 
 **Elementos:**
-- Logo TransparaMA centralizado, ocupando 1/3 da altura
+- Logo Portal da Transparência centralizado, ocupando 1/3 da altura
 - Tagline principal logo abaixo
 - Sub-tagline mais discreta reforçando continuidade com o Selo Diamante
 - Sem outros elementos. Slide limpo.
@@ -151,7 +151,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                                                                     │
-│              Por que o TransparaMA funciona                        │
+│              Por que o Portal da Transparência funciona                        │
 │              (cabeçalho, azul-MA, fonte 36pt)                      │
 │                                                                     │
 │  ┌────────────────────┐         ┌────────────────────┐             │
@@ -200,7 +200,7 @@
 │                                                                     │
 │                       ╔══════════════════════╗                     │
 │                       ║                      ║                     │
-│                       ║   TransparaMA        ║                     │
+│                       ║   Portal da Transparência        ║                     │
 │                       ║   (logo, 100pt)      ║                     │
 │                       ║                      ║                     │
 │                       ╚══════════════════════╝                     │
@@ -214,7 +214,7 @@
 │  │                      │     transparama.ma.gov.br                 │
 │  │    [QR Code]         │     (azul-MA, fonte 28pt)                │
 │  │    250x250px         │                                          │
-│  │                      │     Equipe TransparaMA                    │
+│  │                      │     Equipe Portal da Transparência                    │
 │  │                      │     Hackathon STC 2026                    │
 │  └──────────────────────┘     (cinza, fonte 18pt)                  │
 │                                                                     │
@@ -237,7 +237,7 @@
 - [ ] **Paleta:** Azul-MA `#0A4D8C`, Verde-Diamante `#1FAE74`, Cinza-Grafite `#5B6B7A`, Branco `#FFFFFF`
 - [ ] **Contraste:** todo texto contra o fundo precisa passar WCAG AA (mínimo 4.5:1 para texto normal, 3:1 para grande)
 - [ ] **Sem animações longas.** No máximo fade-in de 200ms por elemento. Tempo no palco é precioso.
-- [ ] **Logo TransparaMA** salvo em SVG transparente, nas variações cor / branca / monocromática
+- [ ] **Logo Portal da Transparência** salvo em SVG transparente, nas variações cor / branca / monocromática
 - [ ] **Exportar em PDF** além do formato editável, fallback caso o software do palco trave
 - [ ] **Testar no projetor:** projetor de evento costuma ser amarelado e pouco brilhante, ajustar contraste antes
 - [ ] **Numeração:** cada slide com `1/5`, `2/5`, etc. no canto inferior esquerdo, ajuda quem cronometra
@@ -249,7 +249,7 @@
 
 | Recurso | Onde usa | Prioridade |
 |---|---|---|
-| Logo final TransparaMA em SVG | Todos os slides + protótipo | **Alta** |
+| Logo final Portal da Transparência em SVG | Todos os slides + protótipo | **Alta** |
 | Ícones simples para os 4 selos do SLIDE 4 | SLIDE 4 (Dados, IA, Mapa, Roadmap) | Média |
 | Background com textura sutil de mapa do MA | SLIDE 2 (capa) | Baixa |
 | Animação suave de entrada dos cards no SLIDE 1 | SLIDE 1 | Baixa |

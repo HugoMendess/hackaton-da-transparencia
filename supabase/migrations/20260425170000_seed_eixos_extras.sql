@@ -1,5 +1,5 @@
 -- ============================================================
--- TransparaMA - Seed: 2 eixos adicionais (grid 3x3 perfeito)
+-- Portal da Transparência MA - Seed: 2 eixos adicionais (grid 3x3 perfeito)
 -- ============================================================
 -- Migration: 20260425170000_seed_eixos_extras
 -- Aplica: Cultura/Esporte/Lazer + Meio Ambiente
