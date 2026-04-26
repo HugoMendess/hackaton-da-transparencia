@@ -1,9 +1,10 @@
-# 📄 MEMORIAL DESCRITIVO - Portal da Transparência
+# MEMORIAL DESCRITIVO - Portal da Transparência
 
 **Hackathon da Transparência Maranhense 2026**
 Equipe: André Lopes, Alexandre Oliveira, Alexsander Oliveira
 Data: 26 de abril de 2026
-Repositório: https://github.com/agenciadigitalslz/Portal da Transparência
+Repositório: https://github.com/agenciadigitalslz/hackaton-da-transparencia
+Demo online: https://portaltransparencia.netlify.app
 
 ---
 
@@ -34,6 +35,22 @@ A linha histórica oficial do portal (extraída das apresentações cedidas pela
 | **2026** | **Usabilidade total, com o cidadão no centro (este hackathon)** |
 
 O Portal da Transparência é a materialização desse passo, na continuidade técnica do que a STC vinha planejando desde 2021.
+
+### 1.1 Evidências Concretas da Dificuldade do Cidadão
+
+A análise dos dados oficiais cedidos pela STC durante o hackathon revelou padrões que ilustram, em números, a dificuldade que o cidadão maranhense enfrenta hoje no portal:
+
+| Evidência | O que mostra |
+|---|---|
+| **CPF buscado 126 vezes** na busca avançada | O portal aceita CPF como termo de pesquisa, expondo cidadão a vetor de vazamento. Falha LGPD ativa. |
+| **21.915 grupos de variantes** não consolidados (`Remuneração` vs `remuneração` vs `REMUNERAÇÃO`) | A busca discrimina maiúsculas, minúsculas e acentos. Quem digita errado, não encontra o que está lá. |
+| **28.514 linhas duplicadas** na planilha de buscas | Mesma intenção, registros separados, dificultando análise e otimização. |
+| **82.619 termos buscados apenas 1 vez** (cauda longa) | Cidadão tentou, não achou, desistiu. Cada termo desses é uma transparência que não aconteceu. |
+| **155 segundos no celular vs 325 segundos no desktop** | Mobile tem metade do tempo de engajamento. A interface expulsa quem chega pelo canal mais usado (56%). |
+| **Top 30 de buscas dominado por nomes próprios** (servidores, fornecedores, empresas) | Confirma o uso fiscalizatório, mas a UI ainda organiza informação por função contábil, não por entidade. |
+| **Busca avançada cresceu 1.144%** entre 2024 e 2025 | A demanda por busca explodiu. A oferta de boa busca, não. |
+
+> **Tradução:** o cidadão maranhense não está distante do dado por desinteresse. Ele tenta, falha, e o portal não aprende com a falha dele.
 
 ---
 
@@ -88,7 +105,7 @@ A resposta certa não foi escolher uma única direção, foi compor todas em um 
 
 **Eixos Temáticos (substituem os menus contábeis).** Sete eixos organizam o portal pela vida do cidadão. Diferente do que parece intuitivo, **Gestão Pública (servidores, salários, fornecedores, contratos) está no topo** porque concentra 72% do uso real do portal atual. Os demais eixos (Saúde, Educação, Programas Sociais, Obras, Habitação, Segurança) representam o uso aspiracional que a STC quer ampliar.
 
-**AjudaInteligente.** A IA do Portal da Transparência não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita (padrão Alura) e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje. Aparece em dois entry points:
+**AjudaInteligente.** A IA do Portal da Transparência não tem persona explícita. É uma camada inteligente embutida na jornada, que aparece como toast discreto ("Posso ajudar?") quando o cidadão precisa, abre como drawer lateral à direita e fecha facilmente. Tem acesso real ao banco de dados, coisa que a Juçara não tem hoje. Aparece em dois entry points:
 - **Busca avançada:** quando a busca retorna muitos resultados, zero, ou é complexa
 - **Explorer dos dashboards:** ícone 💡 nos cards e gráficos, sugestão proativa após 15 segundos
 
@@ -179,9 +196,9 @@ Todos os dados são públicos e oficiais. O Portal da Transparência não cria, 
 | Banco | Supabase Postgres | Pronto, seguro, escalável |
 | RAG | pgvector | Vetorização de glossário e conteúdos |
 | IA | Claude API via Edge Function | Qualidade em pt-BR, chave protegida |
-| Geração de cards | @vercel/og | Edge runtime, PNG real |
+| Geração de cards | html2canvas-pro + jspdf | PNG e PDF gerados client-side para Compartilhar Zap |
 | PWA | vite-plugin-pwa | Cache offline |
-| Deploy | Vercel | CDN global |
+| Deploy | Netlify | CDN global, build com cache, redirect SPA configurado |
 
 ### Produção (Pós-Hackathon)
 
@@ -229,17 +246,30 @@ Total estimado: 12 a 14 meses do MVP até substituição completa. Durante a coe
 
 ## 12. Impacto Esperado
 
-- **Curto prazo:** redução imediata da barreira para os 320 mil usuários anuais. Tempo médio mobile sai dos 155 segundos atuais para próximo dos 325 segundos do desktop.
-- **Médio prazo:** aumento mensurável do engajamento mobile e do compartilhamento social dos dados. Conversão da busca avançada (que cresceu 1.144% em 2025) em respostas efetivas via AjudaInteligente.
-- **Longo prazo:** referência nacional de portal de transparência, modelo replicável para outros estados e municípios.
+### Para o cidadão maranhense
 
-KPIs de sucesso:
-- Tempo médio para encontrar uma informação: máximo 3 toques
-- Taxa de abandono no celular: redução de 50% vs. portal atual
+- **Cidadão comum** ganha acesso direto ao salário do servidor, ao contrato da obra na rua dele, ao gasto da escola do filho, sem precisar entender termo contábil. A fiscalização cidadã sai do papel e vira gesto cotidiano de 3 toques.
+- **Jornalismo regional** ganha base de pesquisa instantânea: jornalistas de Imperatriz, Caxias e Bacabal deixam de depender de pedido formal de Lei de Acesso à Informação para confirmar dado público.
+- **Estudantes e pesquisadores** das universidades do Maranhão (UFMA, UEMA, IFMA, Uemasul) passam a ter dados estruturados para pesquisa em controle social, ciência política e administração pública.
+- **Pessoas com deficiência** acessam o portal pela primeira vez sem barreira: WCAG 2.1 AA e e-MAG nativos, leitor de tela com narrativa otimizada, alto contraste e modo simplificado.
+- **Cidadãos vulneráveis** encontram programas sociais (Maranhão Livre da Fome, auxílios, benefícios) por linguagem do cotidiano, não por código de programa.
+
+### Para a STC e o governo do Maranhão
+
+- **Selo Diamante mantido** com objetivo declarado de chegar a 100/100.
+- **Custo operacional menor** com a AjudaInteligente respondendo dúvidas que hoje recaem sobre canais humanos (Juçara, e-mail, ouvidoria).
+- **Dado oficial mais consultado** com fonte rastreada em toda resposta, fortalecendo o discurso institucional da transparência.
+- **Modelo replicável** para outros estados, posicionando o Maranhão como referência nacional em transparência cidadã.
+
+### KPIs mensuráveis
+
+- Tempo médio para encontrar uma informação: máximo 3 toques (hoje 5 a 10 cliques)
+- Taxa de abandono no celular: redução de 50% em relação ao portal atual
 - Score Lighthouse: 90+ em performance, 100 em acessibilidade
 - Score Selo Diamante: 100/100
-- Perguntas respondidas pela AjudaInteligente sem fallback humano: 80%+
+- Perguntas respondidas pela AjudaInteligente sem fallback humano: 80% ou mais
 - Conversion rate do toast da AjudaInteligente: 30% (cidadão aceita ajuda quando oferecida)
+- Compartilhamentos em redes sociais por mês: 10.000 (hoje próximo de zero)
 
 ---
 
@@ -266,9 +296,9 @@ KPIs de sucesso:
 
 ## 15. Repositório e Demo
 
-- **Repositório:** https://github.com/agenciadigitalslz/Portal da Transparência
-- **Demo online:** [a publicar no Vercel]
-- **QR Code:** [inserir antes da apresentação]
+- **Repositório:** https://github.com/agenciadigitalslz/hackaton-da-transparencia
+- **Demo online:** https://portaltransparencia.netlify.app
+- **QR Code:** apontar para `https://portaltransparencia.netlify.app` (gerar antes da apresentação)
 
 ---
 Criado por André Lopes
