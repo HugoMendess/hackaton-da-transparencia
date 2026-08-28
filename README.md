@@ -14,9 +14,7 @@ Mobile-first, busca em linguagem natural com IA, em até 3 toques.**
 ![Tailwind](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwindcss&logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-Postgres-3ECF8E?style=flat&logo=supabase&logoColor=white)
 ![Netlify](https://img.shields.io/badge/Deploy-Netlify-00C7B7?style=flat&logo=netlify&logoColor=white)
-![Hackathon](https://img.shields.io/badge/Hackathon-Transparência%202026-0A4D8C?style=flat)
-
-### [Acessar Demo](https://portaltransparencia.netlify.app) · [Memorial](MEMORIAL.md) · [Pitch](PITCH.md) · [Wireframes](WIREFRAMES_PITCH.md)
+### [Acessar Demo](https://portaltransparencia.netlify.app)
 
 </div>
 
@@ -174,23 +172,10 @@ hackaton-da-transparencia/
 ├── README.md                  ← este arquivo
 ├── netlify.toml               ← config de deploy (base, publish, redirect SPA)
 │
-├── MEMORIAL.md                ← memorial descritivo (entregável oficial)
-├── PITCH.md                   ← roteiro do pitch de 3 minutos
-├── WIREFRAMES_PITCH.md        ← wireframes textuais dos 6 slides
-│
-├── CONTEXTO.md                ← problema e diagnóstico do portal atual
-├── SOLUCAO.md                 ← especificação completa do produto
-├── PERSONAS.md                ← personas e jornadas
-├── ARQUITETURA.md             ← arquitetura técnica e plano de migração
-├── PLANO_EXECUCAO.md          ← cronograma da imersão de 20h
-├── DADOS_REAIS.md             ← consolidador dos dados oficiais cedidos
-├── ANALISE_COMPLETA.md        ← análise estratégica do desafio
-├── GLOSSARIO.md               ← glossário de termos técnicos
-│
 ├── frontend/                  ← aplicação React + Vite
 │   ├── src/
 │   │   ├── components/        ← layout, home, dashboard, mapa, ia, ui
-│   │   ├── pages/             ← Busca, Detalhe, Eixo, Mapa
+│   │   ├── pages/             ← Busca, Detalhe, Eixo, Mapa, Cargos, Servidor, Sobre
 │   │   ├── hooks/             ← acessibilidade, busca, ia
 │   │   ├── lib/               ← supabase, gerarPDFEixo, utils
 │   │   ├── data/              ← datasets curados dos eixos
@@ -208,8 +193,8 @@ hackaton-da-transparencia/
 
 ### Requisitos
 
-- Node.js 20 ou superior
-- Conta Supabase com projeto criado (URL e ANON KEY)
+- Node.js 18 ou superior
+- NPM
 
 ### Passos
 
@@ -218,14 +203,10 @@ hackaton-da-transparencia/
 git clone https://github.com/agenciadigitalslz/hackaton-da-transparencia.git
 cd hackaton-da-transparencia/frontend
 
-# Instalar
+# Instalar dependências
 npm install
 
-# Configurar variáveis (copiar e preencher)
-cp .env.example .env.local
-# Edite .env.local com VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY
-
-# Rodar
+# Rodar em desenvolvimento
 npm run dev
 # Acesse http://localhost:5173
 ```
@@ -236,22 +217,6 @@ npm run dev
 npm run build       # gera frontend/dist
 npm run preview     # serve localmente o build
 ```
-
----
-
-## Documentação Estendida
-
-| Documento | Conteúdo |
-|---|---|
-| [MEMORIAL.md](MEMORIAL.md) | Entregável oficial: diagnóstico, evidências, solução, impacto, stack, roadmap |
-| [PITCH.md](PITCH.md) | Roteiro cronometrado de 3 minutos, com slides e telas marcadas |
-| [WIREFRAMES_PITCH.md](WIREFRAMES_PITCH.md) | Layout textual dos 6 slides da apresentação |
-| [SOLUCAO.md](SOLUCAO.md) | Especificação completa do produto, princípios, componentes, MVP |
-| [CONTEXTO.md](CONTEXTO.md) | Problema, diagnóstico do portal atual, definição de UX |
-| [DADOS_REAIS.md](DADOS_REAIS.md) | Consolidador dos dados oficiais (Analytics + planilhas + apresentações) |
-| [ARQUITETURA.md](ARQUITETURA.md) | Arquitetura de produto, MVP e plano de migração |
-| [PERSONAS.md](PERSONAS.md) | 5 personas com jornadas de valor |
-| [GLOSSARIO.md](GLOSSARIO.md) | Glossário inicial de termos técnicos |
 
 ---
 
@@ -292,7 +257,7 @@ E às equipes históricas do portal (2021 e 2023), citadas em `DADOS_REAIS.md`, 
 
 **Hackathon da Transparência Maranhense 2026** · 24 a 26 de abril · São Luís, MA
 
-[Demo](https://portaltransparencia.netlify.app) · [Repositório](https://github.com/agenciadigitalslz/hackaton-da-transparencia) · [Memorial](MEMORIAL.md)
+[Demo](https://portaltransparencia.netlify.app) · [Repositório](https://github.com/agenciadigitalslz/hackaton-da-transparencia)
 
 </div>
 

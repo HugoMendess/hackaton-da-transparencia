@@ -25,6 +25,13 @@ import { cn } from "@/lib/utils"
 
 type StatusFonte = "carregando" | "oficial" | "fallback"
 
+const EIXOS_COM_CONSULTA: Record<string, string> = {
+  "gestao-publica": "Consulte receitas, despesas, contratos, licitações, adiantamentos e ordem cronológica",
+  obras: "Consulte o andamento, valores e execução das obras públicas do Maranhão",
+  pessoal: "Consulte o quadro de servidores públicos estaduais e a tabela de remunerações",
+  "emendas-parlamentares": "Consulte as emendas parlamentares estaduais da ALEMA e os repasses federais",
+}
+
 export function Eixo() {
   const { slug = "" } = useParams<{ slug: string }>()
   const eixo = EIXOS.find((e) => e.slug === slug)
@@ -287,15 +294,17 @@ export function Eixo() {
           </ul>
         </section>
 
-        {/* Consulta específica */}
-        <section className="container-page px-4 pb-10">
-          <SectionHeader
-            numero="04"
-            titulo="Consulta específica"
-            descricao="Filtre por município, órgão, fornecedor ou cargo"
-          />
-          <ConsultaEspecifica eixoSlug={slug} />
-        </section>
+        {/* Consulta específica (apenas para os eixos com abas/cards definidos) */}
+        {EIXOS_COM_CONSULTA[slug] && (
+          <section className="container-page px-4 pb-10">
+            <SectionHeader
+              numero="04"
+              titulo="Consulta específica"
+              descricao={EIXOS_COM_CONSULTA[slug]}
+            />
+            <ConsultaEspecifica eixoSlug={slug} />
+          </section>
+        )}
       </main>
 
       <Footer />

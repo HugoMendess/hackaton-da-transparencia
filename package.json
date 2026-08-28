@@ -1,0 +1,11 @@
+{
+  "name": "hackaton-da-transparencia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hackathon da Transparência - Portal Maranhão",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev -- --host 0.0.0.0 --port 5174",
+    "build": "npm --prefix frontend run build",
+    "preview": "npm --prefix frontend run preview"
+  }
+}

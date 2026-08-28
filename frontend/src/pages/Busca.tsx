@@ -790,8 +790,9 @@ function gerarResultados(termo: string, tipoForcado?: ResultadoMock["tipo"]): Re
   const eixosAplicaveis = [
     { slug: "gestao-publica", nome: "Gestão Pública" },
     { slug: "saude", nome: "Saúde e Bem-Estar" },
-    { slug: "educacao", nome: "Educação e Futuro" },
+    { slug: "pessoal", nome: "Pessoal" },
     { slug: "obras", nome: "Obras e Infraestrutura" },
+    { slug: "emendas-parlamentares", nome: "Emendas Parlamentares" },
     { slug: "programas-sociais", nome: "Programas Sociais" },
     { slug: "seguranca", nome: "Segurança Pública" },
   ]

@@ -29,10 +29,10 @@ export const EIXOS: Eixo[] = [
     destaque: false,
   },
   {
-    slug: "educacao",
-    nome: "Educação e Futuro",
-    descricaoCidada: "Vagas, gastos por escola, merenda, transporte e bolsas",
-    icone: "GraduationCap",
+    slug: "pessoal",
+    nome: "Pessoal",
+    descricaoCidada: "Servidores, cargos, remunerações, proventos e quadro funcional",
+    icone: "UserCheck",
     destaque: false,
   },
   {
@@ -64,10 +64,10 @@ export const EIXOS: Eixo[] = [
     destaque: false,
   },
   {
-    slug: "cultura-esporte",
-    nome: "Cultura, Esporte e Lazer",
-    descricaoCidada: "Equipamentos culturais, eventos, esporte, juventude",
-    icone: "Drama",
+    slug: "emendas-parlamentares",
+    nome: "Emendas Parlamentares",
+    descricaoCidada: "Recursos indicados por deputados, destinação municipal e repasses",
+    icone: "Landmark",
     destaque: false,
   },
   {

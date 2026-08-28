@@ -84,6 +84,42 @@ export const EIXOS_DATASET: Record<string, DadosEixo> = {
     },
   },
 
+  pessoal: {
+    slug: "pessoal",
+    perguntaAncora: "Quanto o estado gasta com pessoal e remuneração?",
+    resposta:
+      "Em 2026, os gastos com pessoal totalizam R$ 14,6 bilhões, cobrindo 138 mil servidores ativos e inativos, com remuneração média de R$ 6.840 no quadro funcional estadual.",
+    cardsResumo: [
+      { label: "Gasto com pessoal", valor: "R$ 14,6 bi", legenda: "Anual consolidado", variacao: { texto: "+4,8% vs 2025", positiva: true } },
+      { label: "Servidores ativos", valor: "138.412", legenda: "Quadro estadual" },
+      { label: "Remuneração média", valor: "R$ 6.840", legenda: "Média bruta" },
+      { label: "Folha mensal", valor: "R$ 1,2 bi", legenda: "Competência mensal" },
+    ],
+    composicaoGastos: [
+      { nome: "Vencimentos básicos", valor: 7_240 },
+      { nome: "Aposentadorias e pensões", valor: 3_980 },
+      { nome: "Encargos e previdência", valor: 1_120 },
+      { nome: "Gratificações e adicionais", valor: 1_840 },
+      { nome: "Outras despesas variáveis", valor: 500 },
+    ],
+    serieHistorica: [
+      { ano: 2022, empenhado: 11_240, liquidado: 11_010, pago: 10_980 },
+      { ano: 2023, empenhado: 12_580, liquidado: 12_340, pago: 12_300 },
+      { ano: 2024, empenhado: 13_840, liquidado: 13_590, pago: 13_540 },
+      { ano: 2025, empenhado: 14_120, liquidado: 13_870, pago: 13_820 },
+      { ano: 2026, empenhado: 14_680, liquidado: 4_910, pago: 4_870 },
+    ],
+    destaques: [
+      { titulo: "Magistério Estadual", subtitulo: "Maior contingente de servidores", valor: "38.200 servidores" },
+      { titulo: "Saúde Pública", subtitulo: "Médicos e equipe hospitalar", valor: "24.150 servidores" },
+      { titulo: "Segurança Pública", subtitulo: "Polícia Militar e Civil", valor: "15.800 servidores" },
+    ],
+    fonteOficial: {
+      nome: "Portal da Transparência MA, Remuneração e Pessoal",
+      url: "https://www.transparencia.ma.gov.br/acesso-a-informacao/remuneracao",
+    },
+  },
+
   educacao: {
     slug: "educacao",
     perguntaAncora: "As obras de educação estão sendo executadas?",
@@ -302,6 +338,42 @@ export const EIXOS_DATASET: Record<string, DadosEixo> = {
     fonteOficial: {
       nome: "SINFRA, Secretaria de Estado da Infraestrutura",
       url: "https://www.sinfra.ma.gov.br/",
+    },
+  },
+
+  "emendas-parlamentares": {
+    slug: "emendas-parlamentares",
+    perguntaAncora: "Quanto foi destinado e pago em emendas parlamentares?",
+    resposta:
+      "Em 2026, R$ 518 milhões foram destinados em emendas parlamentares individuais e de bancada, contemplando 217 municípios maranhenses nas áreas de saúde, infraestrutura e educação.",
+    cardsResumo: [
+      { label: "Total em emendas", valor: "R$ 518 mi", legenda: "Orçamento 2026", variacao: { texto: "+6,5% vs 2025", positiva: true } },
+      { label: "Emendas pagas", valor: "R$ 382 mi", legenda: "Recursos liquidados" },
+      { label: "Municípios atendidos", valor: "217", legenda: "100% dos municípios" },
+      { label: "Deputados autores", valor: "42", legenda: "ALEMA" },
+    ],
+    composicaoGastos: [
+      { nome: "Saúde municipal", valor: 210 },
+      { nome: "Infraestrutura e asfalto", valor: 145 },
+      { nome: "Educação e esportes", valor: 78 },
+      { nome: "Agricultura familiar", valor: 45 },
+      { nome: "Cultura e eventos", valor: 40 },
+    ],
+    serieHistorica: [
+      { ano: 2022, empenhado: 380, liquidado: 350, pago: 345 },
+      { ano: 2023, empenhado: 420, liquidado: 395, pago: 390 },
+      { ano: 2024, empenhado: 465, liquidado: 440, pago: 435 },
+      { ano: 2025, empenhado: 490, liquidado: 468, pago: 460 },
+      { ano: 2026, empenhado: 518, liquidado: 195, pago: 190 },
+    ],
+    destaques: [
+      { titulo: "Emendas Impositivas", subtitulo: "Execução obrigatória pela ALEMA", valor: "R$ 310 mi" },
+      { titulo: "Apoio a Hospitais Regionais", subtitulo: "Destinação para custeio de saúde", valor: "R$ 120 mi" },
+      { titulo: "Estradas Vicinais e Asfalto", subtitulo: "Obras no interior do estado", valor: "R$ 88 mi" },
+    ],
+    fonteOficial: {
+      nome: "Portal da Transparência MA, Emendas Parlamentares",
+      url: "https://www.transparencia.ma.gov.br/emendas",
     },
   },
 

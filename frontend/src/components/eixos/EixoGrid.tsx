@@ -11,6 +11,8 @@ import {
   Hammer,
   Drama,
   Leaf,
+  UserCheck,
+  Landmark,
   ArrowRight,
   type LucideIcon,
 } from "lucide-react"
@@ -25,6 +27,8 @@ const ICONS: Record<string, LucideIcon> = {
   Hammer,
   Drama,
   Leaf,
+  UserCheck,
+  Landmark,
 }
 
 /**
