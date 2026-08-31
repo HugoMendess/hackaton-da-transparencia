@@ -26,10 +26,12 @@ import { cn } from "@/lib/utils"
 type StatusFonte = "carregando" | "oficial" | "fallback"
 
 const EIXOS_COM_CONSULTA: Record<string, string> = {
-  "gestao-publica": "Consulte receitas, despesas, contratos, licitações, adiantamentos e ordem cronológica",
-  obras: "Consulte o andamento, valores e execução das obras públicas do Maranhão",
-  pessoal: "Consulte o quadro de servidores públicos estaduais e a tabela de remunerações",
-  "emendas-parlamentares": "Consulte as emendas parlamentares estaduais da ALEMA e os repasses federais",
+  "gestao-publica": "Consulte receitas, despesas, contratos, convênios, licitações, diárias, adiantamentos e ordem cronológica",
+  obras: "Consulte o andamento, valores e execução das obras públicas do Maranhão por município",
+  pessoal: "Consulte o quadro de servidores públicos estaduais, diárias e a tabela de remunerações",
+  "emendas-parlamentares": "Consulte as emendas parlamentares estaduais da ALEMA e os repasses federais por município",
+  saude: "Consulte despesas hospitalares, contratos e convênios municipais de saúde",
+  educacao: "Consulte despesas de ensino, contratos pedagógicos e obras de escolas estaduais",
 }
 
 export function Eixo() {

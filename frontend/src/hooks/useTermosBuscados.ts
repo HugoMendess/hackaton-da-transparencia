@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react"
-import { supabase } from "@/lib/supabase"
+import { useMemo } from "react"
+import { TERMOS_BUSCADOS, type TermoBuscado } from "@/data/termos-buscados"
 
-export type TermoBuscado = {
-  termo: string
-  total_buscas: number
-}
+export type { TermoBuscado }
 
 type State = {
   termos: TermoBuscado[]
@@ -12,36 +9,16 @@ type State = {
   error: string | null
 }
 
-export function useTermosBuscados(limit = 12) {
-  const [state, setState] = useState<State>({
-    termos: [],
-    loading: true,
+export function useTermosBuscados(limit = 12): State {
+  const safeLimit = Math.min(Math.max(1, Math.floor(limit)), 50)
+
+  const termos = useMemo(() => {
+    return TERMOS_BUSCADOS.slice(0, safeLimit)
+  }, [safeLimit])
+
+  return {
+    termos,
+    loading: false,
     error: null,
-  })
-
-  useEffect(() => {
-    let cancelled = false
-    const safeLimit = Math.min(Math.max(1, Math.floor(limit)), 50)
-
-    supabase
-      .from("termos_buscados")
-      .select("termo, total_buscas")
-      .eq("bloqueado", false)
-      .order("total_buscas", { ascending: false })
-      .limit(safeLimit)
-      .then(({ data, error }) => {
-        if (cancelled) return
-        if (error) {
-          setState({ termos: [], loading: false, error: error.message })
-          return
-        }
-        setState({ termos: data ?? [], loading: false, error: null })
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [limit])
-
-  return state
+  }
 }

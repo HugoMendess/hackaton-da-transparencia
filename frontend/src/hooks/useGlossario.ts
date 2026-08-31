@@ -1,61 +1,18 @@
-import { useEffect, useState } from "react"
-import { supabase } from "@/lib/supabase"
+import { useState } from "react"
+import { GLOSSARIO_TERMOS, type TermoGlossario } from "@/data/glossario"
 
-export type Termo = {
-  termo: string
-  termo_normalizado: string
-  explicacao_cidada: string
-  exemplo: string | null
-}
+export type Termo = TermoGlossario
 
 type State = {
   termos: Termo[]
   loading: boolean
 }
 
-let cache: Termo[] | null = null
-let pending: Promise<Termo[]> | null = null
-
-async function carregarGlossario(): Promise<Termo[]> {
-  if (cache !== null) return cache
-  if (pending !== null) return pending
-
-  pending = (async () => {
-    try {
-      const { data, error } = await supabase
-        .from("glossario")
-        .select("termo, termo_normalizado, explicacao_cidada, exemplo")
-
-      if (error || !data) return []
-      cache = data
-      return data
-    } finally {
-      pending = null
-    }
-  })()
-
-  return pending
-}
-
 export function useGlossario(): State {
-  const [state, setState] = useState<State>({
-    termos: cache ?? [],
-    loading: cache === null,
+  const [state] = useState<State>({
+    termos: GLOSSARIO_TERMOS,
+    loading: false,
   })
-
-  useEffect(() => {
-    if (cache !== null) return
-    let cancelled = false
-
-    carregarGlossario().then((termos) => {
-      if (cancelled) return
-      setState({ termos, loading: false })
-    })
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   return state
 }

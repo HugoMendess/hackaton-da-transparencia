@@ -898,14 +898,14 @@ function SecaoStack() {
           <BlocoStack
             index={1}
             icon={Database}
-            titulo="Backend e dados"
+            titulo="Dados e Arquitetura"
             itens={[
-              "Supabase Postgres",
-              "Row Level Security",
-              "Edge Functions Deno",
-              "Cache semântico SHA-256",
+              "Arquitetura Jamstack",
+              "TypeScript Datasets",
+              "Cache Semântico Local",
+              "Indexação Client-Side",
               "API pública Portal MA",
-              "pgvector (semantic search)",
+              "Zero-Latency / Offline First",
             ]}
           />
           <BlocoStack
@@ -963,7 +963,7 @@ function SecaoEquipe() {
           index={2}
           nome="Alexsander Oliveira"
           papel="Dev Backend"
-          bio="Analista de Sistemas. Responsável pelo schema do Supabase, RLS e integração com a API pública do Portal MA."
+          bio="Analista de Sistemas. Responsável pela modelagem de dados, arquitetura de datasets e integração com a API pública do Portal MA."
         />
       </div>
     </section>

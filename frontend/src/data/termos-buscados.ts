@@ -1,0 +1,42 @@
+export type TermoBuscado = {
+  termo: string
+  total_buscas: number
+}
+
+export const TERMOS_BUSCADOS: TermoBuscado[] = [
+  { termo: "Remuneração", total_buscas: 10948 },
+  { termo: "Norcia vigilância patrimonial", total_buscas: 4646 },
+  { termo: "Folha de pagamento", total_buscas: 4449 },
+  { termo: "Fast Ambiental", total_buscas: 3148 },
+  { termo: "servidores", total_buscas: 2792 },
+  { termo: "NILMA", total_buscas: 2408 },
+  { termo: "contratos", total_buscas: 2365 },
+  { termo: "Uemasul", total_buscas: 2321 },
+  { termo: "EJATEC", total_buscas: 2097 },
+  { termo: "Salário", total_buscas: 1920 },
+  { termo: "Funac", total_buscas: 1814 },
+  { termo: "servidor", total_buscas: 1611 },
+  { termo: "emserh", total_buscas: 1599 },
+  { termo: "Procon", total_buscas: 1472 },
+  { termo: "HSLZ", total_buscas: 1377 },
+  { termo: "licitação", total_buscas: 1264 },
+  { termo: "Martins e reis", total_buscas: 1199 },
+  { termo: "Contra cheque", total_buscas: 1138 },
+  { termo: "Diárias", total_buscas: 1019 },
+  { termo: "2025", total_buscas: 1018 },
+  { termo: "Professor", total_buscas: 979 },
+  { termo: "Casa de Saúde e Maternidade de Caxias", total_buscas: 924 },
+  { termo: "despesas", total_buscas: 860 },
+  { termo: "2026", total_buscas: 815 },
+  { termo: "Iema", total_buscas: 808 },
+  { termo: "Delegado", total_buscas: 806 },
+  { termo: "licitações", total_buscas: 797 },
+  { termo: "pessoal", total_buscas: 705 },
+  { termo: "restaurante popular", total_buscas: 602 },
+  { termo: "Investigador", total_buscas: 588 },
+  { termo: "Seap", total_buscas: 582 },
+  { termo: "Uema", total_buscas: 570 },
+  { termo: "folha", total_buscas: 559 },
+  { termo: "HSE", total_buscas: 532 },
+  { termo: "Maranhão Livre da Fome", total_buscas: 480 },
+]
