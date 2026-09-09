@@ -210,9 +210,25 @@ export function Eixo() {
           </div>
         </section>
 
-        {/* Cards de resumo */}
-        <section className="container-page px-4 py-8">
-          <SectionHeader numero="01" titulo="Visão geral" descricao="Os números que importam para o cidadão" />
+        {/* 01. Consulta específica (quando disponível para o eixo) */}
+        {EIXOS_COM_CONSULTA[slug] && (
+          <section className="container-page px-4 py-8">
+            <SectionHeader
+              numero="01"
+              titulo="Consulta específica"
+              descricao={EIXOS_COM_CONSULTA[slug]}
+            />
+            <ConsultaEspecifica eixoSlug={slug} />
+          </section>
+        )}
+
+        {/* 02. Cards de resumo / Visão geral */}
+        <section className={cn("container-page px-4 pb-8", !EIXOS_COM_CONSULTA[slug] && "py-8")}>
+          <SectionHeader
+            numero={EIXOS_COM_CONSULTA[slug] ? "02" : "01"}
+            titulo="Visão geral"
+            descricao="Os números que importam para o cidadão"
+          />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {dados.cardsResumo.map((card, i) => (
               <CardResumo key={card.label} card={card} destaque={i === 0} />
@@ -220,9 +236,13 @@ export function Eixo() {
           </div>
         </section>
 
-        {/* Gráficos */}
+        {/* 03. Gráficos */}
         <section className="container-page px-4 pb-8">
-          <SectionHeader numero="02" titulo="Como o dinheiro foi usado" descricao={`Composição e evolução do orçamento de R$ ${(totalAnualMilhoes / 1000).toFixed(1)} bilhões em 2025`} />
+          <SectionHeader
+            numero={EIXOS_COM_CONSULTA[slug] ? "03" : "02"}
+            titulo="Como o dinheiro foi usado"
+            descricao={`Composição e evolução do orçamento de R$ ${(totalAnualMilhoes / 1000).toFixed(1)} bilhões em 2025`}
+          />
           <div className="grid gap-4 lg:grid-cols-2">
             <GraficoBarra
               titulo="Composição dos gastos"
@@ -237,9 +257,13 @@ export function Eixo() {
           </div>
         </section>
 
-        {/* Destaques (lista com tema rotativo: azul, mostarda, verde) */}
-        <section className="container-page px-4 pb-8">
-          <SectionHeader numero="03" titulo="Destaques" descricao="Iniciativas e órgãos com maior peso neste eixo" />
+        {/* 04. Destaques (lista com tema rotativo: azul, mostarda, verde) */}
+        <section className="container-page px-4 pb-10">
+          <SectionHeader
+            numero={EIXOS_COM_CONSULTA[slug] ? "04" : "03"}
+            titulo="Destaques"
+            descricao="Iniciativas e órgãos com maior peso neste eixo"
+          />
           <ul className="grid gap-4 sm:grid-cols-3">
             {dados.destaques.map((d, i) => {
               const tema = TEMAS_DESTAQUE[i % TEMAS_DESTAQUE.length]
@@ -295,18 +319,6 @@ export function Eixo() {
             })}
           </ul>
         </section>
-
-        {/* Consulta específica (apenas para os eixos com abas/cards definidos) */}
-        {EIXOS_COM_CONSULTA[slug] && (
-          <section className="container-page px-4 pb-10">
-            <SectionHeader
-              numero="04"
-              titulo="Consulta específica"
-              descricao={EIXOS_COM_CONSULTA[slug]}
-            />
-            <ConsultaEspecifica eixoSlug={slug} />
-          </section>
-        )}
       </main>
 
       <Footer />
